@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://jelix.org/ns/forms/1.1">
+<hidden ref="item_id"/>
+
+<input ref="version_name" required="true" maxlength="60">
+    <label locale="booster~main.version_name"/>
+</input>
+
+<wikieditor ref="last_changes" required="true" maxlength="255">
+    <label locale="booster~main.last_changes"/>
+</wikieditor>
+
+<input ref="stability" required="true" maxlength="80">
+    <label locale="booster~main.stability"/>
+</input>
+
+<input ref="filename" required="true" maxlength="80">
+    <label locale="booster~main.filename"/>
+</input>
+
+<input ref="download_url" required="true" maxlength="255">
+    <label locale="booster~main.download_url"/>
+</input>
+
+<submit ref="_submit">
+    <label>ok</label>
+</submit>
+</form>

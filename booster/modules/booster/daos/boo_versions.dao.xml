@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="versions" realname="boo_versions" primarykey="id" />
+    </datasources>
+    <record>
+        <property name="id" fieldname="id" datatype="int" autoincrement="true"/>
+        <property name="item_id" fieldname="item_id" datatype="int" required="true"/>
+        <property name="version_name" fieldname="version_name" datatype="varchar" required="true" maxlength="80"/>
+        <property name="last_changes" fieldname="last_changes" datatype="varchar" required="true" maxlength="255"/>
+        <property name="stability" fieldname="stability" datatype="enum" required="true" default="stable"/>
+        <property name="filename" fieldname="filename" datatype="varchar" required="true" maxlength="80"/>
+        <property name="download_url" fieldname="download_url" datatype="varchar" required="true" maxlength="255"/>
+        <property name="status" fieldname="status" datatype="int" required="true" maxlength="1"/>
+        <property name="created" fieldname="created" datatype="datetime" insertpattern="NOW()" />
+        <property name="edited" fieldname="edited" datatype="datetime" updatepattern="NOW()"/>
+        <property name="modified" fieldname="modified" datatype="datetime" updatepattern="NOW()"/>
+    </record>
+    <factory>
+        <method name="findLastValidated" type="select">
+            <parameter name="item_id"/>
+            <conditions logic="and">
+                <eq property="item_id" expr="$item_id"/>
+                <eq property="status" value="1" />
+            </conditions>
+            <order>
+                <orderitem property="created" way="desc" />
+            </order>
+            <limit offset="0" count="1"/>
+        </method>
+        <method name="findAllValidated" type="select">
+            <parameter name="item_id"/>
+            <conditions logic="and">
+                <eq property="item_id" expr="$item_id"/>
+                <eq property="status" value="1" />
+            </conditions>
+            <order>
+                <orderitem property="created" way="desc" />
+            </order>
+        </method>
+        <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
+            <parameter name="" />
+            <values>
+                <value property="" value="" />
+            </values>
+            <conditions logic="and/or">
+                <eq property="" value="" />
+            </conditions>
+            <order>
+                <orderitem property="" way="asc/desc" />
+            </order>
+            <limit offset="" count=""/>
+            <body><![CDATA[
+            ]]></body>
+        </method>-->
+    </factory>
+</dao>
