@@ -7,6 +7,7 @@ startAction="default:index"
 [responses]
 html=adminHtmlResponse
 htmlauth=adminLoginHtmlResponse
+
 [modules]
 jacldb.access=0
 junittests.access=0
@@ -19,10 +20,19 @@ jauthdb_admin.access=2
 jacl2db.access=2
 jacl2db.installparam=defaultuser
 jacl2db_admin.access=2
+jcommunity.access=2
+jtags.access=2
+booster.access=2
+
+boosteradmin.access=2
 [simple_urlengine_entrypoints]
-adminboost="jacl2db~*@classic, jauth~*@classic, jacl2db_admin~*@classic, jauthdb_admin~*@classic, master_admin~*@classic"
+adminboost="jacl2db~*@classic, jauth~*@classic, jacl2db_admin~*@classic, jauthdb_admin~*@classic, master_admin~*@classic, jcommunity~*@classic, booster~*@classic"
 
 [coordplugins]
 auth="adminboost/auth.coord.ini.php"
-
 jacl2="adminboost/jacl2.coord.ini.php"
+
+
+
+
+

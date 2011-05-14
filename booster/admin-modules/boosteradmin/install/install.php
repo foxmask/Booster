@@ -1,7 +1,7 @@
 <?php
 /**
 * @package   booster
-* @subpackage booster
+* @subpackage boosteradmin
 * @author    laurentj
 * @copyright 2011 laurent
 * @link      http://www.jelix.org
@@ -9,16 +9,16 @@
 */
 
 
-class boosterModuleInstaller extends jInstallerModule {
+class boosteradminModuleInstaller extends jInstallerModule {
 
     function install() {
         if ($this->firstDbExec())
             $this->execSQLScript('sql/install');
 
-        /*if ($this->firstExec('acl2')) {
-            jAcl2DbManager::addSubject('my.subject', 'booster~acl.my.subject');
-            jAcl2DbManager::addRight(1, 'my.subject'); // for admin group
+        if ($this->firstExec('acl2')) {
+            jAcl2DbManager::addSubject('booster.admin.index', 'booster~booster.admin.index');
+            jAcl2DbManager::addRight(1, 'booster.admin.index'); // for admin group
         }
-        */
+
     }
 }

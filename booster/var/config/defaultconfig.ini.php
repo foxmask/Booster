@@ -15,7 +15,7 @@ theme=jelix-newcolor
 
 pluginsPath="app:plugins/,lib:jelix-plugins/"
 
-modulesPath="lib:jelix-admin-modules/,lib:jelix-modules/,app:modules/"
+modulesPath="lib:jelix-admin-modules/,lib:jelix-modules/,app:modules/,app:admin-modules"
 
 ; default domain name to use with jfullurl for example.
 ; Let it empty to use $_SERVER['SERVER_NAME'] value instead.
@@ -40,6 +40,9 @@ junittests.access=0
 jWSDL.access=0
 
 booster.access=2
+jtags.access=2
+
+jcommunity.access=2
 [coordplugins]
 ;name = file_ini_name or 1
 
@@ -111,6 +114,8 @@ index="@classic"
 
 
 adminboost="jacl2db_admin~*@classic, jauthdb_admin~*@classic, master_admin~*@classic"
+
+adminbooster=
 [basic_significant_urlengine_entrypoints]
 ; for each entry point, it indicates if the entry point name
 ; should be include in the url or not
@@ -120,6 +125,8 @@ jsonrpc=on
 rdf=on
 
 adminboost=1
+
+adminbooster=1
 [fileLogger]
 default=messages.log
 error=errors.log
@@ -134,15 +141,15 @@ debug=debug.log
 ;emailHeaders = "Content-Type: text/plain; charset=UTF-8\nFrom: webmaster@yoursite.com\nX-Mailer: Jelix\nX-Priority: 1 (Highest)\n"
 
 [logger]
-default=file,memory
-error=file,memory
-warning=file,memory
-notice=file,memory
-sql = memory
+default="file,memory"
+error="file,memory"
+warning="file,memory"
+notice="file,memory"
+sql=memory
 debug=memory
 
 [debugbar]
-plugins = sqllog,sessiondata,defaultlog
+plugins="sqllog,sessiondata,defaultlog"
 
 [mailer]
 webmasterEmail="root@localhost"
@@ -182,7 +189,7 @@ smtpTimeout=10
 
 [acl2]
 ; example of driver: "db"
-driver=
+driver=db
 
 [sessions]
 ; If several applications are installed in the same documentRoot but with
@@ -217,7 +224,7 @@ name=
 ;default = jelix/js/jforms/datepickers/default/init.js
 
 [jResponseHtml]
-plugins = debugbar
+plugins=debugbar
 
 ;concatene et compress les fichier CSS
 minifyCSS=off
@@ -242,4 +249,4 @@ default.image.path="jelix/markitup/sets/wr3/images/"
 default.skin="jelix/markitup/skins/simple/style.css"
 
 [booster]
-title=Jelix Booster: Applis, Modules, Plugins, Pack de langues pour Jelix
+title="Jelix Booster: Applis, Modules, Plugins, Pack de langues pour Jelix"

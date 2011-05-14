@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="http://jelix.org/ns/module/1.0">
+    <info id="boosteradmin@jelix.org" name="boosteradmin" createdate="2011-05-15">
+        <version date="2011-05-15">0.1pre</version>
+        <label lang="en_EN">BoosterAdmin</label>
+        <description lang="en_EN">Booster! Admin : manage the complet Booster WebSite</description>
+        <label lang="fr_FR">BoosterAdmin</label>
+        <description lang="fr_FR">Booster! Administration : module gestion complète du site Booster</description>
+        <license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>
+        <copyright>2011 FoxMaSk</copyright>
+        <creator name="FoxMaSk" email="olivier@foxmask.info" active="true"/>
+        <homepageURL>http://www.jelix.org/</homepageURL>
+        <updateURL>http://www.jelix.org/boosteradmin</updateURL>
+    </info>
+    <dependencies>
+        <jelix minversion="1.2.*" maxversion="1.3.*"/>
+        <module name="booster" minversion="0.1pre" maxversion="1.*"/>
+    </dependencies>
+</module>

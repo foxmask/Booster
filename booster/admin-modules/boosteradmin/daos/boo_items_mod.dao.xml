@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
-        <primarytable name="items" realname="boo_items" primarykey="id" />
-        <foreigntable name="type" realname="boo_type"
-                      primarykey="id" onforeignkey="type_id" />
-        <foreigntable name="usr" realname="community_users"
-                      primarykey="id" onforeignkey="item_by" />
+        <primarytable name="boo_items_mod" realname="boo_items_mod" primarykey="id" />
     </datasources>
     <record>
-        <property name="id" fieldname="id" datatype="int" autoincrement="true"/>
+        <property name="id" fieldname="id" datatype="int" required="true"/>
         <property name="name" fieldname="name" datatype="varchar" required="true" maxlength="60"/>
         <property name="item_info_id" fieldname="item_info_id" datatype="varchar" required="true" maxlength="100"/>
         <property name="short_desc" fieldname="short_desc" datatype="varchar" required="true" maxlength="80"/>
@@ -17,25 +13,15 @@
         <property name="url_repo" fieldname="url_repo" datatype="varchar" required="true" maxlength="255"/>
         <property name="author" fieldname="author" datatype="varchar" required="true" maxlength="80"/>
         <property name="item_by" fieldname="item_by" datatype="int" required="true"/>
-
-        <property name="status" fieldname="status" datatype="int" required="true" maxlength="1"/>
-        <property name="created" fieldname="created" datatype="datetime" insertpattern="NOW()" />
-        <property name="edited" fieldname="edited" datatype="datetime" updatepattern="NOW()"/>
-        <property name="modified" fieldname="modified" datatype="datetime" updatepattern="NOW()"/>
-
-        <property name="nickname" fieldname="nickname" table="usr" datatype="varchar" required="true" maxlength="80"/>
-        <property name="id_version" fieldname="id" table="type" datatype="int" autoincrement="true"/>
-        <property name="type_name" fieldname="type_name" table="type" datatype="varchar" required="true" maxlength="80"/>
+        <property name="status" fieldname="status" datatype="int" required="true" default="0"/>
+        <property name="created" fieldname="created" datatype="datetime" default=""/>
+        <property name="modified" fieldname="modified" datatype="datetime" default=""/>
+        <property name="edited" fieldname="edited" datatype="datetime" default=""/>
+        <!--<property name="" fieldname="" datatype="string/int/float/date"
+        required="yes" maxlength="" minlength="" regexp="" sequence=""
+        updatepattern="" insertpattern="" selectpattern=""/>-->
     </record>
     <factory>
-        <method name="findAllNotModerated" type="select">
-            <conditions>
-                <eq property="status" value="0" />
-            </conditions>
-            <order>
-                <orderitem property="edited" way="desc" />
-            </order>
-        </method>
         <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
             <parameter name="" />
             <values>

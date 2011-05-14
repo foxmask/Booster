@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <suburls xmlns="http://jelix.org/ns/suburls/1.0">
 
-    <!--url pathinfo="/" action="default:index" optionalTrailingSlash="true"/-->
-    <url pathinfo="/add" action="default:add"/>
-    <url pathinfo="/saveitem" action="default:saveItem"/>
-    <url pathinfo="/saveversion" action="default:saveVersion"/>
+    <url pathinfo="/add"            action="default:add"/>
+    <url pathinfo="/saveitem"       action="default:saveItem"/>
+    <url pathinfo="/saveversion"    action="default:saveVersion"/>
     <url pathinfo="/view/:id-:name" action="default:viewItem">
         <param name="id"  type="number"/>
         <param name="name"  type="string" escape="true"/>

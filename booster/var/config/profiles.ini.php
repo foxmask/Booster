@@ -3,10 +3,10 @@
 
 [jdb]
 ; name of the default profile to use for any connection
-default=havefnubb
+default=booster
 
-jacl2_profile=havefnubb
-[jdb:havefnubb]
+jacl2_profile=booster
+[jdb:booster]
 ; the driver name : mysql, pgsql, sqlite...
 driver=mysql
 
@@ -79,9 +79,9 @@ soap_version=SOAP_1_1
 ;----------------- jCache
 [jcache]
 
-default=myapp
+default=booster
 
-[jcache:myapp]
+[jcache:booster]
 
 ; Parameters common to all drivers :
 

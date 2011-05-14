@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<events xmlns="http://jelix.org/ns/events/1.0">
+    <listener name="boosteradminmenu">
+        <event name="masteradminGetMenuContent" />
+        <event name="masterAdminGetDashboardWidget"/>
+        <event name="masteradminGetInfoBoxContent"/>
+    </listener>
+    <listener name="boosteradmin">
+         <event name="BoosterTaskTodo" />
+    </listener>
+</events>

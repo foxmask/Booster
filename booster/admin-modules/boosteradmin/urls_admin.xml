@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<suburls xmlns="http://jelix.org/ns/suburls/1.0">
+
+    <url pathinfo="/items"      action="items:index" />
+    <url pathinfo="/items/edit/:id"      action="items:edit" >
+        <param name="id" type="numeric"/>
+    </url>
+    <url pathinfo="/items/save"   action="items:save" />
+
+    <url pathinfo="/versions"   action="versions:index" />
+    <url pathinfo="/versions/edit/:id"      action="versions:edit" >
+        <param name="id" type="numeric"/>
+    </url>
+    <url pathinfo="/versions/save"   action="versions:save" />
+</suburls>

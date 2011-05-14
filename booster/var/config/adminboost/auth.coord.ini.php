@@ -30,13 +30,13 @@ auth_required=on
 on_error=2
 
 ; locale key for the error message when on_error=1
-error_message="jauth~autherror.notlogged"
+error_message = "jcommunity~login.error.notlogged"
 
 ; action to execute on a missing authentification when on_error=2
-on_error_action="jauth~login:out"
+on_error_action = "jcommunity~login:out"
 
 ; action to execute when a bad ip is checked with secure_with_ip=1 and on_error=2
-bad_ip_action="jauth~login:out"
+bad_ip_action = "jcommunity~login:out"
 
 
 ;=========== Parameters for jauth module
@@ -45,16 +45,16 @@ bad_ip_action="jauth~login:out"
 on_error_sleep=3
 
 ; action to redirect after the login
-after_login="master_admin~default:index"
+after_login = "jcommunity~account:show"
 
 ; action to redirect after a logout
-after_logout="jauth~login:form"
+after_logout = "jcommunity~login:index"
 
 ; says if after_login can be overloaded by a "auth_url_return" parameter in the url/form for the login
-enable_after_login_override=off
+enable_after_login_override = on
 
 ; says if after_logout can be overloaded by a "auth_url_return" parameter in the url/form for the login
-enable_after_logout_override=off
+enable_after_logout_override = on
 
 ;============ Parameters for the persistance of the authentification
 
@@ -70,15 +70,18 @@ persistant_cookie_name=jelixAuthentificationCookie
 ; duration of the validity of the cookie (in days). default is 1 day.
 persistant_duration=1
 
+; base path for the cookie. If empty, it uses the basePath value from the main configuration.
+persistant_cookie_path =
+
 ;=========== Parameters for drivers
 
 ;------- parameters for the "Db" driver
 [Db]
 ; name of the dao to get user data
-dao = "jcommunity~user"
+dao="jcommunity~user"
 
 ; profile to use for jDb
-profile=
+profile=booster
 
 ; name of the php function to crypt the password in the database
 password_crypt_function=sha1

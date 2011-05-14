@@ -18,6 +18,7 @@
         <url pathinfo="/" module="master_admin" action="default:index"  optionalTrailingSlash="true"/>
         <url pathinfo="/admin/auth"    module="jauthdb_admin" include="urls.xml"/>
         <url pathinfo="/admin/acl"     module="jacl2db_admin" include="urls.xml"/>
+        <url pathinfo="/admin/booster" module="boosteradmin"  include="urls_admin.xml"/>
     </classicentrypoint>
 
 </urls>

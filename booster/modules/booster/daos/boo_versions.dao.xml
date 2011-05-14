@@ -38,6 +38,14 @@
                 <orderitem property="created" way="desc" />
             </order>
         </method>
+        <method name="findAllNotModerated" type="select">
+            <conditions>
+                <eq property="status" value="0" />
+            </conditions>
+            <order>
+                <orderitem property="edited" way="desc" />
+            </order>
+        </method>
         <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
             <parameter name="" />
             <values>
