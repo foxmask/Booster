@@ -14,7 +14,7 @@ CREATE TABLE %%PREFIX%%boo_items (
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `item_by` (`item_by`),
-  KEY `type_id` (`type_id`)
+  KEY `type_id` (`type_id`),
   KEY `status` (`status`),
   KEY `created` (`created`),
   KEY `edited` (`edited`),

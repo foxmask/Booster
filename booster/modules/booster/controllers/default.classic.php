@@ -59,6 +59,7 @@ class defaultCtrl extends jController {
         }
 
         $rep = $this->getResponse('html');
+        $rep->addJSLink($GLOBALS['gJConfig']->urlengine['basePath'].'jelix/jquery/jquery.js');
         $tpl->assign('data',$data);
         $rep->body->assign('PAGE','view');
         $rep->body->assign('MAIN',$tpl->fetch('view_item'));

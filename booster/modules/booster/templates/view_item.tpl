@@ -28,6 +28,7 @@
                 <div class="booster_postfoot">
                     <div class="booster_action">
                         {if $data->item_by == $current_user}
+                            {assign $canViewVersion = true}
                         <a href="{jurl 'booster~editItem',array('id'=>$data->id,'name'=>$data->name)}">{@booster~main.edit.item@}</a>
                         {else}
                             {ifacl2 'booster.edit.item'}
@@ -43,7 +44,7 @@
                         {/if}
                     </div>
                 </div>
-                {zone "booster~versions",array('id'=>$data->id)}
+                {zone "booster~versions",array('id'=>$data->id, 'displayOnlyLastVersion' => true, 'canViewVersion' => $canViewVersion)}
             </div>
             <div class="tfoot">&nbsp;</div>
         </div>
