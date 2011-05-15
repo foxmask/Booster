@@ -42,12 +42,13 @@
     <div class="clear"></div>
     <div class="grid_13">
         <h2>Bienvenue sur Booster.</h2>
+        {jmessage}
         {$MAIN}
     </div>
     <div class="grid_3">
         {$MENU}
         <br/>
-        {zone 'jtags~tagscloud'}
+        {zone "jtags~tagscloud", array('destination'=>'booster~default:cloud', 'maxcount'=>20)}
     </div>
     <div class="clear"></div>
 </div>

@@ -23,8 +23,29 @@
         <property name="nickname" fieldname="nickname" table="usr" datatype="varchar" required="true" maxlength="80"/>
         <property name="id_version" fieldname="id" table="type" datatype="int" autoincrement="true"/>
         <property name="type_name" fieldname="type_name" table="type" datatype="varchar" required="true" maxlength="80"/>
+
+        <property name="version_name" fieldname="version_name" table="versions" datatype="varchar" required="true" maxlength="80"/>
+        <property name="last_changes" fieldname="last_changes" table="versions" datatype="varchar" required="true" maxlength="255"/>
+        <property name="stability" fieldname="stability" table="versions" datatype="enum" required="true" default="stable"/>
+        <property name="filename" fieldname="filename" table="versions" datatype="varchar" required="true" maxlength="80"/>
+        <property name="download_url" fieldname="download_url" table="versions" datatype="varchar" required="true" maxlength="255"/>
+        <property name="status_version" fieldname="status" table="versions" datatype="int" required="true" maxlength="1"/>
+        <property name="created" fieldname="created" table="versions" datatype="datetime" insertpattern="NOW()" />
+        <property name="edited" fieldname="edited" table="versions" datatype="datetime" updatepattern="NOW()"/>
+        <property name="modified" fieldname="modified" table="versions" datatype="datetime" updatepattern="NOW()"/>
+
+
+
     </record>
     <factory>
+        <method name="findAllNotModerated" type="select">
+            <conditions>
+                <eq property="status_version" value="0" />
+            </conditions>
+            <order>
+                <orderitem property="edited" way="desc" />
+            </order>
+        </method>
         <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
             <parameter name="" />
             <values>

@@ -1,6 +1,6 @@
 {if count($tags) > 1}
 <div class="booster_tags">
-<ul>{foreach $tags as $t}<li><a href="{jurl 'jtags~default:cloud',array('tag'=>$t)}" title="{@booster~main.show.all.items.with.this.tag@}">{$t}</a></li>{/foreach}</ul>
+<ul>{foreach $tags as $t}<li><a href="{jurl 'booster~default:cloud',array('tag'=>$t)}" title="{@booster~main.show.all.items.with.this.tag@}">{$t}</a></li>{/foreach}</ul>
 </div>
 {elseif count($tags) == 1 and !empty($tags)}
 <div class="booster_tags">

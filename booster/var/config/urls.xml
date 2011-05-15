@@ -1,8 +1,6 @@
 <urls xmlns="http://jelix.org/ns/urls/1.0">
     <classicentrypoint name="index" default="true" noentrypoint="true">
-        <url pathinfo="/"             module="booster"      action="default:index"  optionalTrailingSlash="true"/>
-        <url pathinfo="/item"        module="booster"     include="urls.xml"/>
-        <url pathinfo="/items"        module="booster"     include="urls.xml"/>
+        <url pathinfo="/item"         module="booster"     include="urls.xml"/>
         <url pathinfo="/auth"         module="jcommunity"  include="urls_auth.xml"/>
         <url pathinfo="/profile"      module="jcommunity"  include="urls_account.xml"/>
         <url pathinfo="/registration" module="jcommunity"  include="urls_registration.xml"/>
@@ -11,6 +9,9 @@
         </url>
         <url pathinfo="/en" module="booster" action="default:index">
             <static name="lang" value="en_EN" />
+        </url>
+        <url pathinfo="/tag/:tag" module="booster" action="default:cloud">
+            <param name="tag" type="string" escape="true" />
         </url>
     </classicentrypoint>
 

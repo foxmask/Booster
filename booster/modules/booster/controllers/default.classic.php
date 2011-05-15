@@ -157,7 +157,7 @@ class defaultCtrl extends jController {
     function editItem() {
         //@TODO
         $rep = $this->getResponse('html');
-        $rep->body->assign('MAIN',' come here and complete the code;) =>'.__FILE__ . ' '. __LINE__ );
+        $rep->body->assign('MAIN',' come here and complete the code;) => '.__METHOD__.' ' .__FILE__);
         return $rep;
     }
     /**
@@ -173,7 +173,7 @@ class defaultCtrl extends jController {
     function editVersion() {
         //@TODO
         $rep = $this->getResponse('html');
-        $rep->body->assign('MAIN',' come here and complete the code;) =>'.__FILE__ . ' '. __LINE__ );
+        $rep->body->assign('MAIN',' come here and complete the code;) => '.__METHOD__.' ' .__FILE__);
         return $rep;
 
     }
@@ -183,5 +183,13 @@ class defaultCtrl extends jController {
     function saveEditVersion() {
         //@TODO
         // using jClasses::getService('booster~booster')->saveEditVersion($form)
+    }
+    /**
+     * Cloud
+     */
+    function cloud () {
+        $rep = $this->getResponse('html');
+        $rep->body->assign('MAIN',' come here and complete the code;) => '.__METHOD__.' ' .__FILE__);
+        return $rep;
     }
 }

@@ -11,11 +11,12 @@
 class boosteradminListener extends jEventListener{
 
     function onBoosterTaskTodo ($event) {
+        // data that have been created
         $notify  = jDao::get('booster~boo_items')->findAllNotModerated();
         $nbRec = $notify->rowCount();
         if ($nbRec > 0 ) {
             $link = '<a href='.jUrl::get('boosteradmin~items:index').'>';
-            $link .= jLocale::get('boosteradmin~admin.notification',$nbRec);
+            $link .= jLocale::get('boosteradmin~admin.new.items',$nbRec);
             $link .= '</a>';
             $event->add( $link );
         }
@@ -23,7 +24,24 @@ class boosteradminListener extends jEventListener{
         $nbRec = $notify->rowCount();
         if ($nbRec > 0 ) {
             $link = '<a href='.jUrl::get('boosteradmin~versions:index').'>';
-            $link .= jLocale::get('boosteradmin~admin.notification',$nbRec);
+            $link .= jLocale::get('boosteradmin~admin.new.versions',$nbRec);
+            $link .= '</a>';
+            $event->add( $link );
+        }
+        // data that have been modified
+        $notify  = jDao::get('boosteradmin~boo_items_mod')->findAll();
+        $nbRec = $notify->rowCount();
+        if ($nbRec > 0 ) {
+            $link = '<a href='.jUrl::get('boosteradmin~items:index').'>';
+            $link .= jLocale::get('boosteradmin~admin.notification.items',$nbRec);
+            $link .= '</a>';
+            $event->add( $link );
+        }
+        $notify  = jDao::get('boosteradmin~boo_versions_mod')->findAll();
+        $nbRec = $notify->rowCount();
+        if ($nbRec > 0 ) {
+            $link = '<a href='.jUrl::get('boosteradmin~versions:index').'>';
+            $link .= jLocale::get('boosteradmin~admin.notification.versions',$nbRec);
             $link .= '</a>';
             $event->add( $link );
         }

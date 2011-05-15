@@ -1,5 +1,5 @@
 
-{zone 'booster~search'}
+{*zone 'booster~search'*}
 
 <h2>{@booster~main.last.items.created@}</h2>
 

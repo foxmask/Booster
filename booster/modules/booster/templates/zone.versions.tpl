@@ -1,3 +1,4 @@
+{meta_html js $j_jelixwww.'jquery/jquery.js'}
 {assign $count = 0}
 
 {foreach $versions as $version}
@@ -6,7 +7,7 @@
         <div class="body">
             <div class="booster_created">
                 {@booster~main.created@} {$version->created|jdatetime:'db_datetime','lang_datetime'}
-                
+
                 {if $canEditVersion}
                     - (<a href="{jurl 'booster~editVersion',array('id'=>$version->id)}">{@booster~main.edit@}</a>)
                 {else}
@@ -24,7 +25,7 @@
             </div>
         </div>
     </div>
-    
+
     {if $count == 0}
         {assign $count= 1}
         {if isset($displayOnlyLastVersion) && $displayOnlyLastVersion}
@@ -36,10 +37,11 @@
 {if isset($displayOnlyLastVersion) && $displayOnlyLastVersion}
     <script type="text/javascript">
     {literal}
+//<![CDATA[
         $(document).ready(function(){
             $otherVersions = $('.booster_version:not(.last-version)');
             $otherVersions.find('.body').hide();
-            
+
             $otherVersions.find('h3').bind('click keypress', function(event){
                 if(event.type == 'click' || (event.type == 'keypress' && event.which == 13)){
                     $(this).next('.body').slideToggle();
@@ -47,6 +49,7 @@
             })
             .attr('tabindex', 0);
         });
+//]]>
     {/literal}
     </script>
 {/if}

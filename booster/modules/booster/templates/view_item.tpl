@@ -20,7 +20,7 @@
                         <div class="booster_short_desc">{$data->short_desc|wiki:'wr3_to_xhtml'}</div>
                     </div>
                     <div class="grid_3">
-                            {zone 'booster~tagsitem',array('id'=>$data->id)}
+                        {zone 'booster~tagsitem',array('id'=>$data->id)}
                     </div>
                     <div class="clear"></div>
                 </div>
