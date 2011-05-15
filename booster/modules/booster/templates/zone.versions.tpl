@@ -2,7 +2,15 @@
 {assign $count = 0}
 
 {foreach $versions as $version}
-    <div class="booster_version {if $count == 0}last-version{/if}">
+
+    {if $count == 1}
+        {assign $count= 2}
+        {if isset($displayOnlyLastVersion) && $displayOnlyLastVersion}
+            <p>{@booster~main.old.versions@} : </p>
+        {/if}
+    {/if}
+
+    <div class="booster_version {if $count == 0}last-version {assign $count= 1}{/if}">
         <h3>{$version->version_name} ({$version->stability})</h3>
         <div class="body">
             <div class="booster_created">
@@ -26,12 +34,6 @@
         </div>
     </div>
 
-    {if $count == 0}
-        {assign $count= 1}
-        {if isset($displayOnlyLastVersion) && $displayOnlyLastVersion}
-            <p>{@booster~main.old.versions@} : </p>
-        {/if}
-    {/if}
 {/foreach}
 
 {if isset($displayOnlyLastVersion) && $displayOnlyLastVersion}

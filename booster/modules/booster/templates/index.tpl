@@ -1,8 +1,19 @@
 
-{*zone 'booster~search'*}
+{zone 'booster~search'}
 
-<h2>{@booster~main.last.items.created@}</h2>
+{if isset($search_results)}
 
-{foreach $datas as $data}
-    {include 'booster~view_item'}
-{/foreach}
+    {foreach $search_results as $data}
+        {include 'booster~view_item'}
+    {/foreach}
+    
+{else}
+
+    <h2>{@booster~main.last.items.created@}</h2>
+    
+    {foreach $datas as $data}
+        {include 'booster~view_item'}
+    {/foreach}
+    
+{/if}
+

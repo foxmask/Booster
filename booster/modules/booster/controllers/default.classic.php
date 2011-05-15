@@ -14,7 +14,8 @@ class defaultCtrl extends jController {
     public $pluginParams = array(
         '*'     => array('auth.required'=>true,),
         'index' => array('auth.required'=>false,),
-        'viewItem' => array('auth.required'=>false,),
+        'viewItem' => array('auth.required'=>false),
+        'search' => array('auth.required'=>false)
     );
     /**
      *Main Page
@@ -29,8 +30,18 @@ class defaultCtrl extends jController {
             $tpl->assign('current_user','');
         }
 
-        $dao = jDao::get('booster~boo_items');
-        $tpl->assign('datas',$dao->findLastCreated(5));
+        if( $this->param('submited')) {
+            $form = jForms::fill('booster~search');
+            if ($form->check()) {
+                $results = jClasses::getService('booster~booster')->search();
+                $tpl->assign('search_results', $results);
+            }
+        }
+        else{
+            $dao = jDao::get('booster~boo_items');
+            $tpl->assign('datas',$dao->findLastCreated(5));
+        }
+
         $rep->body->assign('PAGE','home');
         $rep->body->assign('MAIN',$tpl->fetch('index'));
         $rep->body->assign('MENU',$tpl->fetch('menu'));
@@ -184,12 +195,15 @@ class defaultCtrl extends jController {
         //@TODO
         // using jClasses::getService('booster~booster')->saveEditVersion($form)
     }
+   
     /**
      * Cloud
      */
     function cloud () {
         $rep = $this->getResponse('html');
         $rep->body->assign('MAIN',' come here and complete the code;) => '.__METHOD__.' ' .__FILE__);
+        
         return $rep;
     }
+    
 }

@@ -113,4 +113,47 @@ class booster {
         $record->id =  $form->getData('id');
         return ($dao->insert($record)) ? true : false;
     }
+    
+
+    /**
+     * function that search items according to criteria in the form
+     * @return jDbResultSet    items corresponding to the search
+     */
+    function search() {
+        
+        $form = jForms::fill('booster~search');
+        
+        $conditions = jDao::createConditions();
+        
+        //Types
+        $conditions->startGroup('OR');
+        $types = $form->getData('types');
+        if(!empty($types)) {
+            foreach($types as $type)
+                $conditions->addCondition('type_id', '=', $type);
+        }
+        $conditions->endGroup();
+        
+        //Name
+        $conditions->startGroup('OR');
+        $name = $form->getData('name');
+        if(!empty($name)) {
+            $conditions->addCondition('name', '=', $name);
+        }
+        $conditions->endGroup();
+        
+        //Author_by
+        $conditions->startGroup('OR');
+        $author_by = $form->getData('author_by');
+        if(!empty($author_by)) {
+            $conditions->addCondition('author', '=', $author_by);
+            $conditions->addCondition('nickname', '=', $author_by);
+        }
+        $conditions->endGroup();
+        
+        
+        return jDao::get('booster~boo_items')->findBy($conditions);
+    }
+    
+    
 }
