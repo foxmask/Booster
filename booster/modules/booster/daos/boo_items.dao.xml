@@ -44,6 +44,14 @@
                 <orderitem property="edited" way="desc" />
             </order>
         </method>
+        <method name="findLastCreated" type="select">
+            <parameter name="number" />
+            <order>
+                <orderitem property="created" way="desc" />
+            </order>
+            <limit offset="0" count="$number"/>
+        </method>
+        
         <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
             <parameter name="" />
             <values>

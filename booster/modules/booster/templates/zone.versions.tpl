@@ -7,7 +7,7 @@
             <div class="booster_created">
                 {@booster~main.created@} {$version->created|jdatetime:'db_datetime','lang_datetime'}
                 
-                {if $canViewVersion}
+                {if $canEditVersion}
                     - (<a href="{jurl 'booster~editVersion',array('id'=>$version->id)}">{@booster~main.edit@}</a>)
                 {else}
                     {ifacl2 'booster.edit.version'}

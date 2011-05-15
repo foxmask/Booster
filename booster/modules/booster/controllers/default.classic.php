@@ -30,7 +30,7 @@ class defaultCtrl extends jController {
         }
 
         $dao = jDao::get('booster~boo_items');
-        $tpl->assign('datas',$dao->findAll());
+        $tpl->assign('datas',$dao->findLastCreated(5));
         $rep->body->assign('PAGE','home');
         $rep->body->assign('MAIN',$tpl->fetch('index'));
         $rep->body->assign('MENU',$tpl->fetch('menu'));
