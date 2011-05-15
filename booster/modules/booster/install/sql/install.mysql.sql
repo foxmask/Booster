@@ -2,7 +2,7 @@ CREATE TABLE %%PREFIX%%boo_items (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(60) NOT NULL,
   `item_info_id` varchar(100) NOT NULL,
-  `short_desc` varchar(80) NOT NULL,
+  `short_desc` varchar(255) NOT NULL,
   `type_id` int(12) NOT NULL,
   `url_website` varchar(255) NOT NULL,
   `url_repo` varchar(255) NOT NULL,
@@ -49,4 +49,3 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%boo_versions (
   KEY `edited` (`edited`),
   KEY `modified` (`modified`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-

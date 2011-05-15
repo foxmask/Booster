@@ -413,6 +413,11 @@ clear:both;
     height: 18px;
 }
 
+
+.booster_action{
+    text-align: right;
+}
+
 .booster_tags li {
     list-style: none;
     display:inline;

@@ -8,5 +8,12 @@
         <param name="id"  type="number"/>
         <param name="name"  type="string" escape="true"/>
     </url>
-
+    <url pathinfo="/edit/item/:id-:name" action="default:editItem">
+        <param name="id"  type="number"/>
+        <param name="name"  type="string" escape="true"/>
+    </url>
+    <url pathinfo="/add/version/:id-:name" action="default:addVersion">
+        <param name="id"  type="number"/>
+        <param name="name"  type="string" escape="true"/>
+    </url>
 </suburls>

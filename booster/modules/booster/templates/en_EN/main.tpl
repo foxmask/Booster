@@ -41,6 +41,7 @@
     <div class="clear"></div>
     <div class="grid_13">
         <h2>Welcome to Booster.</h2>
+        {jmessage}
         {$MAIN}
     </div>
     <div class="grid_3">

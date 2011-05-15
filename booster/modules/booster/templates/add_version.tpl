@@ -1,4 +1,4 @@
-<h1>{@booster~main.add.a.version@}</h1>
+<h1>{@booster~main.add.a.version@} : {$itemName}</h1>
 {form $form, 'booster~default:saveVersion'}
 <fieldset><legend>{@booster~main.new.version@}</legend>
 <table>

@@ -1,6 +1,7 @@
     <div class="box">
         <div class="block">
-            <h2>{$data->type_name}: <a href="{jurl 'booster~viewItem',array('name'=>$data->name,'id'=>$data->id)}">{$data->name}</a></h2>
+            <h2>{$data->type_name}: <a href="{jurl 'booster~viewItem',array('name'=>$data->name,'id'=>$data->id)}">{$data->name}</a>
+            </h2>
             <div class="booster_blockpost">
                 <div class="grid_16">
                     <div class="grid_4">
@@ -16,17 +17,32 @@
                     </div>
                     <div class="grid_9">
                         <h3>{@booster~main.short_desc@} </h3>
-                        <p class="booster_short_desc">{$data->short_desc|wiki:'wr3_to_xhtml'}</p>
+                        <div class="booster_short_desc">{$data->short_desc|wiki:'wr3_to_xhtml'}</div>
                     </div>
                     <div class="grid_3">
-                        <div class="booster_postfoot">
                             {zone 'booster~tagsitem',array('id'=>$data->id)}
-                        </div>
                     </div>
                     <div class="clear"></div>
                 </div>
                 <div class="clear"></div>
-                <div class="booster_postfoot"> </div>
+                <div class="booster_postfoot">
+                    <div class="booster_action">
+                        {if $data->item_by == $current_user}
+                        <a href="{jurl 'booster~editItem',array('id'=>$data->id,'name'=>$data->name)}">{@booster~main.edit.item@}</a>
+                        {else}
+                            {ifacl2 'booster.edit.item'}
+                        <a href="{jurl 'booster~editItem',array('id'=>$data->id,'name'=>$data->name)}">{@booster~main.edit.item@}</a>
+                            {/ifacl2}
+                        {/if}
+                        {if $data->item_by == $current_user}
+                        <a href="{jurl 'booster~addVersion',array('id'=>$data->id,'name'=>$data->name)}">{@booster~main.add.a.version@}</a>
+                        {else}
+                            {ifacl2 'booster.edit.version'}
+                        <a href="{jurl 'booster~addVersion',array('id'=>$data->id,'name'=>$data->name)}">{@booster~main.add.a.version@}</a>
+                            {/ifacl2}
+                        {/if}
+                    </div>
+                </div>
                 {zone "booster~versions",array('id'=>$data->id)}
             </div>
             <div class="tfoot">&nbsp;</div>
