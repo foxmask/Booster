@@ -50,7 +50,7 @@
                         {/if}
                     </div>
                 </div>
-                {zone "booster~versions",array('id'=>$data->id, 'displayOnlyLastVersion' => true, 'canEditVersion' => $canEditVersion)}
+                {zone "booster~versions",array('id'=>$data->id, 'canEditVersion' => $canEditVersion)}
             </div>
             <div class="tfoot">&nbsp;</div>
         </div>

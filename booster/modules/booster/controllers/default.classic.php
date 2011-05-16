@@ -3,6 +3,7 @@
 * @package   booster
 * @subpackage booster
 * @author    Olivier Demah
+* @contributor Florian Lonqueu-Brochard
 * @copyright 2011 olivier demah
 * @link      http://www.jelix.org
 * @license   http://www.gnu.org/licenses/lgpl.html  GNU Lesser General Public Licence, see LICENCE file
@@ -12,10 +13,11 @@
  */
 class defaultCtrl extends jController {
     public $pluginParams = array(
-        '*'     => array('auth.required'=>true,),
-        'index' => array('auth.required'=>false,),
+        '*'     => array('auth.required'=>true),
+        'index' => array('auth.required'=>false),
         'viewItem' => array('auth.required'=>false),
-        'search' => array('auth.required'=>false)
+        'search' => array('auth.required'=>false),
+        'cloud' => array('auth.required'=>false))
     );
     /**
      *Main Page
@@ -30,7 +32,7 @@ class defaultCtrl extends jController {
             $tpl->assign('current_user','');
         }
 
-        if( $this->param('submited')) {
+        if( $this->param('search')) {
             $form = jForms::fill('booster~search');
             if ($form->check()) {
                 $results = jClasses::getService('booster~booster')->search();
@@ -201,8 +203,21 @@ class defaultCtrl extends jController {
      */
     function cloud () {
         $rep = $this->getResponse('html');
-        $rep->body->assign('MAIN',' come here and complete the code;) => '.__METHOD__.' ' .__FILE__);
         
+        $tag = $this->param('tag');
+
+        $srvTags = jClasses::getService("jtags~tags");
+        $tags = $srvTags->getSubjectsByTags($tag, "booscope");
+
+        $items = array();
+        $dao = jDao::get('boo_items');
+        foreach ($tags as $subj_id)
+            $items[] = $dao->get($subj_id);
+
+        $tpl = new jTpl();
+        $tpl->assign('items',$items);
+        $tpl->assign('tag',$tag);
+        $rep->body->assign('MAIN', $tpl->fetch('tag'));
         return $rep;
     }
     

@@ -117,7 +117,7 @@ class booster {
 
     /**
      * function that search items according to criteria in the form
-     * @return jDbResultSet    items corresponding to the search
+     * @return array    items corresponding to the search
      */
     function search() {
         
@@ -151,8 +151,29 @@ class booster {
         }
         $conditions->endGroup();
         
+        //Results
+        $dao_items = jDao::get('booster~boo_items');
+        $items = $results = array();
         
-        return jDao::get('booster~boo_items')->findBy($conditions);
+        if(!empty($name) OR !empty($types) OR !empty($author_by)) {
+            foreach($dao_items->findBy($conditions) as $item) {
+                $items[$item->id] = $item;
+            }
+        }
+        
+        $tags = $form->getData('tags');
+        if( !empty($tags)) { 
+            $srvTags = jClasses::getService("jtags~tags");
+            $subjects = $srvTags->getSubjectsByTags($tags, "booscope");
+            foreach($subjects as $id){
+                if(isset($items[$id]) OR empty($items))
+                    $results[$id] = $dao_items->get($id);
+            }
+        }
+        else
+            $results = $items;
+        
+        return $results;
     }
     
     

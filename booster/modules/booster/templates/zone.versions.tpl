@@ -4,10 +4,8 @@
 {foreach $versions as $version}
 
     {if $count == 1}
-        {assign $count= 2}
-        {if isset($displayOnlyLastVersion) && $displayOnlyLastVersion}
-            <p>{@booster~main.old.versions@} : </p>
-        {/if}
+        {assign $count = -1}
+        <p>{@booster~main.old.versions@} : </p>
     {/if}
 
     <div class="booster_version {if $count == 0}last-version {assign $count= 1}{/if}">
@@ -36,7 +34,7 @@
 
 {/foreach}
 
-{if isset($displayOnlyLastVersion) && $displayOnlyLastVersion}
+{if count($versions) >= 1}
     <script type="text/javascript">
     {literal}
 //<![CDATA[
