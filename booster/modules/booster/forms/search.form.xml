@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://jelix.org/ns/forms/1.1">
+    
+    <checkboxes ref="types">
+        <datasource dao="booster~boo_type" method="findAll" labelproperty="type_name" valueproperty="id"/>
+        <label locale="booster~main.item_type"/>
+    </checkboxes>
+    
+    <input ref="name">
+        <label locale="booster~main.item_name"/>
+    </input>
+    
+    <input ref="tags">
+        <label locale="booster~main.tags"/>
+    </input>
+    
+    <input ref="author_by">
+        <label locale="booster~main.author.or.rapporteur"/>
+    </input>
+    
+    <submit ref="_submit">
+        <label>ok</label>
+    </submit>
+</form>
