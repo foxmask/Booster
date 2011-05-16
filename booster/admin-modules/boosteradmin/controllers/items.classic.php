@@ -13,47 +13,49 @@ class itemsCtrl extends jController {
         '*'     => array('auth.required'=>true,
                          'booster.admin.index'=>true),
     );
-
+    /**
+     * Index page that list all the "waiting items"
+     */
     function index() {
         $tpl = new jTpl();
         $rep = $this->getResponse('html');
-        $tpl->assign('datas_new',jDao::get('boosteradmin~boo_items_mod')->findAll());
-        $tpl->assign('datas_mod',jDao::get('booster~boo_items')->findAllNotModerated());
+        $tpl->assign('datas_mod',jDao::get('boosteradmin~boo_items_mod')->findAll());
+        $tpl->assign('datas_new',jDao::get('booster~boo_items')->findAllNotModerated());
         $rep->body->assign('MAIN',$tpl->fetch('items_mod'));
         return $rep;
     }
-
+    /**
+     * edit the new submitted item
+     */
     function editnew() {
         $form = jForms::create('boosteradmin~items_mod',$this->intParam('id'));
-        $form->initFromDao('boosteradmin~boo_items');
-        $tpl = new jTpl();
+        $form->initFromDao('booster~boo_items');
+        $form->setData('id',$this->intParam('id'));
         $rep = $this->getResponse('html');
+        $tpl = new jTpl();
         $tpl->assign('form',$form);
+        $tpl->assign('action','boosteradmin~items:savenew');
         $rep->body->assign('MAIN',$tpl->fetch('items_mod_edit'));
         return $rep;
     }
-
+    /**
+     * Save the new submitted item
+     */
     function savenew() {
-        $form = jForms::fill('boosteradmin~items_mod');
+        $form = jForms::fill('boosteradmin~items_mod',$this->intParam('id'));
         if ($form->check()) {
-            $dao =  jDao::get('booster~boo_items');
-            //get the Id of the Item we've validated
-            $rec = $dao->get($form->getData('id'));
-            //change the data for each column
-            $rec->name          = $form->getData('name');
-            $rec->item_info_id  = $form->getData('item_info_id');
-            $rec->short_desc    = $form->getData('short_desc');
-            $rec->type_id       = $form->getData('type_id');
-            $rec->url_website   = $form->getData('url_website');
-            $rec->url_repo      = $form->getData('url_repo');
-            $rec->author        = $form->getData('author');
-            $rec->status        = 1;
-            $dt = new jDateTime();
-            $rec->modified = $dt->now();
-            //save
-            $dao->save($rec);
-            //msg to the admin ;)
-            jMessage::add('boosteradmin~admin.item_validated');
+            // we validate the new item
+            // then remove the data from the "waiting table" (items_mod)
+            if ($form->getData('status')==1) {
+                jMessage::add(jLocale::get('boosteradmin~admin.item_validated'));
+            }
+            // we just edit the new content of the item
+            // but we didnt validate it so :
+            // save all the modification
+            else {
+                jMessage::add(jLocale::get('boosteradmin~admin.item_saved_but_not_validated_yet'));
+            }
+            $form->saveToDao('booster~boo_items');
         }
         else {
             jMessage::add('boosteradmin~admin.invalid.data');
@@ -62,42 +64,60 @@ class itemsCtrl extends jController {
         $rep->action = 'boosteradmin~items:index';
         return $rep;
     }
+    /**
+     * Edit the Modified Item for modetation
+     */
     function editmod() {
         $form = jForms::create('boosteradmin~items_mod',$this->intParam('id'));
         $form->initFromDao('boosteradmin~boo_items_mod');
+        $form->setData('id',$this->intParam('id'));
         $tpl = new jTpl();
         $rep = $this->getResponse('html');
         $tpl->assign('form',$form);
+        $tpl->assign('action','boosteradmin~items:savemod');
         $rep->body->assign('MAIN',$tpl->fetch('items_mod_edit'));
         return $rep;
     }
-
+    /**
+     * Save the Modified Item
+     */
     function savemod() {
-        $form = jForms::fill('boosteradmin~items_mod');
+        $form = jForms::fill('boosteradmin~items_mod',$this->intParam('id'));
         if ($form->check()) {
-            $dao =  jDao::get('booster~boo_items');
-            //get the Id of the Item we've validated
-            $rec = $dao->get($form->getData('id'));
-            //change the data for each column
-            $rec->name          = $form->getData('name');
-            $rec->item_info_id  = $form->getData('item_info_id');
-            $rec->short_desc    = $form->getData('short_desc');
-            $rec->type_id       = $form->getData('type_id');
-            $rec->url_website   = $form->getData('url_website');
-            $rec->url_repo      = $form->getData('url_repo');
-            $rec->author        = $form->getData('author');
-            $rec->status        = 1;
-            $dt = new jDateTime();
-            $rec->modified = $dt->now();
-            //save
-            $dao->save($rec);
-            //delete the moderated item from the "mirror" table
-            jDao::get('boosteradmin~boo_items_mod')->delete($form->getData('id'));
-            //msg to the admin ;)
-            jMessage::add('boosteradmin~admin.item_validated');
+            // we validate the modifications, so replace the old data
+            // then remove the data from the "waiting table" (items_mod)
+            if ($form->getData('status')==1) {
+                $dao =  jDao::get('booster~boo_items');
+                //get the Id of the Item we've validated
+                $rec = $dao->get($form->getData('id'));
+                //change the data for each column
+                $rec->name          = $form->getData('name');
+                $rec->item_info_id  = $form->getData('item_info_id');
+                $rec->short_desc    = $form->getData('short_desc');
+                $rec->type_id       = $form->getData('type_id');
+                $rec->url_website   = $form->getData('url_website');
+                $rec->url_repo      = $form->getData('url_repo');
+                $rec->author        = $form->getData('author');
+                $rec->status        = 1;
+                $dt = new jDateTime();
+                $rec->modified = $dt->now();
+                //save
+                $dao->save($rec);
+                //delete the moderated item from the "mirror" table
+                jDao::get('boosteradmin~boo_items_mod')->delete($form->getData('id'));
+                //msg to the admin ;)
+                jMessage::add(jLocale::get('boosteradmin~admin.item_validated'));
+            }
+            // we just edit the modified content of the item
+            // but we didnt validate it so :
+            // save all the modification
+            else {
+                jMessage::add(jLocale::get('boosteradmin~admin.item_saved_but_not_validated_yet'));
+                $form->saveToDao('boosteradmin~boo_items_mod');
+            }
         }
         else {
-            jMessage::add('boosteradmin~admin.invalid.data');
+            jMessage::add(jLocale::get('boosteradmin~admin.invalid.data'));
         }
         $rep = $this->getResponse('redirect');
         $rep->action = 'boosteradmin~items:index';

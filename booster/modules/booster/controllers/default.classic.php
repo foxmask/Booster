@@ -101,16 +101,16 @@ class defaultCtrl extends jController {
         $form = jForms::fill('booster~items');
         if ($form->check()) {
             if ($data = jClasses::getService('booster~booster')->saveItem()) {
-                jMessage::add('booster~main.item.saved');
+                jMessage::add(jLocale::get('booster~main.item.saved'));
                 $saved = true;
             }
             else {
                 $saved = false;
-                jMessage::add('booster~main.item.saved.failed');
+                jMessage::add(jLocale::get('booster~main.item.saved.failed'));
             }
         } else {
             $saved = false;
-            jMessage::add('booster~main.item.check.failed');
+            jMessage::add(jLocale::get('booster~main.item.check.failed'));
         }
         $rep->params = array('id'=>$data['id'],'name'=>$data['name']);
         $rep->action = ($saved) ? 'booster~addVersion' : 'booster~index';
@@ -141,7 +141,7 @@ class defaultCtrl extends jController {
         $form = jForms::fill('booster~version');
         if ($form->check()) {
             if (jClasses::getService('booster~booster')->saveVersion($form)) {
-                jMessage::add('booster~main.version.saved');
+                jMessage::add(jLocale::get('booster~main.version.saved'));
                 $saved = true;
                 $item = jDao::get('booster~boo_items')->get($form->getData('item_id'));
                 if ($item->status = 1) {
@@ -154,12 +154,12 @@ class defaultCtrl extends jController {
             }
             else {
                 $saved = false;
-                jMessage::add('booster~main.version.saved.failed');
+                jMessage::add(jLocale::get('booster~main.version.saved.failed'));
                 $rep->action = 'index';
             }
         } else {
             $saved = false;
-            jMessage::add('booster~main.version.check.failed');
+            jMessage::add(jLocale::get('booster~main.version.check.failed'));
             $rep->action = 'index';
         }
         return $rep;
@@ -197,13 +197,13 @@ class defaultCtrl extends jController {
         //@TODO
         // using jClasses::getService('booster~booster')->saveEditVersion($form)
     }
-   
+
     /**
      * Cloud
      */
     function cloud () {
         $rep = $this->getResponse('html');
-        
+
         $tag = $this->param('tag');
 
         $srvTags = jClasses::getService("jtags~tags");
@@ -220,5 +220,5 @@ class defaultCtrl extends jController {
         $rep->body->assign('MAIN', $tpl->fetch('tag'));
         return $rep;
     }
-    
+
 }
