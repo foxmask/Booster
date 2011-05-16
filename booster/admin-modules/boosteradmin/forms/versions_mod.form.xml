@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form xmlns="http://jelix.org/ns/forms/1.1">
 <hidden ref="item_id"/>
+<hidden ref="id"/>
 
 <input ref="version_name" required="true" maxlength="60">
     <label locale="booster~main.version_name"/>
@@ -13,6 +14,13 @@
 <input ref="stability" required="true" maxlength="80">
     <label locale="booster~main.stability"/>
 </input>
+<menulist ref="stability" required="true">
+    <label locale="booster~main.status"/>
+    <item value="pre-alpha">pre-alpha</item>
+    <item value="alpha">alpha</item>
+    <item value="satble">stable</item>
+    <item value="mature">mature</item>
+</menulist>
 
 <input ref="filename" required="true" maxlength="80">
     <label locale="booster~main.filename"/>
@@ -21,6 +29,12 @@
 <input ref="download_url" required="true" maxlength="255">
     <label locale="booster~main.download_url"/>
 </input>
+
+<menulist ref="status" required="true">
+    <label locale="booster~main.status"/>
+    <item value="0" locale="booster~main.status.not_validated"/>
+    <item value="1" locale="booster~main.status.validated"/>
+</menulist>
 
 <submit ref="_submit">
     <label>ok</label>

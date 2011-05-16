@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form xmlns="http://jelix.org/ns/forms/1.1">
 <hidden ref="item_by"/>
+<hidden ref="id"/>
 
 <input ref="name" required="true" maxlength="60">
     <label locale="booster~main.item_name"/>
@@ -11,7 +12,7 @@
     <help locale="booster~main.item_info_id_hlp"/>
 </input>
 
-<wikieditor ref="short_desc" required="true" maxlength="80">
+<wikieditor ref="short_desc" required="true" maxlength="255">
     <label locale="booster~main.short_desc"/>
 </wikieditor>
 
@@ -36,6 +37,13 @@
 <input ref="author" required="true" maxlength="80">
     <label locale="booster~main.item_author"/>
 </input>
+
+<menulist ref="status" required="true">
+    <label locale="booster~main.status"/>
+    <item value="0" locale="booster~main.status.not_validated"/>
+    <item value="1" locale="booster~main.status.validated"/>
+</menulist>
+
 
 <submit ref="_submit">
     <label>ok</label>
