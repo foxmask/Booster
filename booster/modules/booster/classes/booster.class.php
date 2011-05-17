@@ -12,7 +12,7 @@
  */
 class booster {
     /**
-     * fonction to save one Item
+     * function to save one Item
      */
     function saveItem() {
         $data = array();
@@ -48,7 +48,7 @@ class booster {
         return $data;
     }
     /**
-     * fonction to save one Version
+     * function to save one Version
      * @param object $form
      * @return boolean
      */
@@ -65,7 +65,7 @@ class booster {
         return ($dao->insert($record)) ? true : false;
     }
     /**
-     * fonction to save one Editing Item
+     * function to save one Editing Item
      * to the dedicated waiting table
      */
     function saveEditItem($form) {
@@ -95,10 +95,10 @@ class booster {
         return $return;
     }
     /**
-     * fonction to save one Editing Item
+     * function to save one Editing Item
      * to the dedicated waiting table
      * @param object $form
-     * @return boolean 
+     * @return boolean
      */
     function saveEditVersion($form) {
         $dao = jDao::get('boosteradmin~boo_versions_mod');
@@ -113,18 +113,27 @@ class booster {
         $record->id =  $form->getData('id');
         return ($dao->insert($record)) ? true : false;
     }
-    
+
 
     /**
      * function that search items according to criteria in the form
      * @return array    items corresponding to the search
      */
     function search() {
-        
+
         $form = jForms::fill('booster~search');
-        
+
+        // we have uncheck every checkboxes and empty every fields
+        // so let's get all the records
+        if ($form->getData('name') == '' and
+            $form->getData('types') == '' and
+            $form->getData('author_by') == '' and
+            $form->getData('tags') == ''
+            )
+            return jDao::get('booster~boo_items')->findAll();
+
         $conditions = jDao::createConditions();
-        
+
         //Types
         $conditions->startGroup('OR');
         $types = $form->getData('types');
@@ -133,7 +142,7 @@ class booster {
                 $conditions->addCondition('type_id', '=', $type);
         }
         $conditions->endGroup();
-        
+
         //Name
         $conditions->startGroup('OR');
         $name = $form->getData('name');
@@ -141,7 +150,7 @@ class booster {
             $conditions->addCondition('name', '=', $name);
         }
         $conditions->endGroup();
-        
+
         //Author_by
         $conditions->startGroup('OR');
         $author_by = $form->getData('author_by');
@@ -150,19 +159,22 @@ class booster {
             $conditions->addCondition('nickname', '=', $author_by);
         }
         $conditions->endGroup();
-        
+
+        //we only retrieve the Validated Items 
+        $conditions->addCondition('status','=','1');
+
         //Results
         $dao_items = jDao::get('booster~boo_items');
         $items = $results = array();
-        
+
         if(!empty($name) OR !empty($types) OR !empty($author_by)) {
             foreach($dao_items->findBy($conditions) as $item) {
                 $items[$item->id] = $item;
             }
         }
-        
+
         $tags = $form->getData('tags');
-        if( !empty($tags)) { 
+        if( !empty($tags)) {
             $srvTags = jClasses::getService("jtags~tags");
             $subjects = $srvTags->getSubjectsByTags($tags, "booscope");
             foreach($subjects as $id){
@@ -172,9 +184,9 @@ class booster {
         }
         else
             $results = $items;
-        
+
         return $results;
     }
-    
-    
+
+
 }

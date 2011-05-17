@@ -250,3 +250,4 @@ default.skin="jelix/markitup/skins/simple/style.css"
 
 [booster]
 title="Jelix Booster: Applis, Modules, Plugins, Pack de langues pour Jelix"
+last_items_created=5

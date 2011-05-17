@@ -17,3 +17,4 @@
 </fieldset>
 <div> {formsubmit} </div>
 {/form}
+{include 'booster~zone.syntax_wiki'}

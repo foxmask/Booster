@@ -17,7 +17,7 @@ class defaultCtrl extends jController {
         'index' => array('auth.required'=>false),
         'viewItem' => array('auth.required'=>false),
         'search' => array('auth.required'=>false),
-        'cloud' => array('auth.required'=>false))
+        'cloud' => array('auth.required'=>false)
     );
     /**
      *Main Page
@@ -41,10 +41,9 @@ class defaultCtrl extends jController {
         }
         else{
             $dao = jDao::get('booster~boo_items');
-            $tpl->assign('datas',$dao->findLastCreated(5));
+            $tpl->assign('datas',$dao->findLastCreated($GLOBALS['gJConfig']->booster['last_items_created']));
         }
 
-        $rep->body->assign('PAGE','home');
         $rep->body->assign('MAIN',$tpl->fetch('index'));
         $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
@@ -74,7 +73,6 @@ class defaultCtrl extends jController {
         $rep = $this->getResponse('html');
         $rep->addJSLink($GLOBALS['gJConfig']->urlengine['basePath'].'jelix/jquery/jquery.js');
         $tpl->assign('data',$data);
-        $rep->body->assign('PAGE','view');
         $rep->body->assign('MAIN',$tpl->fetch('view_item'));
         $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
@@ -170,7 +168,9 @@ class defaultCtrl extends jController {
     function editItem() {
         //@TODO
         $rep = $this->getResponse('html');
+        $tpl = new jTpl();
         $rep->body->assign('MAIN',' come here and complete the code;) => '.__METHOD__.' ' .__FILE__);
+        $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
     }
     /**
@@ -186,7 +186,9 @@ class defaultCtrl extends jController {
     function editVersion() {
         //@TODO
         $rep = $this->getResponse('html');
+        $tpl = new jTpl();
         $rep->body->assign('MAIN',' come here and complete the code;) => '.__METHOD__.' ' .__FILE__);
+        $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
 
     }
@@ -215,9 +217,16 @@ class defaultCtrl extends jController {
             $items[] = $dao->get($subj_id);
 
         $tpl = new jTpl();
+        if(jAuth::isConnected()) {
+            $tpl->assign('current_user',jAuth::getUserSession ()->id);
+        }
+        else {
+            $tpl->assign('current_user','');
+        }
         $tpl->assign('items',$items);
         $tpl->assign('tag',$tag);
         $rep->body->assign('MAIN', $tpl->fetch('tag'));
+        $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
     }
 
