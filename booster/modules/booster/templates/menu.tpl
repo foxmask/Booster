@@ -1,6 +1,6 @@
 <div class="booster_menu">
     {zone 'jcommunity~status'}
 {ifuserconnected}
-    @TODO lien vers les ressources déposées
+    {zone 'booster~reported'}
 {/ifuserconnected}
 </div>

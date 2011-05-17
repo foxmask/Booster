@@ -9,7 +9,7 @@
 */
 
 class searchZone extends jZone {
-    protected $_tplname='search';
+    protected $_tplname='zone.search';
 
     protected function _prepareTpl(){
         

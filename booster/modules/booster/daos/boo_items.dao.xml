@@ -56,6 +56,17 @@
             </order>
             <limit offset="0" count="$number"/>
         </method>
+        
+        <method name="findAllReportedBy" type="select">
+            <parameter name="user_id"/>
+            <conditions>
+                <eq property="item_by" expr="$user_id" />
+                <eq property="status" value="1"/>
+            </conditions>
+            <order>
+                <orderitem property="created" way="asc" />
+            </order>
+        </method>
 
         <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
             <parameter name="" />
