@@ -20,8 +20,18 @@ class itemsCtrl extends jController {
         $tpl = new jTpl();
         $rep = $this->getResponse('html');
         $tpl->assign('datas_mod',jDao::get('boosteradmin~boo_items_mod')->findAll());
-        $tpl->assign('datas_new',jDao::get('booster~boo_items')->findAllNotModerated());
+        $tpl->assign('datas_new',jDao::get('boosteradmin~boo_items')->findAllNotModerated());
         $rep->body->assign('MAIN',$tpl->fetch('items_mod'));
+        return $rep;
+    }
+    /**
+     * Index page that list all the validated items
+     */
+    function indexAll() {
+        $tpl = new jTpl();
+        $rep = $this->getResponse('html');
+        $tpl->assign('datas',jDao::get('boosteradmin~boo_items')->findAllValidated());
+        $rep->body->assign('MAIN',$tpl->fetch('items_all'));
         return $rep;
     }
     /**
@@ -29,13 +39,14 @@ class itemsCtrl extends jController {
      */
     function editnew() {
         $form = jForms::create('boosteradmin~items_mod',$this->intParam('id'));
-        $form->initFromDao('booster~boo_items');
+        $form->initFromDao('boosteradmin~boo_items');
         $form->setData('id',$this->intParam('id'));
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
+        $tpl->assign('title',jLocale::get('boosteradmin~admin.item.validation.or.modification'));
         $tpl->assign('form',$form);
         $tpl->assign('action','boosteradmin~items:savenew');
-        $rep->body->assign('MAIN',$tpl->fetch('items_mod_edit'));
+        $rep->body->assign('MAIN',$tpl->fetch('edit'));
         return $rep;
     }
     /**
@@ -55,7 +66,7 @@ class itemsCtrl extends jController {
             else {
                 jMessage::add(jLocale::get('boosteradmin~admin.item_saved_but_not_validated_yet'));
             }
-            $form->saveToDao('booster~boo_items');
+            $form->saveToDao('boosteradmin~boo_items');
         }
         else {
             jMessage::add('boosteradmin~admin.invalid.data');
@@ -73,9 +84,10 @@ class itemsCtrl extends jController {
         $form->setData('id',$this->intParam('id'));
         $tpl = new jTpl();
         $rep = $this->getResponse('html');
+        $tpl->assign('title',jLocale::get('boosteradmin~admin.item.validation.or.modification'));
         $tpl->assign('form',$form);
         $tpl->assign('action','boosteradmin~items:savemod');
-        $rep->body->assign('MAIN',$tpl->fetch('items_mod_edit'));
+        $rep->body->assign('MAIN',$tpl->fetch('edit'));
         return $rep;
     }
     /**
@@ -87,7 +99,7 @@ class itemsCtrl extends jController {
             // we validate the modifications, so replace the old data
             // then remove the data from the "waiting table" (items_mod)
             if ($form->getData('status')==1) {
-                $dao =  jDao::get('booster~boo_items');
+                $dao =  jDao::get('boosteradmin~boo_items');
                 //get the Id of the Item we've validated
                 $rec = $dao->get($form->getData('id'));
                 //change the data for each column

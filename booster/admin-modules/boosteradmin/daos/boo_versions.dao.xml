@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="versions" realname="boo_versions" primarykey="id" />
+    </datasources>
+    <record>
+        <property name="version_id" fieldname="id" datatype="int" autoincrement="true"/>
+        <property name="item_id" fieldname="item_id" datatype="int" required="true"/>
+        <property name="version_name" fieldname="version_name" datatype="varchar" required="true" maxlength="80"/>
+        <property name="last_changes" fieldname="last_changes" datatype="varchar" required="true" maxlength="255"/>
+        <property name="stability" fieldname="stability" datatype="enum" required="true" default="stable"/>
+        <property name="filename" fieldname="filename" datatype="varchar" required="true" maxlength="80"/>
+        <property name="download_url" fieldname="download_url" datatype="varchar" required="true" maxlength="255"/>
+        <property name="status_version" fieldname="status" datatype="int" required="true" maxlength="1"/>
+        <property name="created" fieldname="created" datatype="datetime" insertpattern="NOW()" />
+        <property name="edited" fieldname="edited" datatype="datetime" updatepattern="NOW()"/>
+        <property name="modified" fieldname="modified" datatype="datetime" updatepattern="NOW()"/>
+    </record>
+    <factory>
+        <method name="findAllValidated" type="select">
+            <conditions>
+                <eq property="status_version" value="1" />
+            </conditions>
+            <order>
+                <orderitem property="edited" way="desc" />
+            </order>
+        </method>
+        <method name="findAllNotModerated" type="select">
+            <conditions>
+                <eq property="status_version" value="0" />
+            </conditions>
+            <order>
+                <orderitem property="edited" way="desc" />
+            </order>
+        </method>
+    </factory>
+</dao>

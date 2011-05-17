@@ -20,8 +20,18 @@ class versionsCtrl extends jController {
         $tpl = new jTpl();
         $rep = $this->getResponse('html');
         $tpl->assign('datas_mod',jDao::get('boosteradmin~boo_versions_mod')->findAll());
-        $tpl->assign('datas_new',jDao::get('booster~boo_items_versions')->findAllNotModerated());
+        $tpl->assign('datas_new',jDao::get('boosteradmin~boo_items_versions')->findAllNotModerated());
         $rep->body->assign('MAIN',$tpl->fetch('versions_mod'));
+        return $rep;
+    }
+    /**
+     * Index page that list all the validated items
+     */
+    function indexAll() {
+        $tpl = new jTpl();
+        $rep = $this->getResponse('html');
+        $tpl->assign('datas',jDao::get('boosteradmin~boo_items_versions')->findAllValidated());
+        $rep->body->assign('MAIN',$tpl->fetch('versions_all'));
         return $rep;
     }
     /**
@@ -29,13 +39,14 @@ class versionsCtrl extends jController {
      */
     function editnew() {
         $form = jForms::create('boosteradmin~versions_mod',$this->intParam('id'));
-        $form->initFromDao('booster~boo_versions');
+        $form->initFromDao('boosteradmin~boo_versions');
         $form->setData('id',$this->intParam('id'));
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
+        $tpl->assign('title',jLocale::get('boosteradmin~admin.version.validation.or.modification'));
         $tpl->assign('form',$form);
         $tpl->assign('action','boosteradmin~versions:savenew');
-        $rep->body->assign('MAIN',$tpl->fetch('versions_mod_edit'));
+        $rep->body->assign('MAIN',$tpl->fetch('edit'));
         return $rep;
     }
     /**
@@ -46,7 +57,7 @@ class versionsCtrl extends jController {
         if ($form->check()) {
             // we validate the new item
             // then remove the data from the "waiting table" (items_mod)
-            if ($form->getData('status')==1) {
+            if ($form->getData('status_version')==1) {
                 jMessage::add(jLocale::get('boosteradmin~admin.version_validated'));
             }
             // we just edit the new content of the version
@@ -55,7 +66,7 @@ class versionsCtrl extends jController {
             else {
                 jMessage::add(jLocale::get('boosteradmin~admin.versions_saved_but_not_validated_yet'));
             }
-            $form->saveToDao('booster~boo_versions');
+            $form->saveToDao('boosteradmin~boo_versions');
         }
         else {
             jMessage::add('boosteradmin~admin.invalid.data');
@@ -73,9 +84,10 @@ class versionsCtrl extends jController {
         $form->setData('id',$this->intParam('id'));
         $tpl = new jTpl();
         $rep = $this->getResponse('html');
+        $tpl->assign('title',jLocale::get('boosteradmin~admin.version.validation.or.modification'));
         $tpl->assign('form',$form);
         $tpl->assign('action','boosteradmin~versions:savemod');
-        $rep->body->assign('MAIN',$tpl->fetch('versions_mod_edit'));
+        $rep->body->assign('MAIN',$tpl->fetch('edit'));
         return $rep;
     }
     /**
@@ -87,7 +99,7 @@ class versionsCtrl extends jController {
             // we validate the modifications, so replace the old data
             // then remove the data from the "waiting table" (items_mod)
             if ($form->getData('status')==1) {
-                $dao =  jDao::get('booster~boo_versions');
+                $dao =  jDao::get('boosteradmin~boo_versions');
                 //get the Id of the Item we've validated
                 $rec = $dao->get($form->getData('id'));
                 //change the data for each column

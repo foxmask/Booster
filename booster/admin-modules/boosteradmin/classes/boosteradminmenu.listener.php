@@ -17,20 +17,38 @@ class boosteradminmenuListener extends jEventListener{
             $event->add(new masterAdminMenuItem('booster','Booster', '', 20));
 
             $item = new masterAdminMenuItem('items',
-                        jLocale::get('boosteradmin~admin.items'),
-                        jUrl::get('boosteradmin~items:index'),
+                        jLocale::get('boosteradmin~admin.items.validated'),
+                        jUrl::get('boosteradmin~items:indexAll'),
                         301,
                         'booster');
             $item->icon = $chemin . 'images/items.png';
             $event->add($item);
 
-            $item = new masterAdminMenuItem('versions',
-                        jLocale::get('boosteradmin~admin.versions'),
-                        jUrl::get('boosteradmin~versions:index'),
+            $item = new masterAdminMenuItem('items',
+                        jLocale::get('boosteradmin~admin.items.not.validated'),
+                        jUrl::get('boosteradmin~items:index'),
                         302,
+                        'booster');
+            $item->icon = $chemin . 'images/items.png';
+            $event->add($item);
+
+
+            $item = new masterAdminMenuItem('versions',
+                        jLocale::get('boosteradmin~admin.versions.validated'),
+                        jUrl::get('boosteradmin~versions:indexAll'),
+                        303,
                         'booster');
             $item->icon = $chemin . 'images/versions.png';
             $event->add($item);
+
+            $item = new masterAdminMenuItem('versions',
+                        jLocale::get('boosteradmin~admin.versions.not.validated'),
+                        jUrl::get('boosteradmin~versions:index'),
+                        304,
+                        'booster');
+            $item->icon = $chemin . 'images/versions.png';
+            $event->add($item);
+
         }
     }
 

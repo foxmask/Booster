@@ -7,7 +7,7 @@
     </thead>
     <tbody>
 {foreach $datas_new as $data}
-        <tr><td>{$data->name}</td><td><a href="{jurl 'boosteradmin~versions:editnew',array('id'=>$data->id)}">{$data->version_name}</a></td><td>{$data->created|jdatetime}</td></tr>
+        <tr><td>{$data->name}</td><td><a href="{jurl 'boosteradmin~versions:editnew',array('id'=>$data->version_id)}">{$data->version_name}</a></td><td>{$data->created|jdatetime}</td></tr>
 {/foreach}
     </tbody>
 </table>
@@ -22,7 +22,7 @@
     </thead>
 {foreach $datas_mod as $data}
     <tbody>
-        <tr><td>{$data->name}</td><td><a href="{jurl 'boosteradmin~versions:editmod',array('id'=>$data->id)}">{$data->version_name}</a></td><td>{$data->created|jdatetime}</td></tr>
+        <tr><td>{$data->name}</td><td><a href="{jurl 'boosteradmin~versions:editmod',array('id'=>$data->version_id)}">{$data->version_name}</a></td><td>{$data->created|jdatetime}</td></tr>
     </tbody>
 {/foreach}
 </table>

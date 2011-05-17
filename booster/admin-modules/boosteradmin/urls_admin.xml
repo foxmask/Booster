@@ -2,6 +2,7 @@
 <suburls xmlns="http://jelix.org/ns/suburls/1.0">
     <!-- items -->
     <url pathinfo="/items"                  action="items:index" />
+    <url pathinfo="/items/validated"        action="items:indexAll" />
     <url pathinfo="/items/editnew/:id"      action="items:editnew" >
         <param name="id" type="numeric"/>
     </url>
@@ -12,6 +13,7 @@
     <url pathinfo="/items/savemod"          action="items:savemod" />
     <!-- versions-->
     <url pathinfo="/versions"               action="versions:index" />
+    <url pathinfo="/versions/validated"     action="versions:indexAll" />
     <url pathinfo="/versions/editnew/:id"   action="versions:editnew" >
         <param name="id" type="numeric"/>
     </url>
