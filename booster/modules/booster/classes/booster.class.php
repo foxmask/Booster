@@ -66,25 +66,29 @@ class booster {
     }
     /**
      * function to save one Editing Item
-     * to the dedicated waiting table
+     * to the dedicated "waiting table"
      */
     function saveEditItem($form) {
         $data = array();
+        $id_booster = $form->getData('id');
+        $dt = new jDateTime();
 
-        $form = jForms::fill('booster~items');
         $dao = jDao::get('boosteradmin~boo_items_mod');
         $record = jDao::createRecord('boosteradmin~boo_items');
-        $record->name = $form->getData('name');
-        $record->item_info_id = $form->getData('item_info_id');
-        $record->short_desc = $form->getData('short_desc');
-        $record->type_id = $form->getData('type_id');
-        $record->url_website = $form->getData('url_website');
-        $record->url_repo = $form->getData('url_repo');
-        $record->author = $form->getData('author');
-        $record->item_by = $form->getData('item_by');
-        $record->status = 0; //will need moderation
+        $record->id             =  $id_booster;
+        $record->name           = $form->getData('name');
+        $record->item_info_id   = $form->getData('item_info_id');
+        $record->short_desc     = $form->getData('short_desc');
+        $record->type_id        = $form->getData('type_id');
+        $record->url_website    = $form->getData('url_website');
+        $record->url_repo       = $form->getData('url_repo');
+        $record->author         = $form->getData('author');
+        $record->item_by        = $form->getData('item_by');
+        $record->status         = 0; //will need moderation
+        $record->created        =  jDao::get('booster~boo_items')->get($id_booster)->created;
+        $record->modified       =  $dt->now();
+
         $return = ($dao->insert($record)) ? true : false;
-        $id_booster = $form->getData('id');
 
         $tagStr ='';
         $tagStr = str_replace('.',' ',$form->getData("tags"));
@@ -101,15 +105,18 @@ class booster {
      * @return boolean
      */
     function saveEditVersion($form) {
+        $dt = new jDateTime();
         $dao = jDao::get('boosteradmin~boo_versions_mod');
         $record = jDao::createRecord('boosteradmin~boo_versions_mod');
-        $record->version_name = $form->getData('version_name');
-        $record->status = 0; //will need moderation
-        $record->item_id = $form->getData('item_id');
-        $record->last_changes = $form->getData('last_changes');
-        $record->stability = $form->getData('stability');
-        $record->filename = $form->getData('filename');
-        $record->download_url = $form->getData('download_url');
+        $record->version_name   = $form->getData('version_name');
+        $record->status         = 0; //will need moderation
+        $record->item_id        = $form->getData('item_id');
+        $record->last_changes   = $form->getData('last_changes');
+        $record->stability      = $form->getData('stability');
+        $record->filename       = $form->getData('filename');
+        $record->download_url   = $form->getData('download_url');
+        $record->created        =  jDao::get('booster~boo_versions')->get($form->getData('id'))->created;
+        $record->modified       =  $dt->now();
         $record->id =  $form->getData('id');
         return ($dao->insert($record)) ? true : false;
     }
@@ -160,7 +167,7 @@ class booster {
         }
         $conditions->endGroup();
 
-        //we only retrieve the Validated Items 
+        //we only retrieve the Validated Items
         $conditions->addCondition('status','=','1');
 
         //Results

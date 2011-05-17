@@ -17,11 +17,10 @@
         <property name="url_repo" fieldname="url_repo" datatype="varchar" required="true" maxlength="255"/>
         <property name="author" fieldname="author" datatype="varchar" required="true" maxlength="80"/>
         <property name="item_by" fieldname="item_by" datatype="int" required="true"/>
-
         <property name="status" fieldname="status" datatype="int" required="true" maxlength="1"/>
         <property name="created" fieldname="created" datatype="datetime" insertpattern="NOW()" />
+        <property name="modified" fieldname="modified" datatype="datetime" />
         <property name="edited" fieldname="edited" datatype="datetime" updatepattern="NOW()"/>
-        <property name="modified" fieldname="modified" datatype="datetime" updatepattern="NOW()"/>
 
         <property name="nickname" fieldname="nickname" table="usr" datatype="varchar" required="true" maxlength="80"/>
         <property name="id_version" fieldname="id" table="type" datatype="int" autoincrement="true"/>

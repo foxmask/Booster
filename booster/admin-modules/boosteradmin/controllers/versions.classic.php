@@ -64,7 +64,7 @@ class versionsCtrl extends jController {
             // but we didnt validate it so :
             // save all the modification
             else {
-                jMessage::add(jLocale::get('boosteradmin~admin.versions_saved_but_not_validated_yet'));
+                jMessage::add(jLocale::get('boosteradmin~admin.version_saved_but_not_validated_yet'));
             }
             $form->saveToDao('boosteradmin~boo_versions');
         }
@@ -98,33 +98,23 @@ class versionsCtrl extends jController {
         if ($form->check()) {
             // we validate the modifications, so replace the old data
             // then remove the data from the "waiting table" (items_mod)
-            if ($form->getData('status')==1) {
-                $dao =  jDao::get('boosteradmin~boo_versions');
-                //get the Id of the Item we've validated
-                $rec = $dao->get($form->getData('id'));
-                //change the data for each column
-                $rec->version_name  = $form->getData('version_name');
-                $rec->last_changes  = $form->getData('last_changes');
-                $rec->stability     = $form->getData('stability');
-                $rec->filename      = $form->getData('filename');
-                $rec->download_url  = $form->getData('download_url');
-                $rec->status        = 1;
-                $dt = new jDateTime();
-                $rec->modified = $dt->now();
-                //save
-                $dao->save($rec);
+            if ($form->getData('status_version')==1) {
+                $form->saveToDao('boosteradmin~boo_versions');
                 //delete the moderated item from the "mirror" table
                 jDao::get('boosteradmin~boo_versions_mod')->delete($form->getData('id'));
                 //msg to the admin ;)
                 jMessage::add(jLocale::get('boosteradmin~admin.version_validated'));
             }
+            // we just edit the modified content of the version
+            // but we didnt validate it so :
+            // save all the modification
             else {
                 jMessage::add(jLocale::get('boosteradmin~admin.version_saved_but_not_validated_yet'));
                 $form->saveToDao('boosteradmin~boo_versions_mod');
             }
         }
         else {
-            jMessage::add('boosteradmin~admin.invalid.data');
+            jMessage::add(jLocale::get('boosteradmin~admin.invalid.data'));
         }
         $rep = $this->getResponse('redirect');
         $rep->action = 'boosteradmin~versions:index';

@@ -16,6 +16,10 @@
         <param name="name"  type="string" escape="true"/>
     </url>
 
+    <url pathinfo="/saveedit/:id" action="default:saveEditItem">
+        <param name="id"  type="number"/>
+    </url>
+
     <!-- versions -->
     <url pathinfo="/version/save"    action="default:saveVersion"/>
 
@@ -26,4 +30,9 @@
     <url pathinfo="/version/edit/:id" action="default:editVersion">
         <param name="id"  type="number"/>
     </url>
+
+    <url pathinfo="/version/saveedit/:id" action="default:saveEditVersion">
+        <param name="id"  type="number"/>
+    </url>
+
 </suburls>

@@ -2,6 +2,10 @@
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
         <primarytable name="boo_items_mod" realname="boo_items_mod" primarykey="id" />
+        <foreigntable name="type" realname="boo_type"
+                      primarykey="id" onforeignkey="type_id" />
+        <foreigntable name="usr" realname="community_users"
+                      primarykey="id" onforeignkey="item_by" />
     </datasources>
     <record>
         <property name="id" fieldname="id" datatype="int" required="true"/>
@@ -17,9 +21,10 @@
         <property name="created" fieldname="created" datatype="datetime" default=""/>
         <property name="modified" fieldname="modified" datatype="datetime" default=""/>
         <property name="edited" fieldname="edited" datatype="datetime" default=""/>
-        <!--<property name="" fieldname="" datatype="string/int/float/date"
-        required="yes" maxlength="" minlength="" regexp="" sequence=""
-        updatepattern="" insertpattern="" selectpattern=""/>-->
+        
+        <property name="nickname" fieldname="nickname" table="usr" datatype="varchar" required="true" maxlength="80"/>
+        <property name="id_version" fieldname="id" table="type" datatype="int" autoincrement="true"/>
+        <property name="type_name" fieldname="type_name" table="type" datatype="varchar" required="true" maxlength="80"/>
     </record>
     <factory>
         <!--<method name="findByStage" type="select/selectfirst/delete/update/php">

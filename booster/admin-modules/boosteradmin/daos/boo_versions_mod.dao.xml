@@ -2,9 +2,11 @@
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
         <primarytable name="boo_versions_mod" realname="boo_versions_mod" primarykey="id" />
+        <foreigntable name="items" realname="boo_items"
+                      primarykey="id" onforeignkey="item_id" />
     </datasources>
     <record>
-        <property name="id" fieldname="id" datatype="int" autoincrement="true"/>
+        <property name="version_id" fieldname="id" datatype="int" autoincrement="true"/>
         <property name="item_id" fieldname="item_id" datatype="int" required="true"/>
         <property name="status" fieldname="status" datatype="int" required="true"/>
         <property name="version_name" fieldname="version_name" datatype="varchar" required="true" maxlength="80"/>
@@ -12,13 +14,12 @@
         <property name="stability" fieldname="stability" datatype="enum" required="true" default="stable"/>
         <property name="filename" fieldname="filename" datatype="varchar" required="true" maxlength="80"/>
         <property name="download_url" fieldname="download_url" datatype="varchar" required="true" maxlength="255"/>
-        <property name="created" fieldname="created" datatype="datetime" default=""/>
-        <property name="edited" fieldname="edited" datatype="datetime" default=""/>
-        <property name="modified" fieldname="modified" datatype="datetime" default=""/>
-        <!--<property name="" fieldname="" datatype="string/int/float/date"
-        required="yes" maxlength="" minlength="" regexp="" sequence=""
-        updatepattern="" insertpattern="" selectpattern=""/>-->
-    </record>
+        <property name="created" fieldname="created" datatype="datetime" insertpattern="NOW()" />
+        <property name="edited" fieldname="edited" datatype="datetime" updatepattern="NOW()"/>
+        <property name="modified" fieldname="modified" datatype="datetime" updatepattern="NOW()"/>
+
+        <property name="name" fieldname="name" table="items" datatype="varchar" required="true" maxlength="60"/>    </record>
+
     <factory>
         <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
             <parameter name="" />

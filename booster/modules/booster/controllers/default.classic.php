@@ -166,10 +166,27 @@ class defaultCtrl extends jController {
      * EditItem
      */
     function editItem() {
-        //@TODO
+        $id = $this->intParam('id');
+        $data = jDao::get('booster~boo_items')->get($id);
+
+        if ($data->user_id != jAuth::getUserSession()->id  or
+            ! jAcl2::check('booster.edit.item')) {
+            $rep = $this->getResponse('html');
+            $rep->bodyTpl = 'jelix~403.html';
+            $rep->setHttpStatus('403', 'Permission denied');
+            return $rep;
+        }
+
+        $form = jForms::create('booster~items',$data->id);
+        $form->initFromDao('booster~boo_items');
+
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
-        $rep->body->assign('MAIN',' come here and complete the code;) => '.__METHOD__.' ' .__FILE__);
+        $tpl->assign('title',jLocale::get('booster~main.item.edit'));
+        $tpl->assign('id',$data->id);
+        $tpl->assign('form',$form);
+        $tpl->assign('action','booster~saveEditItem');
+        $rep->body->assign('MAIN',$tpl->fetch('edit'));
         $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
     }
@@ -177,17 +194,58 @@ class defaultCtrl extends jController {
      * Save the Edited Item
      */
     function saveEditItem() {
-        //@TODO
-        // using // using jClasses::getService('booster~booster')->saveEditItem($form)
+        $id = $this->intParam('id');
+
+        $form = jForms::fill('booster~items',$id);
+
+        if ($form->check()) {
+            if ($form->getData('item_by') != jAuth::getUserSession()->id  or
+                ! jAcl2::check('booster.edit.item')) {
+                $rep = $this->getResponse('html');
+                $rep->bodyTpl = 'jelix~403.html';
+                $rep->setHttpStatus('403', 'Permission denied');
+                return $rep;
+            }
+            else {
+                if (jClasses::getService('booster~booster')->saveEditItem($form)) {
+                    jMessage::add(jLocale::get('booster~main.item.edit.success'));
+                }
+                else {
+                    jMessage::add(jLocale::get('booster~main.item.edit.failed'));
+                }
+            }
+        }
+        $rep = $this->getResponse('redirect');
+        $rep->action = 'booster~index';
+        return $rep;
     }
     /**
      * EditItem
      */
     function editVersion() {
-        //@TODO
+        $id = $this->intParam('id');
+        $data = jDao::get('booster~boo_versions')->get($id);
+        $user_id = jDao::get('booster~boo_items')->get($data->item_id)->item_by;
+
+        if ($user_id != jAuth::getUserSession()->id  or
+            ! jAcl2::check('booster.edit.version')) {
+            $rep = $this->getResponse('html');
+            $rep->bodyTpl = 'jelix~403.html';
+            $rep->setHttpStatus('403', 'Permission denied');
+            return $rep;
+        }
+
+        $form = jForms::create('booster~version',$data->id);
+        $form->initFromDao('booster~boo_versions');
+        $form->setData('item_by',$user_id);
+
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
-        $rep->body->assign('MAIN',' come here and complete the code;) => '.__METHOD__.' ' .__FILE__);
+        $tpl->assign('title',jLocale::get('booster~main.version.edit'));
+        $tpl->assign('id',$data->id);
+        $tpl->assign('form',$form);
+        $tpl->assign('action','booster~saveEditVersion');
+        $rep->body->assign('MAIN',$tpl->fetch('edit'));
         $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
 
@@ -196,8 +254,29 @@ class defaultCtrl extends jController {
      * Save the Edited Version
      */
     function saveEditVersion() {
-        //@TODO
-        // using jClasses::getService('booster~booster')->saveEditVersion($form)
+        $id = $this->intParam('id');
+        $form = jForms::fill('booster~version',$id);
+var_dump($form->getData('item_by'));
+        if ($form->check()) {
+            if ($form->getData('item_by') != jAuth::getUserSession()->id  or
+                ! jAcl2::check('booster.edit.version')) {
+                $rep = $this->getResponse('html');
+                $rep->bodyTpl = 'jelix~403.html';
+                $rep->setHttpStatus('403', 'Permission denied');
+                return $rep;
+            }
+            else {
+                if (jClasses::getService('booster~booster')->saveEditVersion($form)) {
+                    jMessage::add(jLocale::get('booster~main.version.edit.success'));
+                }
+                else {
+                    jMessage::add(jLocale::get('booster~main.version.edit.failed'));
+                }
+            }
+        }
+        $rep = $this->getResponse('redirect');
+        $rep->action = 'booster~index';
+        return $rep;
     }
 
     /**

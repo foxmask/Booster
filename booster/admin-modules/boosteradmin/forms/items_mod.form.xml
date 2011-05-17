@@ -2,6 +2,8 @@
 <form xmlns="http://jelix.org/ns/forms/1.1">
 <hidden ref="item_by"/>
 <hidden ref="id"/>
+<hidden ref="created"/>
+<hidden ref="modified"/>
 
 <input ref="name" required="true" maxlength="60">
     <label locale="booster~main.item_name"/>

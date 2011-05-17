@@ -18,11 +18,11 @@
 {if $datas_mod->rowCount() > 0}
 <table class="records-list">
     <thead>
-        <tr><th>{@boosteradmin~admin.items_list.type_name@}</th><th>{@boosteradmin~admin.items_list.name@}</th><th>{@boosteradmin~admin.items_list.date_created@}</th></tr>
+        <tr><th>{@boosteradmin~admin.items_list.type_name@}</th><th>{@boosteradmin~admin.items_list.name@}</th><th>{@boosteradmin~admin.items_list.date_modified@}</th></tr>
     </thead>
 {foreach $datas_mod as $data}
     <tbody>
-        <tr><td><a href="{jurl 'boosteradmin~items:editmod',array('id'=>$data->id)}">{$data->name}</a></td></tr>
+        <tr><td>{$data->type_name}</td><td><a href="{jurl 'boosteradmin~items:editmod',array('id'=>$data->id)}">{$data->name}</a></td><td>{$data->modified|jdatetime}</td></tr>
     </tbody>
 {/foreach}
 </table>
