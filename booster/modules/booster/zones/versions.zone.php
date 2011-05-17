@@ -16,7 +16,8 @@ class versionsZone extends jZone {
         //check which method and controller do the call of this zone
         list($ctrl,$method) = preg_split('/:/',$GLOBALS['gJCoord']->request->params['action']);
         $nbRec= 0;
-        if ($ctrl == 'default' and $method !== 'viewItem') {
+        
+        if (($ctrl == 'default' and $method !== 'viewItem') OR ( empty($ctrl) and empty($method))) {
             $datas = jDao::get('booster~boo_versions')->findLastValidated($item_id);
         } elseif ($ctrl == 'default' and $method == 'viewItem')  {
             $datas = jDao::get('booster~boo_versions')->findAllValidated($item_id);

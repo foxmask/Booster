@@ -19,6 +19,6 @@
     </input>
     
     <submit ref="_submit">
-        <label>ok</label>
+        <label locale="booster~main.go.search"/>
     </submit>
 </form>
