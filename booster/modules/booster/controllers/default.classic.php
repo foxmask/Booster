@@ -256,7 +256,7 @@ class defaultCtrl extends jController {
     function saveEditVersion() {
         $id = $this->intParam('id');
         $form = jForms::fill('booster~version',$id);
-var_dump($form->getData('item_by'));
+
         if ($form->check()) {
             if ($form->getData('item_by') != jAuth::getUserSession()->id  or
                 ! jAcl2::check('booster.edit.version')) {
