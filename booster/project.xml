@@ -2,12 +2,15 @@
 <project xmlns="http://jelix.org/ns/project/1.0">
     <info id="booster@jelix.org" name="booster" createdate="2011-05-03">
         <version>0.1pre</version>
-        <label lang="fr_FR">booster</label>
-        <description lang="fr_FR"/>
+        <label lang="fr_FR">Booster</label>
+        <description lang="fr_FR">Jelix Booster : portail de gestion des modules, plugins, pack de langue, applications produits en Jelix</description>
+        <label lang="en_EN">Booster</label>
+        <description lang="en_EN">Jelix Booster : portal management of modules, plugins, language pack, applications made in Jelix</description>
         <license URL="http://www.gnu.org/licenses/lgpl.html"> GNU Lesser General Public Licence, see LICENCE file</license>
         <copyright>2011 laurent</copyright>
         <creator name="laurentj" email="laurent@jelix.org" active="true"/>
         <contributor name="foxmask" email="olivier@foxmask.info" active="true" since="2011-05-03" role="developer"/>
+        <contributor name="florianLB" email="" active="true" since="2011-05-03" role="developer"/>
         <homepageURL>http://www.jelix.org</homepageURL>
         <!--<updateURL>http://www.jelix.org/update.xml</updateURL>-->
     </info>

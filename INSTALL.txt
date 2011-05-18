@@ -1,11 +1,19 @@
-creer sa base mysql puis lancer ceci :
+creer sa base mysql et modifier son fichier de config profiles.ini.php
+
+puis lancer au choix :
+
+php jelix.php --booster installapp
+
+ce qui devrait avoir comme action 
+
+ou ceci :
 
 -- phpMyAdmin SQL Dump
 -- version 3.3.9
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Jeu 12 Mai 2011 à 21:06
+-- Généré le : Mer 18 Mai 2011 à 19:53
 -- Version du serveur: 5.1.53
 -- Version de PHP: 5.3.4
 
@@ -18,62 +26,11 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `boo_items`
+-- Structure de la table `boo_versions_mod`
 --
 
-CREATE TABLE IF NOT EXISTS `boo_items` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(60) NOT NULL,
-  `item_info_id` varchar(100) NOT NULL,
-  `short_desc` varchar(80) NOT NULL,
-  `type_id` int(12) NOT NULL,
-  `url_website` varchar(255) NOT NULL,
-  `url_repo` varchar(255) NOT NULL,
-  `author` varchar(80) NOT NULL,
-  `item_by` int(12) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `item_by` (`item_by`),
-  KEY `type_id` (`type_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
-
---
--- Contenu de la table `boo_items`
---
-
-INSERT INTO `boo_items` (`id`, `name`, `item_info_id`, `short_desc`, `type_id`, `url_website`, `url_repo`, `author`, `item_by`) VALUES
-(1, 'HaveFnuBB!', 'havefnubb@havefnubb.org', 'HaveFnuBB! Where everything is Fnu !', 1, 'http://www.havefnubb.org', 'https://bitbucket.org/foxmask/havefnubb', 'FoxMaSk', 1),
-(2, 'jcommunity', 'jcommunity@jelix.org', 'module for a portal, to bring registration, profile editing for users', 2, '', 'http://bitbucket.org/laurentj/jcommunity/', 'laurentj', 1)
-;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `boo_type`
---
-
-CREATE TABLE IF NOT EXISTS `boo_type` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type_name` varchar(80) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
-
---
--- Contenu de la table `boo_type`
---
-
-INSERT INTO `boo_type` (`id`, `type_name`) VALUES
-(1, 'Application'),
-(2, 'Module'),
-(3, 'Plugins'),
-(4, 'LangPack');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `boo_versions`
---
-
-CREATE TABLE IF NOT EXISTS `boo_versions` (
+DROP TABLE IF EXISTS `boo_versions_mod`;
+CREATE TABLE IF NOT EXISTS `boo_versions_mod` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `item_id` int(12) NOT NULL,
   `status` int(1) NOT NULL,
@@ -82,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `boo_versions` (
   `stability` enum('pre-alpha','alpha','stable','mature') NOT NULL DEFAULT 'stable',
   `filename` varchar(80) NOT NULL,
   `download_url` varchar(255) NOT NULL,
-  `created` datetime NOT NULL,
+  `created` datetime DEFAULT NULL,
   `edited` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -91,192 +48,4 @@ CREATE TABLE IF NOT EXISTS `boo_versions` (
   KEY `created` (`created`),
   KEY `edited` (`edited`),
   KEY `modified` (`modified`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
-
---
--- Contenu de la table `boo_versions`
---
-
-INSERT INTO `boo_versions` (`id`, `item_id`, `status`, `version_name`, `last_changes`, `stability`, `filename`, `download_url`, `created`, `edited`, `modified`) VALUES
-(1, 1, 1, 'HaveFnuBB 1.4.9', 'plein de choses agreable a utiliser', 'stable', 'havenubb-1.4.0.7z', 'http://localohst/havenubb-1.4.0.7z', '2011-05-06 22:54:09', NULL, NULL);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `community_users`
---
-
-CREATE TABLE IF NOT EXISTS `community_users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `login` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `nickname` varchar(50) DEFAULT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '0',
-  `keyactivate` varchar(10) DEFAULT NULL,
-  `request_date` datetime DEFAULT NULL,
-  `create_date` datetime NOT NULL,
-  PRIMARY KEY (`login`),
-  UNIQUE KEY `id` (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
-
---
--- Contenu de la table `community_users`
---
-
-INSERT INTO `community_users` (`id`, `login`, `password`, `email`, `nickname`, `status`, `keyactivate`, `request_date`, `create_date`) VALUES
-(1, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'admin@admin.net', 'AdmiN', 4, NULL, NULL, '2011-05-05 00:00:00');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `jacl2_group`
---
-
-CREATE TABLE IF NOT EXISTS `jacl2_group` (
-  `id_aclgrp` varchar(50) NOT NULL,
-  `name` varchar(150) NOT NULL DEFAULT '',
-  `grouptype` tinyint(4) NOT NULL DEFAULT '0',
-  `ownerlogin` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id_aclgrp`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `jacl2_group`
---
-
-
--- --------------------------------------------------------
-
---
--- Structure de la table `jacl2_rights`
---
-
-CREATE TABLE IF NOT EXISTS `jacl2_rights` (
-  `id_aclsbj` varchar(100) NOT NULL,
-  `id_aclgrp` varchar(50) NOT NULL,
-  `id_aclres` varchar(100) NOT NULL DEFAULT '',
-  `canceled` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id_aclsbj`,`id_aclgrp`,`id_aclres`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `jacl2_rights`
---
-
-
--- --------------------------------------------------------
-
---
--- Structure de la table `jacl2_subject`
---
-
-CREATE TABLE IF NOT EXISTS `jacl2_subject` (
-  `id_aclsbj` varchar(100) NOT NULL DEFAULT '',
-  `label_key` varchar(100) DEFAULT NULL,
-  `id_aclsbjgrp` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id_aclsbj`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `jacl2_subject`
---
-
-INSERT INTO `jacl2_subject` (`id_aclsbj`, `label_key`, `id_aclsbjgrp`) VALUES
-('acl.user.view', 'jelix~acl2db.acl.user.view', 'acl.grp.user.management'),
-('acl.user.modify', 'jelix~acl2db.acl.user.modify', 'acl.grp.user.management'),
-('acl.group.modify', 'jelix~acl2db.acl.group.modify', 'acl.grp.group.management'),
-('acl.group.create', 'jelix~acl2db.acl.group.create', 'acl.grp.group.management'),
-('acl.group.delete', 'jelix~acl2db.acl.group.delete', 'acl.grp.group.management'),
-('acl.group.view', 'jelix~acl2db.acl.group.view', 'acl.grp.group.management'),
-('auth.users.list', 'jelix~auth.acl.users.list', 'auth.grp.user.management'),
-('auth.users.view', 'jelix~auth.acl.users.view', 'auth.grp.user.management'),
-('auth.users.modify', 'jelix~auth.acl.users.modify', 'auth.grp.user.management'),
-('auth.users.create', 'jelix~auth.acl.users.create', 'auth.grp.user.management'),
-('auth.users.delete', 'jelix~auth.acl.users.delete', 'auth.grp.user.management'),
-('auth.users.change.password', 'jelix~auth.acl.users.change.password', 'auth.grp.user.management'),
-('auth.user.view', 'jelix~auth.acl.user.view', 'auth.grp.user.management'),
-('auth.user.modify', 'jelix~auth.acl.user.modify', 'auth.grp.user.management'),
-('auth.user.change.password', 'jelix~auth.acl.user.change.password', 'auth.grp.user.management');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `jacl2_subject_group`
---
-
-CREATE TABLE IF NOT EXISTS `jacl2_subject_group` (
-  `id_aclsbjgrp` varchar(50) NOT NULL,
-  `label_key` varchar(60) NOT NULL,
-  PRIMARY KEY (`id_aclsbjgrp`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `jacl2_subject_group`
---
-
-INSERT INTO `jacl2_subject_group` (`id_aclsbjgrp`, `label_key`) VALUES
-('acl.grp.user.management', 'jelix~acl2db.acl.grp.user.management'),
-('acl.grp.group.management', 'jelix~acl2db.acl.grp.group.management'),
-('auth.grp.user.management', 'jelix~auth.acl.grp.user.management');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `jacl2_user_group`
---
-
-CREATE TABLE IF NOT EXISTS `jacl2_user_group` (
-  `login` varchar(50) NOT NULL,
-  `id_aclgrp` varchar(50) NOT NULL,
-  PRIMARY KEY (`login`,`id_aclgrp`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `jacl2_user_group`
---
-
-
--- --------------------------------------------------------
-
---
--- Structure de la table `sc_tags`
---
-
-CREATE TABLE IF NOT EXISTS `sc_tags` (
-  `tag_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `tag_name` varchar(50) NOT NULL,
-  `nbuse` int(11) DEFAULT '0',
-  PRIMARY KEY (`tag_id`),
-  UNIQUE KEY `uk_tag` (`tag_name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
-
---
--- Contenu de la table `sc_tags`
---
-
-INSERT INTO `sc_tags` (`tag_id`, `tag_name`, `nbuse`) VALUES
-(1, 'tatague', 1);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `sc_tags_tagged`
---
-
-CREATE TABLE IF NOT EXISTS `sc_tags_tagged` (
-  `tt_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `tag_id` int(10) unsigned NOT NULL,
-  `tt_scope_id` varchar(50) NOT NULL,
-  `tt_subject_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`tt_id`),
-  KEY `idx1_tt` (`tt_scope_id`,`tt_subject_id`),
-  KEY `idx2_tt` (`tag_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
-
---
--- Contenu de la table `sc_tags_tagged`
---
-
-INSERT INTO `sc_tags_tagged` (`tt_id`, `tag_id`, `tt_scope_id`, `tt_subject_id`) VALUES
-(1, 1, 'booscope', 1);
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;

@@ -2,16 +2,21 @@
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="booster@jelix.org" name="booster" createdate="2011-05-03">
         <version>0.1pre</version>
-        <label lang="fr_FR">booster</label>
-        <description lang="fr_FR" />
+        <label lang="fr_FR">Booster</label>
+        <description lang="fr_FR">Jelix Booster : portail de gestion des modules, plugins, pack de langue, applications produits en Jelix</description>
+        <label lang="en_EN">Booster</label>
+        <description lang="en_EN">Jelix Booster : portal management of modules, plugins, language pack, applications made in Jelix</description>
         <license URL="http://www.gnu.org/licenses/lgpl.html"> GNU Lesser General Public Licence, see LICENCE file</license>
         <copyright>2011 laurent</copyright>
         <creator name="laurentj" email="laurent@jelix.org" active="true"/>
-        <!--<contributor name="hisname" email="hisemail@yoursite.undefined" active="true" since="" role=""/>-->
+        <contributor name="FoxMaSk" email="olivier@foxmask.info" active="true" since="2011-05-03" role="developper"/>
+        <contributor name="FlorianLB" email="" active="true" since="2011-05-03" role="developper"/>
         <homepageURL>http://www.jelix.org</homepageURL>
-        <!--<updateURL>http://www.jelix.org/update.xml</updateURL>-->
     </info>
     <dependencies>
         <jelix minversion="1.3pre.1902" maxversion="1.3pre.*"/>
+        <module name="jcommunity" minversion="0.1" maxversion="0.2.*"/>
+        <module name="jtags" minversion="0.1" maxversion="0.2.*"/>
+        <module name="boosteradmin" minversion="0.1pre" maxversion="1.*"/>
     </dependencies>
 </module>
