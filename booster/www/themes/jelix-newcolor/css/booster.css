@@ -313,6 +313,9 @@ clear:both;
     padding-left: 0.5em;
 }
 
+.booster_version h3[tabindex]{cursor:pointer;}
+.booster_version h3[tabindex]:focus, .booster_version h3[tabindex]:hover{text-decoration:underline;}
+
 .booster_downloads {
     background-color: #edede6;
     font-weight: bold;
@@ -449,3 +452,7 @@ div.tfoot {
     -o-border-radius:0px 0px 15px 15px;
     border-radius:0px 0px 15px 15px ;
 }
+
+
+#search-zone h2{margin-top:0;}
+#search-zone .jforms-label{font-weight:bold;}
