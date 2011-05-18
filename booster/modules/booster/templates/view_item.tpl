@@ -1,7 +1,6 @@
     <div class="box">
         <div class="block">
-            <h2>{$data->type_name}: <a href="{jurl 'booster~viewItem',array('name'=>$data->name,'id'=>$data->id)}">{$data->name}</a>
-            </h2>
+            <h3>{$data->type_name}: <a href="{jurl 'booster~viewItem',array('name'=>$data->name,'id'=>$data->id)}">{$data->name}</a></h3>
             <div class="booster_blockpost">
                 <div class="grid_16">
                     <div class="grid_4">
@@ -21,7 +20,7 @@
                         </div>
                     </div>
                     <div class="grid_9">
-                        <h3>{@booster~main.short_desc@} </h3>
+                        <h4>{@booster~main.short_desc@} </h4>
                         <div class="booster_short_desc">{$data->short_desc|wiki:'wr3_to_xhtml'}</div>
                     </div>
                     <div class="grid_3">

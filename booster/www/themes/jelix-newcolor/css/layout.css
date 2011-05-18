@@ -11,7 +11,7 @@
 .box {
     background:#fff;
 }
-#main .box h2 {
+#main .box h3 {
     -moz-border-radius:15px 15px 0 0;
     background:-moz-linear-gradient(center top , #87B2C3, #5595AF, #3C90AF) no-repeat scroll left center #3C90AF;
     -o-border-radius:15px 15px 0 0;
@@ -27,26 +27,26 @@
     vertical-align:bottom;
     z-index:50;
 }
-#main .box h2 a,
-#main .box h2 a.visible,
-#main .box h2 a.visited {color:#fff;}
+#main .box h3 a,
+#main .box h3 a.visible,
+#main .box h3 a.visited {color:#fff;}
 
-.grid_4 .box h2 a {
+.grid_4 .box h3 a {
     background-position: 97% 50%;
 }
-.grid_5 .box h2 a {
+.grid_5 .box h3 a {
     background-position: 98% 50%;
 }
-.grid_12 .box h2 a {
+.grid_12 .box h3 a {
     background-position: 99% 50%;
 }
 
 
-.box h2 a.hidden,
-.box h2 a.hidden:hover {
+.box h3 a.hidden,
+.box h3 a.hidden:hover {
     background-image: url("../img/switch_plus.gif");
 }
-.box h2 a:hover {
+.box h3 a:hover {
     background-color:#111;
 }
 
@@ -63,7 +63,7 @@
 div.menu {
     padding:0;
 }
-div.menu h2 {
+div.menu h3 {
     margin:0;
 }
 div.menu .block {

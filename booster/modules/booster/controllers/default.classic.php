@@ -183,6 +183,7 @@ class defaultCtrl extends jController {
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
         $tpl->assign('title',jLocale::get('booster~main.item.edit'));
+        $tpl->assign('legend',jLocale::get('booster~main.version.edit'));
         $tpl->assign('id',$data->id);
         $tpl->assign('form',$form);
         $tpl->assign('action','booster~saveEditItem');
@@ -242,6 +243,7 @@ class defaultCtrl extends jController {
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
         $tpl->assign('title',jLocale::get('booster~main.version.edit'));
+        $tpl->assign('legend',jLocale::get('booster~main.version.edit'));
         $tpl->assign('id',$data->id);
         $tpl->assign('form',$form);
         $tpl->assign('action','booster~saveEditVersion');

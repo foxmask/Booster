@@ -6,17 +6,17 @@
             {ctrl_label 'types'}
             {ctrl_control 'types'}
         </div>
-    
+
         <div>
             {formcontrols}
            <span>{ctrl_label}{ctrl_control}</span>
             {/formcontrols}
         </div>
-    
+
         <div>
             {formsubmit}
         </div>
     {/form}
-    
+
 
 </div>

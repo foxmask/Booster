@@ -22,7 +22,7 @@ class myHtmlResponse extends jResponseHtml {
     protected function doAfterActions() {
         global $gJConfig;
         $this->body->assignIfNone('MAIN','<p>no content</p>');
-        $this->body->assignIfNone('MENU','<p>no content</p>');
+        $this->body->assignIfNone('MENU','');
         $title = $gJConfig->booster['title'];
         if ($this->title)
             $this->title = $title . ' - ' . $this->title;
