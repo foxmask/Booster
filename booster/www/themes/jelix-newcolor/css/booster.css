@@ -274,7 +274,7 @@ clear:both;
 
 #main h1 { font-size:1.7em; color: #c03033; margin:0; }
 #main h1 a { color: #c03033; }
-#main h3 a,#main h4 a, #main h5 a { color: #002830; }
+#main h3 a,#main  a, #main h5 a { color: #002830; }
 #main h1 a.anchor { color: #c03033; text-decoration:none;}
 #main h3 a.anchor,#main h4 a.anchor, #main h5 a.anchor { color: #002830; text-decoration:none; }
 #main h2 { color: #802022;  margin:1em 0 0.5em 0; font-size:1.5em;}
@@ -313,12 +313,29 @@ clear:both;
     padding-left: 0.5em;
 }
 
-.booster_version h3[tabindex]{cursor:pointer;}
-.booster_version h3[tabindex]:focus, .booster_version h3[tabindex]:hover{text-decoration:underline;}
+#main .booster_version h4  {
+    cursor:pointer;
+    background-color: #802022;
+    color: #fff;
+    border: 1px solid #FFFFFF;
+    border-radius: 5px 0 5px 0;
+    font-size: large;
+    padding: 5px;
+}
+
+/*.booster_version h4[tabindex]{cursor:pointer;}*/
+
+.booster_version h4[tabindex]:focus,
+.booster_version h4[tabindex]:hover{
+    text-decoration:underline;
+}
+
 
 .booster_downloads {
     background-color: #edede6;
     font-weight: bold;
+    padding: 2px;
+    margin: 3px;
 }
 #booster_description {
     border: 1px solid #fff;

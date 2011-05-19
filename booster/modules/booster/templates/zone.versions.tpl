@@ -5,7 +5,7 @@
 
     {if $count == 1}
         {assign $count = -1}
-        <p>{@booster~main.old.versions@} : </p>
+        <h3>{@booster~main.old.versions@} : </h3>
     {/if}
 
     <div class="booster_version {if $count == 0}last-version {assign $count= 1}{/if}">
