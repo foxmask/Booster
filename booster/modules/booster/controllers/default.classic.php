@@ -43,7 +43,7 @@ class defaultCtrl extends jController {
             $dao = jDao::get('booster~boo_items');
             $tpl->assign('datas',$dao->findLastCreated($GLOBALS['gJConfig']->booster['last_items_created']));
         }
-
+        $tpl->assign('item_not_moderated','');
         $rep->body->assign('MAIN',$tpl->fetch('index'));
         $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
@@ -176,6 +176,27 @@ class defaultCtrl extends jController {
             $rep->setHttpStatus('403', 'Permission denied');
             return $rep;
         }
+        //if this item is not moderated
+        //we'll just display a page with the item + a message to inform the user
+        if ( jClasses::getService('booster~booster')->isItemModerated($id) === false ) {
+            $rep = $this->getResponse('html');
+            $rep->addJSLink($GLOBALS['gJConfig']->urlengine['basePath'].'jelix/jquery/jquery.js');
+            $tpl = new jTpl();
+
+            if(jAuth::isConnected()) {
+                $tpl->assign('current_user',jAuth::getUserSession ()->id);
+            }
+            else {
+                $tpl->assign('current_user','');
+            }
+
+            $tpl->assign('data',$data);
+            $tpl->assign('item_not_moderated',1);
+            $rep->body->assign('MAIN',$tpl->fetch('view_item'));
+            $rep->body->assign('MENU',$tpl->fetch('menu'));
+            return $rep;
+        }
+
 
         $form = jForms::create('booster~items',$data->id);
         $form->initFromDao('booster~boo_items');
@@ -186,6 +207,7 @@ class defaultCtrl extends jController {
         $tpl->assign('legend',jLocale::get('booster~main.version.edit'));
         $tpl->assign('id',$data->id);
         $tpl->assign('form',$form);
+        $tpl->assign('item_not_moderated',0);
         $tpl->assign('action','booster~saveEditItem');
         $rep->body->assign('MAIN',$tpl->fetch('edit'));
         $rep->body->assign('MENU',$tpl->fetch('menu'));
@@ -233,6 +255,26 @@ class defaultCtrl extends jController {
             $rep = $this->getResponse('html');
             $rep->bodyTpl = 'jelix~403.html';
             $rep->setHttpStatus('403', 'Permission denied');
+            return $rep;
+        }
+        //if this item is not moderated
+        //we'll just display a page with the item + a message to inform the user
+        if ( jClasses::getService('booster~booster')->isVersionModerated($id) === false ) {
+            $rep = $this->getResponse('html');
+            $rep->addJSLink($GLOBALS['gJConfig']->urlengine['basePath'].'jelix/jquery/jquery.js');
+            $tpl = new jTpl();
+
+            if(jAuth::isConnected()) {
+                $tpl->assign('current_user',jAuth::getUserSession ()->id);
+            }
+            else {
+                $tpl->assign('current_user','');
+            }
+            $data = jDao::get('booster~boo_items')->get($data->item_id);
+            $tpl->assign('data',$data);
+            $tpl->assign('item_not_moderated',1);
+            $rep->body->assign('MAIN',$tpl->fetch('view_item'));
+            $rep->body->assign('MENU',$tpl->fetch('menu'));
             return $rep;
         }
 

@@ -473,3 +473,25 @@ div.tfoot {
 
 #search-zone h2{margin-top:0;}
 #search-zone .jforms-label{font-weight:bold;}
+
+
+#item_not_moderated {
+    font-style: italic;
+    border: 1px solid #fff;
+    background:-moz-linear-gradient(top, #ffff9b,#ffff9b, #ffff9b);
+    background-color:#ffff9b;
+    background-position:center left;
+    background-repeat:no-repeat;
+    -moz-border-radius:15px 15px 15px 15px;
+    -o-border-radius:15px 15px 15px 15px;
+    -webkit-border-top-right-radius: 15px;
+    -webkit-border-top-left-radius: 15px;
+    -webkit-border-bottom-right-radius: 15px;
+    -webkit-border-bottom-left-radius: 15px;
+    border-radius:15px 15px 15px 15px;
+    -moz-box-shadow: #bbb877 3px 3px 8px 0px;
+    -webkit-box-shadow: #bbb877  3px 3px 8px;
+    -o-box-shadow: #bbb877 3px 3px 8px 0px;
+    box-shadow: #bbb877 3px 3px 8px 0px;
+    padding: 10px;
+}

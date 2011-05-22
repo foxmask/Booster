@@ -43,6 +43,7 @@ class itemsCtrl extends jController {
         $form->setData('id',$this->intParam('id'));
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
+        $tpl->assign('id',$this->intParam('id'));
         $tpl->assign('title',jLocale::get('boosteradmin~admin.item.validation.or.modification'));
         $tpl->assign('form',$form);
         $tpl->assign('action','boosteradmin~items:savenew');
@@ -84,6 +85,7 @@ class itemsCtrl extends jController {
         $form->setData('id',$this->intParam('id'));
         $tpl = new jTpl();
         $rep = $this->getResponse('html');
+        $tpl->assign('id',$this->intParam('id'));
         $tpl->assign('title',jLocale::get('boosteradmin~admin.item.validation.or.modification'));
         $tpl->assign('form',$form);
         $tpl->assign('action','boosteradmin~items:savemod');

@@ -6,6 +6,6 @@
         <event name="masteradminGetInfoBoxContent"/>
     </listener>
     <listener name="boosteradmin">
-         <event name="BoosterTaskTodo" />
+         <event name="BoosterAdminTaskTodo" />
     </listener>
 </events>
