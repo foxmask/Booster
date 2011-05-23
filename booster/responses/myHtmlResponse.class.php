@@ -20,7 +20,7 @@ class myHtmlResponse extends jResponseHtml {
     }
 
     protected function doAfterActions() {
-        global $gJConfig;
+        global $gJConfig, $gJCoord;
         $this->body->assignIfNone('MAIN','<p>no content</p>');
         $this->body->assignIfNone('MENU','');
         $title = $gJConfig->booster['title'];
@@ -28,5 +28,14 @@ class myHtmlResponse extends jResponseHtml {
             $this->title = $title . ' - ' . $this->title;
         else
             $this->title = $title;
+            
+            
+        if(empty($gJCoord->request) OR ( $gJCoord->request->params['module'] == 'booster' AND $gJCoord->request->params['action'] == 'default:index' )) {
+            $this->body->assign('is_home', true);
+        }
+        else {
+            $this->body->assign('is_home',false);
+        }
+    
     }
 }

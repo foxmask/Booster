@@ -32,16 +32,18 @@
 </div>
 
 <div class="container_16" id="main">
-    <div class="grid_16">
-        <h1>Booster : Qu'est-ce ?</h1>
-        <p id="booster_description">
-            Booster est le portail qui vous fourni l'ensemble des ressources Jelix existantes produites par la communauté :
-            Applications, Modules, Plugins, Paquets de langage. <a href="{jurl 'booster~default:add'}">Vous pouvez, à votre tour, déposer vos propres créations</a> sur <em>Booster</em>
-        </p>
-    </div>
+    {if $is_home}
+        <div class="grid_16">
+            <h1>Booster : Qu'est-ce ?</h1>
+            <p id="booster_description">
+                Booster est le portail qui vous fourni l'ensemble des ressources Jelix existantes produites par la communauté :
+                Applications, Modules, Plugins, Paquets de langage. <a href="{jurl 'booster~default:add'}">Vous pouvez, à votre tour, déposer vos propres créations</a> sur <em>Booster</em>
+            </p>
+        </div>
+    {/if}
     <div class="clear"></div>
     <div class="grid_13">
-        <h2>Bienvenue sur Booster.</h2>
+         {if $is_home}<h2>Bienvenue sur Booster.</h2>{/if}
         {jmessage}
         {$MAIN}
     </div>

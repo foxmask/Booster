@@ -61,7 +61,6 @@
             <parameter name="user_id"/>
             <conditions>
                 <eq property="item_by" expr="$user_id" />
-                <eq property="status" value="1"/>
             </conditions>
             <order>
                 <orderitem property="created" way="asc" />

@@ -314,7 +314,6 @@ clear:both;
 }
 
 #main .booster_version h4  {
-    cursor:pointer;
     background-color: #802022;
     color: #fff;
     border: 1px solid #FFFFFF;
@@ -323,7 +322,7 @@ clear:both;
     padding: 5px;
 }
 
-/*.booster_version h4[tabindex]{cursor:pointer;}*/
+.booster_version h4[tabindex]{cursor:pointer;}
 
 .booster_version h4[tabindex]:focus,
 .booster_version h4[tabindex]:hover{
