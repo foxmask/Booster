@@ -25,8 +25,7 @@
 
         <property name="nickname" fieldname="nickname" table="usr" datatype="varchar" required="true" maxlength="80"/>
         <property name="user_id" fieldname="id" table="usr" datatype="int"/>
-        
-        <property name="id_version" fieldname="id" table="type" datatype="int" autoincrement="true"/>
+
         <property name="type_name" fieldname="type_name" table="type" datatype="varchar" required="true" maxlength="80"/>
     </record>
     <factory>
@@ -56,11 +55,23 @@
             </order>
             <limit offset="0" count="$number"/>
         </method>
-        
+
         <method name="findAllReportedBy" type="select">
             <parameter name="user_id"/>
             <conditions>
                 <eq property="item_by" expr="$user_id" />
+            </conditions>
+            <order>
+                <orderitem property="created" way="asc" />
+            </order>
+        </method>
+
+
+        <method name="findByTypeId" type="select">
+            <parameter name="type_id"/>
+            <conditions>
+                <eq property="type_id" expr="$type_id" />
+                <eq property="status" expr="1" />
             </conditions>
             <order>
                 <orderitem property="created" way="asc" />

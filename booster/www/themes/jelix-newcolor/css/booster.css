@@ -177,7 +177,7 @@ text-shadow: #aaa 0px 0px 5px;}
     text-align: center;
 }
 
-/*
+
 #topmenubar li {
     display:inline;
     padding:5px 5px 10px 5px;
@@ -187,10 +187,11 @@ text-shadow: #aaa 0px 0px 5px;}
     list-style-position:outside;
 }
 #topmenubar li a, #submenubar li a {
- color:white;
- text-decoration:none;
-  text-shadow: #002830 1px 1px 1px;
+    color:white;
+    text-decoration:none;
+    text-shadow: #002830 1px 1px 1px;
 }
+
 #topmenubar li a {
 }
 #topmenubar li a:hover{ color:white; border-bottom: solid 3px #FFA08F;}
@@ -201,7 +202,7 @@ text-shadow: #aaa 0px 0px 5px;}
 border-radius:8px 8px 0 0;
 background-color:#2b4c53; }
 
-*/
+
 #submenubar li a {
     color:white;
     text-decoration:none;

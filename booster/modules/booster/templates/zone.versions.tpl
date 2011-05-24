@@ -5,7 +5,7 @@
 
     {if $count == 1}
         {assign $count = -1}
-        <h3>{@booster~main.old.versions@} : </h3>
+        <h3 id="booter_old_version">{@booster~main.old.versions@} : </h3>
     {/if}
 
     <div class="booster_version {if $count == 0}last-version {assign $count= 1}{/if}">
@@ -34,7 +34,7 @@
 
 {/foreach}
 
-{if count($versions) >= 1}
+{if $versions->rowCount() >= 1}
     <script type="text/javascript">
     {literal}
 //<![CDATA[

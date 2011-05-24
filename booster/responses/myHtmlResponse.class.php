@@ -28,14 +28,63 @@ class myHtmlResponse extends jResponseHtml {
             $this->title = $title . ' - ' . $this->title;
         else
             $this->title = $title;
-            
-            
-        if(empty($gJCoord->request) OR ( $gJCoord->request->params['module'] == 'booster' AND $gJCoord->request->params['action'] == 'default:index' )) {
-            $this->body->assign('is_home', true);
+
+        $this->body->assign('is_home'   ,false);
+        $this->body->assign('tout'      ,false);
+        $this->body->assign('applis'    ,false);
+        $this->body->assign('modules'   ,false);
+        $this->body->assign('plugins'   ,false);
+        $this->body->assign('packlang'  ,false);
+
+        if ( array_key_exists('module', $gJCoord->request->params)
+           and $gJCoord->request->params['module'] == 'booster' ) {
+            if (array_key_exists('action',$gJCoord->request->params)) {
+                if ($gJCoord->request->params['action'] == 'default:index' ) {
+                    $this->body->assign('is_home'   ,true);
+                    $this->body->assign('tout'      ,true);
+                    $this->body->assign('applis'    ,false);
+                    $this->body->assign('modules'   ,false);
+                    $this->body->assign('plugins'   ,false);
+                    $this->body->assign('packlang'  ,false);
+                } elseif($gJCoord->request->params['action'] == 'default:applis' ) {
+                    $this->body->assign('is_home'   ,false);
+                    $this->body->assign('tout'      ,false);
+                    $this->body->assign('applis'    ,true);
+                    $this->body->assign('modules'   ,false);
+                    $this->body->assign('plugins'   ,false);
+                    $this->body->assign('packlang'  ,false);
+                } elseif($gJCoord->request->params['action'] == 'default:modules' ) {
+                    $this->body->assign('is_home'   ,false);
+                    $this->body->assign('tout'      ,false);
+                    $this->body->assign('applis'    ,false);
+                    $this->body->assign('modules'   ,true);
+                    $this->body->assign('plugins'   ,false);
+                    $this->body->assign('packlang'  ,false);
+                } elseif($gJCoord->request->params['action'] == 'default:plugins' ) {
+                    $this->body->assign('is_home'   ,false);
+                    $this->body->assign('tout'      ,false);
+                    $this->body->assign('applis'    ,false);
+                    $this->body->assign('modules'   ,false);
+                    $this->body->assign('plugins'   ,true);
+                    $this->body->assign('packlang'  ,false);
+                } elseif($gJCoord->request->params['action'] == 'default:packlang' ) {
+                    $this->body->assign('is_home'   ,false);
+                    $this->body->assign('tout'      ,false);
+                    $this->body->assign('applis'    ,false);
+                    $this->body->assign('modules'   ,false);
+                    $this->body->assign('plugins'   ,false);
+                    $this->body->assign('packlang'  ,true);
+                }
+            }
         }
         else {
-            $this->body->assign('is_home',false);
+            $this->body->assign('is_home'   ,true);
+            $this->body->assign('tout'      ,true);
+            $this->body->assign('applis'    ,false);
+            $this->body->assign('modules'   ,false);
+            $this->body->assign('plugins'   ,false);
+            $this->body->assign('packlang'  ,false);
         }
-    
+
     }
 }

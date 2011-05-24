@@ -4,7 +4,6 @@
 {meta_html csstheme 'css/nav.css'}
 {meta_html cssthemeie 'css/ie.css'}
 {meta_html cssthemeltie7 'css/ie6.css'}
-
 <div id="top-box">
     <div id="accessibility">Raccourcis :
         <a href="#content">Contenu</a> -
@@ -26,8 +25,11 @@
         <a href="{jurl 'booster~default:index'}">Jelix BOOSTER</a>
     </div>
     <ul id="submenubar">
-       <li><a href="">Liste Complete</a></li>
-       <li><a href="">Derniers ajouts</a></li>
+        <li {if $tout}class="selected"{/if}><a href="{jurl 'booster~default:index'}">Tout</a></li>
+        <li {if $applis}class="selected"{/if}><a href="{jurl 'booster~default:applis'}">Applications</a></li>
+        <li {if $modules}class="selected"{/if}><a href="{jurl 'booster~default:modules'}">Modules</a></li>
+        <li {if $plugins}class="selected"{/if}><a href="{jurl 'booster~default:plugins'}">Plugins</a></li>
+        <li {if $packlang}class="selected"{/if}><a href="{jurl 'booster~default:packlang'}">Pack de Langues</a></li>
     </ul>
 </div>
 
@@ -43,14 +45,12 @@
     {/if}
     <div class="clear"></div>
     <div class="grid_13">
-         {if $is_home}<h2>Bienvenue sur Booster.</h2>{/if}
+        {if $is_home}<h2>Bienvenue sur Booster.</h2>{/if}
         {jmessage}
         {$MAIN}
     </div>
     <div class="grid_3">
         {$MENU}
-        <br/>
-        {zone "jtags~tagscloud", array('destination'=>'booster~default:cloud', 'maxcount'=>20)}
     </div>
     <div class="clear"></div>
 </div>

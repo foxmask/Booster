@@ -31,6 +31,14 @@
 #main .box h3 a.visible,
 #main .box h3 a.visited {color:#fff;}
 
+#main .box h3#booter_old_version {
+    border-radius:15px 15px 15px 15px;
+    background:-moz-linear-gradient(top, #f2c6c8,#f2c6c8, #f2c6c8);
+    padding: 10px;
+    margin: 10px;
+}
+
+
 .grid_4 .box h3 a {
     background-position: 97% 50%;
 }

@@ -35,4 +35,9 @@
         <param name="id"  type="number"/>
     </url>
 
+    <url pathinfo="/applications" action="default:applis"/>
+    <url pathinfo="/modules" action="default:modules"/>
+    <url pathinfo="/plugins" action="default:plugins"/>
+    <url pathinfo="/packlang" action="default:packlang"/>
+
 </suburls>

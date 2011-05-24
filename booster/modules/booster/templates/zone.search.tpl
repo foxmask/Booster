@@ -1,22 +1,17 @@
-<div id="search-zone" class="booster_menu container_16">
-    <h2>{@main.search@}</h2>
-
+<div id="search-zone">
+    <h3>{@main.search@}</h3>
     {form $form, $submitAction, array('search' => true)}
         <div>
             {ctrl_label 'types'}
             {ctrl_control 'types'}
         </div>
-
         <div>
             {formcontrols}
-           <span>{ctrl_label}{ctrl_control}</span>
+           <p>{ctrl_label}{ctrl_control}</p>
             {/formcontrols}
         </div>
-
         <div>
             {formsubmit}
         </div>
     {/form}
-
-
 </div>

@@ -17,7 +17,11 @@ class defaultCtrl extends jController {
         'index' => array('auth.required'=>false),
         'viewItem' => array('auth.required'=>false),
         'search' => array('auth.required'=>false),
-        'cloud' => array('auth.required'=>false)
+        'cloud' => array('auth.required'=>false),
+        'applis' => array('auth.required'=>false),
+        'modules' => array('auth.required'=>false),
+        'plugins' => array('auth.required'=>false),
+        'packlang' => array('auth.required'=>false)
     );
     /**
      *Main Page
@@ -71,8 +75,11 @@ class defaultCtrl extends jController {
         }
 
         $rep = $this->getResponse('html');
+
         $rep->addJSLink($GLOBALS['gJConfig']->urlengine['basePath'].'jelix/jquery/jquery.js');
         $tpl->assign('data',$data);
+        $rep->title = $data->name;
+        $tpl->assign('item_not_moderated','');
         $rep->body->assign('MAIN',$tpl->fetch('view_item'));
         $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
@@ -82,7 +89,7 @@ class defaultCtrl extends jController {
      */
     function add() {
         $rep = $this->getResponse('html');
-        $rep->title .= jLocale::get('booster~main.add.an.item');
+        $rep->title = jLocale::get('booster~main.add.an.item');
         $form = jForms::create('booster~items');
         $form->setData('item_by',jAuth::getUserSession()->id);
         $tpl = new jTpl();
@@ -119,7 +126,7 @@ class defaultCtrl extends jController {
      */
     function addVersion() {
         $rep = $this->getResponse('html');
-        $rep->title .= jLocale::get('booster~main.add.a.version');
+        $rep->title = jLocale::get('booster~main.add.a.version');
         $form = jForms::create('booster~version');
         $form->setData('item_by',jAuth::getUserSession()->id);
         $form->setData('item_id',$this->intParam('id'));
@@ -348,9 +355,93 @@ class defaultCtrl extends jController {
         }
         $tpl->assign('items',$items);
         $tpl->assign('tag',$tag);
+        $tpl->assign('item_not_moderated',0);
         $rep->body->assign('MAIN', $tpl->fetch('tag'));
         $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
     }
+    /**
+     * Display the list of type of ...
+     */
 
+    /**
+     * ... applications
+     */
+    function applis () {
+        $rep = $this->getResponse('html');
+        $rep->title = jLocale::get('booster~main.applis.list');
+        $datas = jDao::get('booster~boo_items')->findByTypeId(1);
+        $tpl = new jTpl();
+        if(jAuth::isConnected()) {
+            $tpl->assign('current_user',jAuth::getUserSession ()->id);
+        }
+        else {
+            $tpl->assign('current_user','');
+        }
+        $tpl->assign('datas', $datas);
+        $tpl->assign('item_not_moderated','');
+        $rep->body->assign('MAIN',$tpl->fetch('index'));
+        $rep->body->assign('MENU',$tpl->fetch('menu'));
+        return $rep;
+    }
+    /**
+     * ... modules
+     */
+    function modules () {
+        $rep = $this->getResponse('html');
+        $rep->title = jLocale::get('booster~main.modules.list');
+        $datas = jDao::get('booster~boo_items')->findByTypeId(2);
+        $tpl = new jTpl();
+        if(jAuth::isConnected()) {
+            $tpl->assign('current_user',jAuth::getUserSession ()->id);
+        }
+        else {
+            $tpl->assign('current_user','');
+        }
+        $tpl->assign('datas', $datas);
+        $tpl->assign('item_not_moderated','');
+        $rep->body->assign('MAIN',$tpl->fetch('index'));
+        $rep->body->assign('MENU',$tpl->fetch('menu'));
+        return $rep;
+    }
+    /**
+     * ... plugins
+     */
+    function plugins () {
+        $rep = $this->getResponse('html');
+        $rep->title = jLocale::get('booster~main.plugins.list');
+        $datas = jDao::get('booster~boo_items')->findByTypeId(3);
+        $tpl = new jTpl();
+        if(jAuth::isConnected()) {
+            $tpl->assign('current_user',jAuth::getUserSession ()->id);
+        }
+        else {
+            $tpl->assign('current_user','');
+        }
+        $tpl->assign('datas', $datas);
+        $tpl->assign('item_not_moderated','');
+        $rep->body->assign('MAIN',$tpl->fetch('index'));
+        $rep->body->assign('MENU',$tpl->fetch('menu'));
+        return $rep;
+    }
+    /**
+     * ... packlang
+     */
+    function packlang () {
+        $rep = $this->getResponse('html');
+        $rep->title = jLocale::get('booster~main.packlang.list');
+        $datas = jDao::get('booster~boo_items')->findByTypeId(4);
+        $tpl = new jTpl();
+        if(jAuth::isConnected()) {
+            $tpl->assign('current_user',jAuth::getUserSession ()->id);
+        }
+        else {
+            $tpl->assign('current_user','');
+        }
+        $tpl->assign('datas', $datas);
+        $tpl->assign('item_not_moderated','');
+        $rep->body->assign('MAIN',$tpl->fetch('index'));
+        $rep->body->assign('MENU',$tpl->fetch('menu'));
+        return $rep;
+    }
 }
