@@ -1,7 +1,6 @@
-{meta_html csstheme 'css/grid.css'}
-{meta_html csstheme 'css/layout.css'}
+{meta_html csstheme 'css/reset.css'}
+{meta_html csstheme 'css/text.css'}
 {meta_html csstheme 'css/booster.css'}
-{meta_html csstheme 'css/nav.css'}
 {meta_html cssthemeie 'css/ie.css'}
 {meta_html cssthemeltie7 'css/ie6.css'}
 <div id="top-box">
@@ -24,35 +23,34 @@
     <div id="topmenubar">
         <a href="{jurl 'booster~default:index'}">Jelix BOOSTER</a>
     </div>
-    <ul id="submenubar">
-        <li {if $tout}class="selected"{/if}><a href="{jurl 'booster~default:index'}">Tout</a></li>
-        <li {if $applis}class="selected"{/if}><a href="{jurl 'booster~default:applis'}">Applications</a></li>
-        <li {if $modules}class="selected"{/if}><a href="{jurl 'booster~default:modules'}">Modules</a></li>
-        <li {if $plugins}class="selected"{/if}><a href="{jurl 'booster~default:plugins'}">Plugins</a></li>
-        <li {if $packlang}class="selected"{/if}><a href="{jurl 'booster~default:packlang'}">Pack de Langues</a></li>
-    </ul>
+    <div id="submenubar">
+        <ul>
+            <li {if $tout}class="selected"{/if}><a href="{jurl 'booster~default:index'}">Tout</a></li>
+            <li {if $applis}class="selected"{/if}><a href="{jurl 'booster~default:applis'}">Applications</a></li>
+            <li {if $modules}class="selected"{/if}><a href="{jurl 'booster~default:modules'}">Modules</a></li>
+            <li {if $plugins}class="selected"{/if}><a href="{jurl 'booster~default:plugins'}">Plugins</a></li>
+            <li {if $packlang}class="selected"{/if}><a href="{jurl 'booster~default:packlang'}">Pack de Langues</a></li>
+        </ul>
+        {zone 'jcommunity~status'}
+    </div>
 </div>
 
-<div class="container_16" id="main">
-    {if $is_home}
-        <div class="grid_16">
-            <h1>Booster : Qu'est-ce ?</h1>
-            <p id="booster_description">
-                Booster est le portail qui vous fourni l'ensemble des ressources Jelix existantes produites par la communauté :
-                Applications, Modules, Plugins, Paquets de langage. <a href="{jurl 'booster~default:add'}">Vous pouvez, à votre tour, déposer vos propres créations</a> sur <em>Booster</em>
-            </p>
-        </div>
-    {/if}
-    <div class="clear"></div>
-    <div class="grid_13">
+<div id="main">
+{if $is_home}
+    <h1>Booster : Qu'est-ce ?</h1>
+    <p id="booster_description">
+        Booster est le portail qui vous fourni l'ensemble des ressources Jelix existantes produites par la communauté :
+        Applications, Modules, Plugins, Paquets de langage. <a href="{jurl 'booster~default:add'}">Vous pouvez, à votre tour, déposer vos propres créations</a> sur <em>Booster</em>
+    </p>
+{/if}
+    <div id="content-menu">
+        {$MENU}
+    </div>
+    <div id="content">
         {if $is_home}<h2>Bienvenue sur Booster.</h2>{/if}
         {jmessage}
         {$MAIN}
     </div>
-    <div class="grid_3">
-        {$MENU}
-    </div>
-    <div class="clear"></div>
 </div>
 
 <div id="footer" class="full">

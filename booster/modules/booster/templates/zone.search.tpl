@@ -1,5 +1,5 @@
 <div id="search-zone">
-    <h3>{@main.search@}</h3>
+    <h2>{@main.search@}</h2>
     {form $form, $submitAction, array('search' => true)}
         <div>
             {ctrl_label 'types'}

@@ -1,17 +1,9 @@
-
-/* 960 grid system container background
------------------------------------------------ */
-.container_12,
-.container_16 {
-    background:#fff;
-}
-
 /* boxes
 ----------------------------------------------- */
 .box {
     background:#fff;
 }
-#main .box h3 {
+#main h3 {
     -moz-border-radius:15px 15px 0 0;
     background:-moz-linear-gradient(center top , #87B2C3, #5595AF, #3C90AF) no-repeat scroll left center #3C90AF;
     -o-border-radius:15px 15px 0 0;
@@ -27,11 +19,11 @@
     vertical-align:bottom;
     z-index:50;
 }
-#main .box h3 a,
-#main .box h3 a.visible,
-#main .box h3 a.visited {color:#fff;}
+#main h3 a,
+#main h3 a.visible,
+#main h3 a.visited {color:#fff;}
 
-#main .box h3#booter_old_version {
+#main h3#booter_old_version {
     border-radius:15px 15px 15px 15px;
     background:-moz-linear-gradient(top, #f2c6c8,#f2c6c8, #f2c6c8);
     padding: 10px;
@@ -39,33 +31,16 @@
 }
 
 
-.grid_4 .box h3 a {
-    background-position: 97% 50%;
-}
-.grid_5 .box h3 a {
-    background-position: 98% 50%;
-}
-.grid_12 .box h3 a {
-    background-position: 99% 50%;
-}
-
-
-.box h3 a.hidden,
-.box h3 a.hidden:hover {
+h3 a.hidden,
+h3 a.hidden:hover {
     background-image: url("../img/switch_plus.gif");
 }
-.box h3 a:hover {
+h3 a:hover {
     background-color:#111;
 }
 
-.box h3 {
+h3 {
     background-color: #f9f9f7;
-}
-
-.block {
-    background-color: #fff;
-    border:2px solid #fff;
-    margin: auto;
 }
 
 div.menu {
