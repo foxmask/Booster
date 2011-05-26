@@ -1,4 +1,5 @@
-﻿<p>You can use wiki syntax in your message:</p>
+﻿<div id="syntax_wiki">
+<p>You can use wiki syntax in your message:</p>
 <ul>
   <li><b>source code bloc</b>: insert the source code between <code>&lt;code&gt;</code> and <code>&lt;/code&gt;</code></li>
   <li><b>List</b>: each line should begin by one or several <code>*</code>, <code>-</code> or <code>#</code> for numerical list</li>
@@ -22,3 +23,4 @@
   <li><b>cite</b>: <code>^^</code>sentence<code>|</code>lang<code>|</code>link of source<code>^^</code></li>
   <li><b>acronym</b>: <code>??</code>acronym<code>|</code>explanation<code>??</code></li>
 </ul>
+</div>

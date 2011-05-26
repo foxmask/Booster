@@ -5,11 +5,11 @@
 
     {if $count == 1}
         {assign $count = -1}
-        <h3 id="booter_old_version">{@booster~main.old.versions@} : </h3>
+        <h4 id="booter_old_version">{@booster~main.old.versions@} : </h4>
     {/if}
 
     <div class="booster_version {if $count == 0}last-version {assign $count= 1}{/if}">
-        <h4>{$version->version_name} ({$version->stability})</h4>
+        <h5>{$version->version_name} ({$version->stability})</h5>
         <div class="body">
             <div class="booster_created">
                 {@booster~main.created@} {$version->created|jdatetime:'db_datetime','lang_datetime'}
@@ -23,7 +23,7 @@
                 {/if}
             </div>
             <div class="booster_postbody">
-                <h5>{@booster~main.last_changes@}</h5>
+                <p>{@booster~main.last_changes@}</p>
                 <blockquote>{$version->last_changes|wiki:'wr3_to_xhtml'}</blockquote>
             </div>
             <div class="booster_downloads">
@@ -42,7 +42,7 @@
             $otherVersions = $('.booster_version:not(.last-version)');
             $otherVersions.find('.body').hide();
 
-            $otherVersions.find('h4').bind('click keypress', function(event){
+            $otherVersions.find('h5').bind('click keypress', function(event){
                 if(event.type == 'click' || (event.type == 'keypress' && event.which == 13)){
                     $(this).next('.body').slideToggle();
                 }

@@ -51,6 +51,7 @@
         {jmessage}
         {$MAIN}
     </div>
+    <div class="clear"></div>
 </div>
 
 <div id="footer" class="full">

@@ -1,4 +1,5 @@
-﻿<p>Vous pouvez utilisez la syntaxe wiki pour mettre en forme vos messages&nbsp;:</p>
+﻿<div id="syntax_wiki">
+<p>Vous pouvez utilisez la syntaxe wiki pour mettre en forme vos messages&nbsp;:</p>
 <ul>
   <li><b>bloc code source</b> :  encadrer le bloc de code source par <code>&lt;code&gt;</code> et <code>&lt;/code&gt;</code> (les balises wiki ne sont pas interprétées)</li>
   <li><b>Liste</b> : chaque ligne doit débuter par une ou plusieurs <code>*</code> ou <code>-</code> (liste simple) ou <code>#</code> (liste numérotée)</li>
@@ -25,3 +26,4 @@
   <li><b>citation</b> : <code>^^</code>phrase<code>|</code>langue<code>|</code>lien source<code>^^</code></li>
   <li><b>acronyme</b> : <code>??</code>acronyme<code>|</code>signification<code>??</code></li>
 </ul>
+</div>

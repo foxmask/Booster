@@ -56,4 +56,3 @@
     {zone "booster~versions",array('id'=>$data->id, 'canEditVersion' => $canEditVersion)}
 </div>
 <div class="booster_itemfoot">&nbsp;</div>
-

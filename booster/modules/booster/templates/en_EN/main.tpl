@@ -50,8 +50,8 @@
         {if $is_home}<h2>Welcome to Booster.</h2>{/if}
         {jmessage}
         {$MAIN}
-        <p style="clear: both;"/>
     </div>
+    <div class="clear"></div>
 </div>
 
 <div id="footer" class="full">
