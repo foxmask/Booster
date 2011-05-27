@@ -27,7 +27,7 @@
         <a href="{jurl 'booster~default:index'}">Jelix BOOSTER</a>
     </div>
     <div id="submenubar">
-        <ul>
+        <ul id="booster_action">
             <li {if $tout}class="selected"{/if}><a href="{jurl 'booster~default:index'}">Tout</a></li>
             <li {if $applis}class="selected"{/if}><a href="{jurl 'booster~default:applis'}">Applications</a></li>
             <li {if $modules}class="selected"{/if}><a href="{jurl 'booster~default:modules'}">Modules</a></li>

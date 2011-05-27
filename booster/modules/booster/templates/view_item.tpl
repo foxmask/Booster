@@ -1,4 +1,4 @@
-<h3>{$data->type_name}: <a href="{jurl 'booster~viewItem',array('name'=>$data->name,'id'=>$data->id)}">{$data->name}</a></h3>
+<h3>{$data->type_name}: <a href="{jurl 'booster~viewItem',array('name'=>$data->name,'id'=>$data->id)}">{$data->name}</a> {if $item_not_moderated}(Non validé){/if}</h3>
 <div class="booster_item">
     <div class="booster_itemauthor">
         <ul class="member-ident">

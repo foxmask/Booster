@@ -66,12 +66,20 @@ class defaultCtrl extends jController {
         }
 
         $data = jDao::get('booster~boo_items')->get( $this->param('id') );
-
-        if ($data->status == 0) {
-            $rep = $this->getResponse('html',true);
-            $rep->bodyTpl = 'jelix~404.html';
-            $rep->setHttpStatus('404', 'Not Found');
-            return $rep;
+        // is the current user the author or the admin ?
+        if ($data->user_id == jAuth::getUserSession ()->id or
+            jAcl2::check('booster.admin.index') ) {
+            //so let's warn him if the item is moderated or not
+            $tpl->assign('item_not_moderated',!$data->status);
+        //if he is not ; and the status is "not moderated" we dont display the item => 404
+        } else {
+            if ($data->status == 0) {
+                $rep = $this->getResponse('html',true);
+                $rep->bodyTpl = 'jelix~404.html';
+                $rep->setHttpStatus('404', 'Not Found');
+                return $rep;
+            }
+            $tpl->assign('item_not_moderated',$data->status);
         }
 
         $rep = $this->getResponse('html');
@@ -79,7 +87,6 @@ class defaultCtrl extends jController {
         $rep->addJSLink($GLOBALS['gJConfig']->urlengine['basePath'].'jelix/jquery/jquery.js');
         $tpl->assign('data',$data);
         $rep->title = $data->name;
-        $tpl->assign('item_not_moderated','');
         $rep->body->assign('MAIN',$tpl->fetch('view_item'));
         $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
@@ -444,8 +451,8 @@ class defaultCtrl extends jController {
         $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
     }
-    
-    
+
+
     function yourressources () {
         $rep = $this->getResponse('html');
         $rep->title = jLocale::get('booster~main.your.ressources');

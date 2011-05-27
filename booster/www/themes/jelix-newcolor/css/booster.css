@@ -219,15 +219,16 @@ text-shadow: #aaa 0px 0px 5px;}
     -webkit-border-bottom-right-radius: 15px;
     -o-border-radius:0px 0px 15px 15px;
     border-radius:0px 0px 15px 15px ;
-        height: 20px;
+    height: 20px;
 }
 
 #submenubar ul {
-    width: 50%;
-    float:left;
     font-size: 0.9em;
 }
-
+#submenubar ul#booster_action {
+    text-align: left;
+    float:left;
+}
 #submenubar ul#login-status {
     text-align: right;
     clear: right;
@@ -235,6 +236,7 @@ text-shadow: #aaa 0px 0px 5px;}
 #submenubar ul#login-status li#connected {
     color: #FFA08F;
 }
+
 #submenubar li a {
     color:white;
     text-decoration:none;
@@ -533,7 +535,6 @@ text-shadow: #aaa 0px 0px 5px;}
 
 
 #item_not_moderated {
-    width: 100%;
     float: left;
     font-style: italic;
     border: 1px solid #fff;
@@ -580,7 +581,7 @@ text-shadow: #aaa 0px 0px 5px;}
     display:none;
     margin:0;
     padding:0;
-    
+
     position:absolute;
     top:25px;
     left:0;
