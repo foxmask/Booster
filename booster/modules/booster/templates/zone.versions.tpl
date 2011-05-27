@@ -1,6 +1,5 @@
-{meta_html js $j_jelixwww.'jquery/jquery.js'}
 {assign $count = 0}
-<div class="booster_version">
+<div class="booster_versions">
 {foreach $versions as $version}
 
     {if $count == 1}

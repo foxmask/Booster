@@ -11,7 +11,23 @@
 class reportedZone extends jZone {
     protected $_tplname='zone.reported';
 
+    protected $number_to_display = 5;
+
+
     protected function _prepareTpl(){
-        $this->_tpl->assign('items', jDao::get('boo_items')->findAllReportedBy(jAuth::getUserSession ()->id));
+        
+        $datas = jDao::get('boo_items')->findAllReportedBy(jAuth::getUserSession ()->id);
+        
+        $items= array(); $i = 0;
+        foreach($datas as $data){
+            if($i >= $this->number_to_display)
+                break;
+            $items[] = $data;
+            $i++;
+        }
+        
+        $this->_tpl->assign('more', $i == $this->number_to_display);
+        $this->_tpl->assign('selected', $this->param('selected', false));
+        $this->_tpl->assign('items', $items);
     }
 }

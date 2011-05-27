@@ -225,7 +225,7 @@ text-shadow: #aaa 0px 0px 5px;}
 #submenubar ul {
     width: 50%;
     float:left;
-    font-size: 0.8em;
+    font-size: 0.9em;
 }
 
 #submenubar ul#login-status {
@@ -508,6 +508,7 @@ text-shadow: #aaa 0px 0px 5px;}
     border-radius: 5px 0 5px 0;
     font-size: large;
     padding: 5px;
+    display:inline-block;
 }
 
 .booster_version h5[tabindex]{cursor:pointer;}
@@ -571,3 +572,24 @@ text-shadow: #aaa 0px 0px 5px;}
     margin: 0.5em 0.5em 1.5em;
     padding: 5px;
 }
+
+#my-items{
+    position:relative;
+}
+#my-items ul{
+    display:none;
+    margin:0;
+    padding:0;
+    
+    position:absolute;
+    top:25px;
+    left:0;
+   width:150px;
+}
+#my-items li{
+    display:block;
+    margin:0;
+    background: #082D35;
+    background: rgba(8,45,53,0.8);
+}
+#my-items li a{border:none !important;}

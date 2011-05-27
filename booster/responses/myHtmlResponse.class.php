@@ -25,16 +25,17 @@ class myHtmlResponse extends jResponseHtml {
         $this->body->assignIfNone('MENU','');
         $title = $gJConfig->booster['title'];
         if ($this->title)
-            $this->title = $title . ' - ' . $this->title;
+            $this->title = $this->title .' | '. $title;
         else
             $this->title = $title;
 
-        $this->body->assign('is_home'   ,false);
-        $this->body->assign('tout'      ,false);
-        $this->body->assign('applis'    ,false);
-        $this->body->assign('modules'   ,false);
-        $this->body->assign('plugins'   ,false);
-        $this->body->assign('packlang'  ,false);
+        $this->body->assign('is_home', false);
+        $this->body->assign('tout', false);
+        $this->body->assign('applis', false);
+        $this->body->assign('modules', false);
+        $this->body->assign('plugins', false);
+        $this->body->assign('packlang', false);
+         $this->body->assign('your_ressources', false);
 
         if ( array_key_exists('module', $gJCoord->request->params)
            and $gJCoord->request->params['module'] == 'booster' ) {
@@ -42,48 +43,22 @@ class myHtmlResponse extends jResponseHtml {
                 if ($gJCoord->request->params['action'] == 'default:index' ) {
                     $this->body->assign('is_home'   ,true);
                     $this->body->assign('tout'      ,true);
-                    $this->body->assign('applis'    ,false);
-                    $this->body->assign('modules'   ,false);
-                    $this->body->assign('plugins'   ,false);
-                    $this->body->assign('packlang'  ,false);
                 } elseif($gJCoord->request->params['action'] == 'default:applis' ) {
-                    $this->body->assign('is_home'   ,false);
-                    $this->body->assign('tout'      ,false);
                     $this->body->assign('applis'    ,true);
-                    $this->body->assign('modules'   ,false);
-                    $this->body->assign('plugins'   ,false);
-                    $this->body->assign('packlang'  ,false);
                 } elseif($gJCoord->request->params['action'] == 'default:modules' ) {
-                    $this->body->assign('is_home'   ,false);
-                    $this->body->assign('tout'      ,false);
-                    $this->body->assign('applis'    ,false);
                     $this->body->assign('modules'   ,true);
-                    $this->body->assign('plugins'   ,false);
-                    $this->body->assign('packlang'  ,false);
                 } elseif($gJCoord->request->params['action'] == 'default:plugins' ) {
-                    $this->body->assign('is_home'   ,false);
-                    $this->body->assign('tout'      ,false);
-                    $this->body->assign('applis'    ,false);
-                    $this->body->assign('modules'   ,false);
                     $this->body->assign('plugins'   ,true);
-                    $this->body->assign('packlang'  ,false);
                 } elseif($gJCoord->request->params['action'] == 'default:packlang' ) {
-                    $this->body->assign('is_home'   ,false);
-                    $this->body->assign('tout'      ,false);
-                    $this->body->assign('applis'    ,false);
-                    $this->body->assign('modules'   ,false);
-                    $this->body->assign('plugins'   ,false);
                     $this->body->assign('packlang'  ,true);
+                } elseif($gJCoord->request->params['action'] == 'default:yourressources' ) {
+                    $this->body->assign('your_ressources'  ,true);
                 }
             }
         }
         else {
             $this->body->assign('is_home'   ,true);
             $this->body->assign('tout'      ,true);
-            $this->body->assign('applis'    ,false);
-            $this->body->assign('modules'   ,false);
-            $this->body->assign('plugins'   ,false);
-            $this->body->assign('packlang'  ,false);
         }
 
     }

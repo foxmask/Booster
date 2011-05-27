@@ -444,4 +444,17 @@ class defaultCtrl extends jController {
         $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
     }
+    
+    
+    function yourressources () {
+        $rep = $this->getResponse('html');
+        $rep->title = jLocale::get('booster~main.your.ressources');
+        $datas = jDao::get('booster~boo_items')->findAllReportedBy(jAuth::getUserSession ()->id);
+        $tpl = new jTpl();
+
+        $tpl->assign('datas', $datas);
+        $rep->body->assign('MAIN',$tpl->fetch('your_ressources'));
+        $rep->body->assign('MENU',$tpl->fetch('menu'));
+        return $rep;
+    }
 }

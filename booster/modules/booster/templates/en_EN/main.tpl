@@ -3,6 +3,9 @@
 {meta_html csstheme 'css/booster.css'}
 {meta_html cssthemeie 'css/ie.css'}
 {meta_html cssthemeltie7 'css/ie6.css'}
+
+{meta_html js $j_jelixwww.'jquery/jquery.js'}
+
 <div id="top-box">
     <div id="accessibility">Quick links:
         <a href="#content">Content</a> -
@@ -30,6 +33,10 @@
             <li {if $modules}class="selected"{/if}><a href="{jurl 'booster~default:modules'}">Modules</a></li>
             <li {if $plugins}class="selected"{/if}><a href="{jurl 'booster~default:plugins'}">Plugins</a></li>
             <li {if $packlang}class="selected"{/if}><a href="{jurl 'booster~default:packlang'}">Languages Pack</a></li>
+        
+        {ifuserconnected}
+            {zone 'booster~reported', array('selected' => $your_ressources)}
+        {/ifuserconnected}
         </ul>
         {zone 'jcommunity~status'}
     </div>
