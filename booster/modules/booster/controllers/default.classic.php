@@ -79,7 +79,8 @@ class defaultCtrl extends jController {
                 $rep->setHttpStatus('404', 'Not Found');
                 return $rep;
             }
-            $tpl->assign('item_not_moderated',$data->status);
+            //we dont have to display the status of the item to somebody else.
+            $tpl->assign('item_not_moderated','');
         }
 
         $rep = $this->getResponse('html');

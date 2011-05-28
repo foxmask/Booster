@@ -138,10 +138,7 @@ text-shadow: #aaa 0px 0px 5px;}
   text-transform: uppercase;
 }
 
-
 #header { margin:10px 0 0 160px; padding:0 5px 1em 5px; }
-
-
 
 #topmenubar {
     color:white;
@@ -228,13 +225,6 @@ text-shadow: #aaa 0px 0px 5px;}
 #submenubar ul#booster_action {
     text-align: left;
     float:left;
-}
-#submenubar ul#login-status {
-    text-align: right;
-    clear: right;
-}
-#submenubar ul#login-status li#connected {
-    color: #FFA08F;
 }
 
 #submenubar li a {
@@ -335,7 +325,6 @@ text-shadow: #aaa 0px 0px 5px;}
     padding-right: 5px;
     width: 12%;
 }
-
 
 #content {
     border-left: 2px solid #D8E1E4;
@@ -574,14 +563,11 @@ text-shadow: #aaa 0px 0px 5px;}
     padding: 5px;
 }
 
-#my-items, #my-status {
+#my-items {
     position:relative;
 }
-#my-status {
-    text-align: left;
-    color: #FFA08F;
-}
-#my-items ul, #my-status ul{
+
+#my-items ul{
     display:none;
     margin:0;
     padding:0;
@@ -590,10 +576,31 @@ text-shadow: #aaa 0px 0px 5px;}
     left:0;
     width:150px;
 }
-#my-items li, #my-status li {
+#my-items li{
     display:block;
     margin:0;
     background: #082D35;
     background: rgba(8,45,53,0.8);
 }
-#my-items li a, , #my-status li a{border:none !important;}
+#my-items li a {border:none !important;}
+
+table td {
+    padding: 5px;
+}
+
+input.jforms-required,textarea.jforms-required,select.jforms-required {
+    background-color: #eff4f6;
+    color : #002830;
+}
+
+legend {
+    color : #002830;
+}
+
+#submenubar ul#login-status {
+    text-align: right;
+    clear: right;
+}
+#submenubar ul#login-status li#connected {
+    color: #FFA08F;
+}
