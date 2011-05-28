@@ -40,4 +40,7 @@
     <url pathinfo="/plugins" action="default:plugins"/>
     <url pathinfo="/packlang" action="default:packlang"/>
 
+    <url pathinfo="/yourressources" action="default:yourressources"/>
+
+
 </suburls>

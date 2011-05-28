@@ -1,4 +1,4 @@
-<h3>{$data->type_name}: <a href="{jurl 'booster~viewItem',array('name'=>$data->name,'id'=>$data->id)}">{$data->name}</a> {if $item_not_moderated}(Non validé){/if}</h3>
+<h3>{$data->type_name}: <a href="{jurl 'booster~viewItem',array('name'=>$data->name,'id'=>$data->id)}">{$data->name}</a> {if $item_not_moderated || $data->status == 0}(Non validé){/if}</h3>
 <div class="booster_item">
     <div class="booster_itemauthor">
         <ul class="member-ident">
@@ -37,20 +37,24 @@
     </div>
     <div class="booster_itemaction">&nbsp;
         {assign $canEditVersion = false}
-        {if $data->item_by == $current_user}
-            {assign $canEditVersion = true}
-        <a href="{jurl 'booster~editItem',array('id'=>$data->id,'name'=>$data->name)}">{@booster~main.edit.item@}</a>
-        {else}
-            {ifacl2 'booster.edit.item'}
-        <a href="{jurl 'booster~editItem',array('id'=>$data->id,'name'=>$data->name)}">{@booster~main.edit.item@}</a>
-            {/ifacl2}
-        {/if}
-        {if $data->item_by == $current_user}
-        <a href="{jurl 'booster~addVersion',array('id'=>$data->id,'name'=>$data->name)}">{@booster~main.add.a.version@}</a>
-        {else}
-            {ifacl2 'booster.edit.version'}
-        <a href="{jurl 'booster~addVersion',array('id'=>$data->id,'name'=>$data->name)}">{@booster~main.add.a.version@}</a>
-            {/ifacl2}
+        
+        {if !$item_not_moderated}
+            {if $data->item_by == $current_user}
+                {assign $canEditVersion = true}
+            <a href="{jurl 'booster~editItem',array('id'=>$data->id,'name'=>$data->name)}">{@booster~main.edit.item@}</a>
+            {else}
+                {ifacl2 'booster.edit.item'}
+            <a href="{jurl 'booster~editItem',array('id'=>$data->id,'name'=>$data->name)}">{@booster~main.edit.item@}</a>
+                {/ifacl2}
+            {/if}
+       
+            {if $data->item_by == $current_user}
+            <a href="{jurl 'booster~addVersion',array('id'=>$data->id,'name'=>$data->name)}">{@booster~main.add.a.version@}</a>
+            {else}
+                {ifacl2 'booster.edit.version'}
+            <a href="{jurl 'booster~addVersion',array('id'=>$data->id,'name'=>$data->name)}">{@booster~main.add.a.version@}</a>
+                {/ifacl2}
+            {/if}
         {/if}
     </div>
     {zone "booster~versions",array('id'=>$data->id, 'canEditVersion' => $canEditVersion)}

@@ -543,6 +543,8 @@ text-shadow: #aaa 0px 0px 5px;}
     -o-box-shadow: #bbb877 3px 3px 8px 0px;
     box-shadow: #bbb877 3px 3px 8px 0px;
     padding: 10px;
+    z-index:10;
+    position:relative;
 }
 
 .jforms-chkbox {
@@ -581,6 +583,8 @@ text-shadow: #aaa 0px 0px 5px;}
     margin:0;
     background: #082D35;
     background: rgba(8,45,53,0.8);
+    z-index:20;
+    position:relative;
 }
 #my-items li a {border:none !important;}
 
