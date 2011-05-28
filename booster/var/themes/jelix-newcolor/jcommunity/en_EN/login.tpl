@@ -2,10 +2,10 @@
 <h1>Authentification</h1>
 {ifuserconnected}
 
-    {$login}, vous êtes connecté.
+    {$login}, you are connected.
     <div class="loginbox-links">
-        (<a href="{jurl 'jcommunity~login:out'}">déconnexion</a>,
-        <a href="{jurl 'jcommunity~account:show', array('user'=>$login)}">votre compte</a>)
+        (<a href="{jurl 'jcommunity~login:out'}">Logout</a>,
+        <a href="{jurl 'jcommunity~account:show', array('user'=>$login)}">Your account</a>)
     </div>
 
 {else}
@@ -24,8 +24,8 @@
     {/form}
 
      <div class="loginbox-links">
-        (<a href="{jurl 'jcommunity~registration:index'}">S'inscrire</a>,
-        <a href="{jurl 'jcommunity~password:index'}">mot de passe oublié</a>)
+        (<a href="{jurl 'jcommunity~registration:index'}">Register</a>, 
+        <a href="{jurl 'jcommunity~password:index'}">Forgotten password</a>)
      </div>
 
 {/ifuserconnected}

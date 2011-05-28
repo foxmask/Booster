@@ -11,8 +11,8 @@
 {else}
 
     {form $form, 'jcommunity~login:in'}
-      <div> {ctrl_label 'auth_login'} {ctrl_control 'auth_login'} </div>
-      <div> {ctrl_label 'auth_password'} {ctrl_control 'auth_password'} </div>
+      <p> {ctrl_label 'auth_login'} {ctrl_control 'auth_login'} </p>
+      <p> {ctrl_label 'auth_password'} {ctrl_control 'auth_password'} </p>
       {if $persistance_ok}
           <div> {ctrl_label 'auth_remember_me'} {ctrl_control 'auth_remember_me'} </div>
       {/if}

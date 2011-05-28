@@ -574,23 +574,26 @@ text-shadow: #aaa 0px 0px 5px;}
     padding: 5px;
 }
 
-#my-items{
+#my-items, #my-status {
     position:relative;
 }
-#my-items ul{
+#my-status {
+    text-align: left;
+    color: #FFA08F;
+}
+#my-items ul, #my-status ul{
     display:none;
     margin:0;
     padding:0;
-
     position:absolute;
     top:25px;
     left:0;
-   width:150px;
+    width:150px;
 }
-#my-items li{
+#my-items li, #my-status li {
     display:block;
     margin:0;
     background: #082D35;
     background: rgba(8,45,53,0.8);
 }
-#my-items li a{border:none !important;}
+#my-items li a, , #my-status li a{border:none !important;}

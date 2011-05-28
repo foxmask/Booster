@@ -37,23 +37,28 @@ class myHtmlResponse extends jResponseHtml {
         $this->body->assign('packlang', false);
          $this->body->assign('your_ressources', false);
 
-        if ( array_key_exists('module', $gJCoord->request->params)
-           and $gJCoord->request->params['module'] == 'booster' ) {
-            if (array_key_exists('action',$gJCoord->request->params)) {
-                if ($gJCoord->request->params['action'] == 'default:index' ) {
-                    $this->body->assign('is_home'   ,true);
-                    $this->body->assign('tout'      ,true);
-                } elseif($gJCoord->request->params['action'] == 'default:applis' ) {
-                    $this->body->assign('applis'    ,true);
-                } elseif($gJCoord->request->params['action'] == 'default:modules' ) {
-                    $this->body->assign('modules'   ,true);
-                } elseif($gJCoord->request->params['action'] == 'default:plugins' ) {
-                    $this->body->assign('plugins'   ,true);
-                } elseif($gJCoord->request->params['action'] == 'default:packlang' ) {
-                    $this->body->assign('packlang'  ,true);
-                } elseif($gJCoord->request->params['action'] == 'default:yourressources' ) {
-                    $this->body->assign('your_ressources'  ,true);
+        if ( array_key_exists('module', $gJCoord->request->params) ) {
+            if ( $gJCoord->request->params['module'] == 'booster' ) {
+                if (array_key_exists('action',$gJCoord->request->params)) {
+                    if ($gJCoord->request->params['action'] == 'default:index' ) {
+                        $this->body->assign('is_home'   ,true);
+                        $this->body->assign('tout'      ,true);
+                    } elseif($gJCoord->request->params['action'] == 'default:applis' ) {
+                        $this->body->assign('applis'    ,true);
+                    } elseif($gJCoord->request->params['action'] == 'default:modules' ) {
+                        $this->body->assign('modules'   ,true);
+                    } elseif($gJCoord->request->params['action'] == 'default:plugins' ) {
+                        $this->body->assign('plugins'   ,true);
+                    } elseif($gJCoord->request->params['action'] == 'default:packlang' ) {
+                        $this->body->assign('packlang'  ,true);
+                    } elseif($gJCoord->request->params['action'] == 'default:yourressources' ) {
+                        $this->body->assign('your_ressources'  ,true);
+                    }
                 }
+            }
+            elseif ( $gJCoord->request->params['module'] == 'jcommunity' ) {
+                $this->body->assign('is_home'   ,false);
+                $this->body->assign('tout'      ,false);
             }
         }
         else {

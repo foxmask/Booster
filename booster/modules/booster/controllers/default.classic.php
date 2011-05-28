@@ -257,7 +257,7 @@ class defaultCtrl extends jController {
         return $rep;
     }
     /**
-     * EditItem
+     * EditVersion
      */
     function editVersion() {
         $id = $this->intParam('id');
@@ -336,7 +336,6 @@ class defaultCtrl extends jController {
         $rep->action = 'booster~index';
         return $rep;
     }
-
     /**
      * Cloud
      */
@@ -451,8 +450,9 @@ class defaultCtrl extends jController {
         $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
     }
-
-
+    /**
+     * Display the resources of the current user
+     */
     function yourressources () {
         $rep = $this->getResponse('html');
         $rep->title = jLocale::get('booster~main.your.ressources');

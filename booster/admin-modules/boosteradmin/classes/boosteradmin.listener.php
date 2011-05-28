@@ -16,7 +16,7 @@ class boosteradminListener extends jEventListener{
             $notify  = jDao::get('booster~boo_items')->findAllNotModerated();
             $nbRec = $notify->rowCount();
             if ($nbRec > 0 ) {
-                $link = '<a href='.jUrl::get('boosteradmin~items:index').'>';
+                $link = '<a href="'.jUrl::get('boosteradmin~items:index').'">';
                 $link .= jLocale::get('boosteradmin~admin.new.items',$nbRec);
                 $link .= '</a>';
                 $event->add( $link );
@@ -24,7 +24,7 @@ class boosteradminListener extends jEventListener{
             $notify  = jDao::get('booster~boo_versions')->findAllNotModerated();
             $nbRec = $notify->rowCount();
             if ($nbRec > 0 ) {
-                $link = '<a href='.jUrl::get('boosteradmin~versions:index').'>';
+                $link = '<a href="'.jUrl::get('boosteradmin~versions:index').'">';
                 $link .= jLocale::get('boosteradmin~admin.new.versions',$nbRec);
                 $link .= '</a>';
                 $event->add( $link );
@@ -33,7 +33,7 @@ class boosteradminListener extends jEventListener{
             $notify  = jDao::get('boosteradmin~boo_items_mod')->findAll();
             $nbRec = $notify->rowCount();
             if ($nbRec > 0 ) {
-                $link = '<a href='.jUrl::get('boosteradmin~items:index').'>';
+                $link = '<a href="'.jUrl::get('boosteradmin~items:index').'">';
                 $link .= jLocale::get('boosteradmin~admin.notification.items',$nbRec);
                 $link .= '</a>';
                 $event->add( $link );
@@ -41,7 +41,7 @@ class boosteradminListener extends jEventListener{
             $notify  = jDao::get('boosteradmin~boo_versions_mod')->findAll();
             $nbRec = $notify->rowCount();
             if ($nbRec > 0 ) {
-                $link = '<a href='.jUrl::get('boosteradmin~versions:index').'>';
+                $link = '<a href="'.jUrl::get('boosteradmin~versions:index').'">';
                 $link .= jLocale::get('boosteradmin~admin.notification.versions',$nbRec);
                 $link .= '</a>';
                 $event->add( $link );
