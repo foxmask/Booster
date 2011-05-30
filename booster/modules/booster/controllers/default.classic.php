@@ -195,7 +195,6 @@ class defaultCtrl extends jController {
         //we'll just display a page with the item + a message to inform the user
         if ( jClasses::getService('booster~booster')->isItemModerated($id) === false ) {
             $rep = $this->getResponse('html');
-            $rep->addJSLink($GLOBALS['gJConfig']->urlengine['basePath'].'jelix/jquery/jquery.js');
             $tpl = new jTpl();
 
             if(jAuth::isConnected()) {
@@ -349,8 +348,11 @@ class defaultCtrl extends jController {
 
         $items = array();
         $dao = jDao::get('boo_items');
-        foreach ($tags as $subj_id)
-            $items[] = $dao->get($subj_id);
+        foreach ($tags as $subj_id) {
+            $rec = $dao->get($subj_id);
+            if ($rec->status == 1)
+                $items[] = $rec;
+        }
 
         $tpl = new jTpl();
         if(jAuth::isConnected()) {
