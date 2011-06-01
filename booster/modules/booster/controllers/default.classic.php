@@ -67,7 +67,7 @@ class defaultCtrl extends jController {
 
         $data = jDao::get('booster~boo_items')->get( $this->param('id') );
         // is the current user the author or the admin ?
-        if ($data->user_id == jAuth::getUserSession ()->id or
+        if (( jAuth::isConnected() and $data->user_id == jAuth::getUserSession ()->id) or
             jAcl2::check('booster.admin.index') ) {
             //so let's warn him if the item is moderated or not
             $tpl->assign('item_not_moderated',!$data->status);
@@ -85,7 +85,6 @@ class defaultCtrl extends jController {
 
         $rep = $this->getResponse('html');
 
-        $rep->addJSLink($GLOBALS['gJConfig']->urlengine['basePath'].'jelix/jquery/jquery.js');
         $tpl->assign('data',$data);
         $rep->title = $data->name;
         $rep->body->assign('MAIN',$tpl->fetch('view_item'));
