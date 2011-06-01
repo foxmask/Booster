@@ -94,6 +94,8 @@ class booster {
         $tagStr = str_replace('.',' ',$form->getData("tags"));
         $tags = explode(",", $tagStr);
 
+        $form->saveControlToDao('jelix_versions', 'booster~boo_items_jelix_versions', null, array('id_item', 'id_version'));
+
         jClasses::getService("jtags~tags")->saveTagsBySubject($tags, 'booscope', $id_booster);
 
         return $return;

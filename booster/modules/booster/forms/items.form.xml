@@ -22,15 +22,21 @@
     <label locale="booster~main.item_type"/>
 </menulist>
 
+<checkboxes ref="jelix_versions">
+    <datasource dao="boo_jelix_versions" method="findAll" labelproperty="version" valueproperty="id"/>
+    <label locale="booster~main.jelix.versions"/>
+</checkboxes>
+
+
 <input ref="tags" size="80">
     <label locale="booster~main.tags"/>
 </input>
 
-<input ref="url_website" required="true" maxlength="255">
+<input ref="url_website" type="url">
     <label locale="booster~main.item_website_url"/>
 </input>
 
-<input ref="url_repo" required="true" maxlength="255">
+<input ref="url_repo" required="true" type="url">
     <label locale="booster~main.item_repo_url"/>
 </input>
 

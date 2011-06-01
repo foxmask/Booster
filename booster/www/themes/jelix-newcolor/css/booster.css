@@ -547,7 +547,7 @@ text-shadow: #aaa 0px 0px 5px;}
     position:relative;
 }
 
-.jforms-chkbox {
+#content-menu .jforms-chkbox {
     display: list-item;
     list-style: square outside none;
     margin-left: 30px;

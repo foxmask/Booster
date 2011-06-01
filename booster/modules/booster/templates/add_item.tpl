@@ -7,6 +7,9 @@
         <td>{ctrl_label 'item_info_id'}</td><td>{ctrl_control 'item_info_id'}</td>
     </tr>
     <tr>
+        <td>{ctrl_label 'jelix_versions'}</td><td colspan="3">{ctrl_control 'jelix_versions'}</td>
+    </tr>
+    <tr>
         <td>{ctrl_label 'type_id'}</td><td>{ctrl_control 'type_id'}</td>
         <td>{ctrl_label 'tags'}</td><td>{ctrl_control 'tags'}</td>
     </tr>

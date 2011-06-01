@@ -214,7 +214,8 @@ class defaultCtrl extends jController {
 
         $form = jForms::create('booster~items',$data->id);
         $form->initFromDao('booster~boo_items');
-
+        $form->initControlFromDao('jelix_versions', 'booster~boo_items_jelix_versions', null, array('id_item', 'id_version'));
+        
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
         $tpl->assign('title',jLocale::get('booster~main.item.edit'));
