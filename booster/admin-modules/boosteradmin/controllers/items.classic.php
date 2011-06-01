@@ -100,8 +100,15 @@ class itemsCtrl extends jController {
         if ($form->check()) {
             // we validate the modifications, so replace the old data
             // then remove the data from the "waiting table" (items_mod)
-            if ($form->getData('status')==1) {
+            if ($form->getData('status') == 1) {
+
+                $tagStr ='';
+                $tagStr = str_replace('.',' ',$form->getData("tags"));
+                $tags = explode(",", $tagStr);
+                jClasses::getService("jtags~tags")->saveTagsBySubject($tags, 'booscope', $this->intParam('id'));
+
                 $form->saveToDao('boosteradmin~boo_items');
+
                 //delete the moderated item from the "mirror" table
                 jDao::get('boosteradmin~boo_items_mod')->delete($form->getData('id'));
                 //msg to the admin ;)

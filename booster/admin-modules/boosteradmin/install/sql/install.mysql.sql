@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%boo_items_mod (
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   `edited` datetime DEFAULT NULL,
+  `tags` varchar(80) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `item_by` (`item_by`),
   KEY `type_id` (`type_id`),

@@ -26,13 +26,8 @@ booster.access=2
 
 boosteradmin.access=2
 [simple_urlengine_entrypoints]
-adminboost="jacl2db~*@classic, jauth~*@classic, jacl2db_admin~*@classic, jauthdb_admin~*@classic, master_admin~*@classic, jcommunity~*@classic, booster~*@classic"
+adminboost="jacl2db~*@classic, jauth~*@classic, jacl2db_admin~*@classic, jauthdb_admin~*@classic, master_admin~*@classic, jcommunity~*@classic, booster~*@classic, jtags~*@classic"
 
 [coordplugins]
 auth="adminboost/auth.coord.ini.php"
 jacl2="adminboost/jacl2.coord.ini.php"
-
-
-
-
-

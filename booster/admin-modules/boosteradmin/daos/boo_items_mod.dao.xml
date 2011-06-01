@@ -21,7 +21,8 @@
         <property name="created" fieldname="created" datatype="datetime" default=""/>
         <property name="modified" fieldname="modified" datatype="datetime" default=""/>
         <property name="edited" fieldname="edited" datatype="datetime" default=""/>
-        
+        <property name="tags" fieldname="tags" datatype="varchar" default="" maxlength="80"/>
+
         <property name="nickname" fieldname="nickname" table="usr" datatype="varchar" required="true" maxlength="80"/>
         <property name="id_version" fieldname="id" table="type" datatype="int" autoincrement="true"/>
         <property name="type_name" fieldname="type_name" table="type" datatype="varchar" required="true" maxlength="80"/>

@@ -210,12 +210,14 @@ class defaultCtrl extends jController {
             $rep->body->assign('MENU',$tpl->fetch('menu'));
             return $rep;
         }
+        $rec = jClasses::getService("jtags~tags")->getTagsBySubject('booscope', $data->id);
 
+        $tags = implode(',', jClasses::getService("jtags~tags")->getTagsBySubject('booscope', $data->id) ) ;
 
         $form = jForms::create('booster~items',$data->id);
         $form->initFromDao('booster~boo_items');
         $form->initControlFromDao('jelix_versions', 'booster~boo_items_jelix_versions', null, array('id_item', 'id_version'));
-        
+        $form->setData('tags',$tags);
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
         $tpl->assign('title',jLocale::get('booster~main.item.edit'));
@@ -348,9 +350,17 @@ class defaultCtrl extends jController {
         $tags = $srvTags->getSubjectsByTags($tag, "booscope");
 
         $items = array();
+        //get factory of the moderated item
         $dao = jDao::get('boo_items');
+        // get factory of the item which are waiting for moderation
+        $daoMod = jDao::get('boosteradmin~boo_items_mod');
         foreach ($tags as $subj_id) {
-            $rec = $dao->get($subj_id);
+            //get record not yet validated
+            $rec = $daoMod->get($subj_id);
+            //no record found so we can get the still moderated one
+            if ( $rec === false )
+                $rec = $dao->get($subj_id);
+            //status ok ?
             if ($rec->status == 1)
                 $items[] = $rec;
         }

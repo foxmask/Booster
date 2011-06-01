@@ -72,6 +72,7 @@ class booster {
         $data = array();
         $id_booster = $form->getData('id');
         $dt = new jDateTime();
+        $dt->now();
 
         $dao = jDao::get('boosteradmin~boo_items_mod');
         $record = jDao::createRecord('boosteradmin~boo_items');
@@ -84,19 +85,14 @@ class booster {
         $record->url_repo       = $form->getData('url_repo');
         $record->author         = $form->getData('author');
         $record->item_by        = $form->getData('item_by');
+        $record->tags           = $form->getData("tags");
         $record->status         = 0; //will need moderation
         $record->created        =  jDao::get('booster~boo_items')->get($id_booster)->created;
-        $record->modified       =  $dt->now();
+        $record->modified       =  $dt->toString(jDateTime::DB_DTFORMAT);
 
         $return = ($dao->insert($record)) ? true : false;
 
-        $tagStr ='';
-        $tagStr = str_replace('.',' ',$form->getData("tags"));
-        $tags = explode(",", $tagStr);
-
         $form->saveControlToDao('jelix_versions', 'booster~boo_items_jelix_versions', null, array('id_item', 'id_version'));
-
-        jClasses::getService("jtags~tags")->saveTagsBySubject($tags, 'booscope', $id_booster);
 
         return $return;
     }

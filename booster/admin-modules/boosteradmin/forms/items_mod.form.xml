@@ -28,11 +28,11 @@
     <label locale="booster~main.tags"/>
 </input>
 
-<input ref="url_website" required="true" maxlength="255">
+<input ref="url_website" required="true" type="url">
     <label locale="booster~main.item_website_url"/>
 </input>
 
-<input ref="url_repo" required="true" maxlength="255">
+<input ref="url_repo" required="true" type="url">
     <label locale="booster~main.item_repo_url"/>
 </input>
 
