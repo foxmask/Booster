@@ -4,6 +4,6 @@
 </div>
 {elseif count($tags) == 1 and !empty($tags)}
 <div class="booster_itemtags">
-<ul><li><a href="{jurl 'booster~default:cloud',array('tag'=>$tags)}" title="{@booster~main.show.all.items.with.this.tag@}">{$tags}</a></li></ul>
+<ul><li><a href="{jurl 'booster~default:cloud',array('tag'=>$tags[0])}" title="{@booster~main.show.all.items.with.this.tag@}">{$tags[0]}</a></li></ul>
 </div>
 {/if}
