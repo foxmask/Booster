@@ -126,7 +126,6 @@ rdf=on
 
 adminboost=1
 
-adminbooster=1
 [fileLogger]
 default=messages.log
 error=errors.log
