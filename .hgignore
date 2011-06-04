@@ -1,0 +1,7 @@
+
+~$
+(^|/)\.DS_Store$
+(^|/)Thumbs.db$
+installer\.ini\.php$
+^temp/booster/
+\.komodoproject$
