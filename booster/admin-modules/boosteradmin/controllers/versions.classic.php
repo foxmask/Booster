@@ -41,7 +41,6 @@ class versionsCtrl extends jController {
         $form = jForms::create('boosteradmin~versions_mod',$this->intParam('id'));
         $form->initFromDao('boosteradmin~boo_versions');
         $form->setData('id',$this->intParam('id'));
-var_dump($form);
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
         $tpl->assign('title',jLocale::get('boosteradmin~admin.version.validation.or.modification'));
