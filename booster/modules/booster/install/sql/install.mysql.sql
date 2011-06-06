@@ -28,7 +28,11 @@ CREATE TABLE %%PREFIX%%boo_type (
     `type_name` VARCHAR( 80 ) NOT NULL
 ) ENGINE = MYISAM DEFAULT CHARSET=utf8;
 
-
+INSERT INTO %%PREFIX%%boo_type (`id`, `type_name`) VALUES
+(1, 'Application'),
+(2, 'Module'),
+(3, 'Plugins'),
+(4, 'PackLang');
 
 CREATE TABLE IF NOT EXISTS %%PREFIX%%boo_versions (
   `id` int(11) NOT NULL AUTO_INCREMENT,

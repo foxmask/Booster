@@ -11,10 +11,10 @@ jacl2_profile=booster
 driver=mysql
 
 ; For most of drivers:
-database=boost
+database=booster
 host=localhost
-user=boost
-password=boost
+user=booster
+password=booster
 persistent=off
 
 ; when you have charset issues, enable force_encoding so the connection will be

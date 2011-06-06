@@ -6,7 +6,9 @@
     <url pathinfo="/items/editnew/:id"      action="items:editnew" >
         <param name="id" type="numeric"/>
     </url>
-    <url pathinfo="/items/savenew"          action="items:savenew" />
+    <url pathinfo="/items/savenew/:id"          action="items:savenew" >
+        <param name="id" type="numeric"/>
+    </url>
     <url pathinfo="/items/editmod/:id"      action="items:editmod" >
         <param name="id" type="numeric"/>
     </url>

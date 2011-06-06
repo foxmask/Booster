@@ -104,6 +104,8 @@ class booster {
      */
     function saveEditVersion($form) {
         $dt = new jDateTime();
+        $dt->now();
+
         $dao = jDao::get('boosteradmin~boo_versions_mod');
         $record = jDao::createRecord('boosteradmin~boo_versions_mod');
         $record->version_name   = $form->getData('version_name');
@@ -114,7 +116,7 @@ class booster {
         $record->filename       = $form->getData('filename');
         $record->download_url   = $form->getData('download_url');
         $record->created        =  jDao::get('booster~boo_versions')->get($form->getData('id'))->created;
-        $record->modified       =  $dt->now();
+        $record->modified       =  $dt->toString(jDateTime::DB_DTFORMAT);
         $record->id =  $form->getData('id');
         return ($dao->insert($record)) ? true : false;
     }

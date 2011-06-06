@@ -28,7 +28,7 @@
     <label locale="booster~main.tags"/>
 </input>
 
-<input ref="url_website" required="true" type="url">
+<input ref="url_website" type="url">
     <label locale="booster~main.item_website_url"/>
 </input>
 

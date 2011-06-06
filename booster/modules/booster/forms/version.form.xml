@@ -12,9 +12,13 @@
     <label locale="booster~main.last_changes"/>
 </wikieditor>
 
-<input ref="stability" required="true" maxlength="80">
+<menulist ref="stability" required="true">
     <label locale="booster~main.stability"/>
-</input>
+    <item value="pre-alpha">pre-alpha</item>
+    <item value="alpha">alpha</item>
+    <item value="stable">stable</item>
+    <item value="mature">mature</item>
+</menulist>
 
 <input ref="filename" required="true" maxlength="80">
     <label locale="booster~main.filename"/>

@@ -156,7 +156,7 @@ class defaultCtrl extends jController {
                 jMessage::add(jLocale::get('booster~main.version.saved'));
                 $saved = true;
                 $item = jDao::get('booster~boo_items')->get($form->getData('item_id'));
-                if ($item->status = 1) {
+                if ($item->status == 1) {
                     $rep->action = 'viewItem';
                     $rep->params = array('id'=> $item->id,'name'=>$item->name);
                 }

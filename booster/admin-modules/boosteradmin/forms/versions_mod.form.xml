@@ -13,10 +13,10 @@
 </wikieditor>
 
 <menulist ref="stability" required="true">
-    <label locale="booster~main.status"/>
+    <label locale="booster~main.stability"/>
     <item value="pre-alpha">pre-alpha</item>
     <item value="alpha">alpha</item>
-    <item value="satble">stable</item>
+    <item value="stable">stable</item>
     <item value="mature">mature</item>
 </menulist>
 

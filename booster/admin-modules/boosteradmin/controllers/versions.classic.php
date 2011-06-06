@@ -41,11 +41,13 @@ class versionsCtrl extends jController {
         $form = jForms::create('boosteradmin~versions_mod',$this->intParam('id'));
         $form->initFromDao('boosteradmin~boo_versions');
         $form->setData('id',$this->intParam('id'));
+var_dump($form);
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
         $tpl->assign('title',jLocale::get('boosteradmin~admin.version.validation.or.modification'));
         $tpl->assign('form',$form);
         $tpl->assign('action','boosteradmin~versions:savenew');
+        $tpl->assign('id',$this->intParam('id'));
         $rep->body->assign('MAIN',$tpl->fetch('edit'));
         return $rep;
     }
@@ -86,6 +88,7 @@ class versionsCtrl extends jController {
         $rep = $this->getResponse('html');
         $tpl->assign('title',jLocale::get('boosteradmin~admin.version.validation.or.modification'));
         $tpl->assign('form',$form);
+        $tpl->assign('id',$this->intParam('id'));
         $tpl->assign('action','boosteradmin~versions:savemod');
         $rep->body->assign('MAIN',$tpl->fetch('edit'));
         return $rep;
