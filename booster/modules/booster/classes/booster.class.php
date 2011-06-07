@@ -208,28 +208,4 @@ class booster {
         else
             return true;
     }
-    /**
-     * Check if a given item is moderated or waiting for validation
-     * @param int $id the id of the Item
-     * @return boolean
-     */
-    function isItemModerated($id) {
-        $rec = jDao::get('boosteradmin~boo_items_mod')->get($id);
-        if ($rec !== false)
-            return ( $rec->status == 0) ? false : true;
-        else
-            return true;
-    }
-    /**
-     * Check if a given item is moderated or waiting for validation
-     * @param int $id the id of the Item
-     * @return boolean
-     */
-    function isVersionModerated($id) {
-        $rec = jDao::get('boosteradmin~boo_versions_mod')->get($id);
-        if ($rec !== false)
-            return ( $rec->status == 0) ? false : true;
-        else
-            return true;
-    }
 }
