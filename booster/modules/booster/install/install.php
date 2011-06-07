@@ -17,9 +17,11 @@ class boosterModuleInstaller extends jInstallerModule {
 
         if ($this->firstExec('acl2')) {
             jAcl2DbManager::addSubject('booster.edit.item', 'booster~booster.edit.item');
-            jAcl2DbManager::addRight('admins', 'booster.edit.item'); // for admin group
+            jAcl2DbManager::addRight('users', 'booster.edit.item'); // for users group
+            jAcl2DbManager::addRight('admins', 'booster.edit.item'); // for admins group
             jAcl2DbManager::addSubject('booster.edit.version', 'booster~booster.edit.version');
-            jAcl2DbManager::addRight('admins', 'booster.edit.version'); // for admin group
+            jAcl2DbManager::addRight('users', 'booster.edit.version'); // for users group
+            jAcl2DbManager::addRight('admins', 'booster.edit.version'); // for admins group
         }
 
     }

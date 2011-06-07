@@ -109,7 +109,7 @@ class booster {
         $dao = jDao::get('boosteradmin~boo_versions_mod');
         $record = jDao::createRecord('boosteradmin~boo_versions_mod');
         $record->version_name   = $form->getData('version_name');
-        $record->status         = 0; //will need moderation
+        $record->status_version = 0; //will need moderation
         $record->item_id        = $form->getData('item_id');
         $record->last_changes   = $form->getData('last_changes');
         $record->stability      = $form->getData('stability');
@@ -117,7 +117,7 @@ class booster {
         $record->download_url   = $form->getData('download_url');
         $record->created        =  jDao::get('booster~boo_versions')->get($form->getData('id'))->created;
         $record->modified       =  $dt->toString(jDateTime::DB_DTFORMAT);
-        $record->id =  $form->getData('id');
+        $record->version_id =  $form->getData('id');
         return ($dao->insert($record)) ? true : false;
     }
 
@@ -193,6 +193,20 @@ class booster {
             $results = $items;
 
         return $results;
+    }
+    /**
+     * Check if a given item is moderated or waiting for validation
+     * @param int $id the id of the Item
+     * @return boolean
+     */
+    function isModerated($id,$source) {
+        if ($source != 'items' and $source != 'versions') return false;
+
+        $rec = jDao::get('boosteradmin~boo_'.$source.'_mod')->get($id);
+        if ($rec !== false)
+            return ( $rec->status == 0) ? false : true;
+        else
+            return true;
     }
     /**
      * Check if a given item is moderated or waiting for validation

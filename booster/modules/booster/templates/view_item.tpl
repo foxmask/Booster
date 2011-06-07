@@ -37,11 +37,11 @@
         <h4>{@booster~main.short_desc@} </h4>
         <div class="booster_short_desc">{$data->short_desc|wiki:'wr3_to_xhtml'}</div>
         {zone 'booster~tagsitem',array('id'=>$data->id)}
-  
+
     </div>
     <div class="booster_itemaction">&nbsp;
         {assign $canEditVersion = false}
-        
+
         {if !$item_not_moderated}
             {if $data->item_by == $current_user}
                 {assign $canEditVersion = true}
@@ -51,7 +51,7 @@
             <a href="{jurl 'booster~editItem',array('id'=>$data->id,'name'=>$data->name)}">{@booster~main.edit.item@}</a>
                 {/ifacl2}
             {/if}
-       
+
             {if $data->item_by == $current_user}
             <a href="{jurl 'booster~addVersion',array('id'=>$data->id,'name'=>$data->name)}">{@booster~main.add.a.version@}</a>
             {else}

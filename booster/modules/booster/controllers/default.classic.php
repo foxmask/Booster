@@ -192,7 +192,7 @@ class defaultCtrl extends jController {
         }
         //if this item is not moderated
         //we'll just display a page with the item + a message to inform the user
-        if ( jClasses::getService('booster~booster')->isItemModerated($id) === false ) {
+        if ( jClasses::getService('booster~booster')->isModerated($id,'items') === false ) {
             $rep = $this->getResponse('html');
             $tpl = new jTpl();
 
@@ -275,7 +275,7 @@ class defaultCtrl extends jController {
         }
         //if this item is not moderated
         //we'll just display a page with the item + a message to inform the user
-        if ( jClasses::getService('booster~booster')->isVersionModerated($id) === false ) {
+        if ( jClasses::getService('booster~booster')->isModerated($id,'versions') === false ) {
             $rep = $this->getResponse('html');
             $tpl = new jTpl();
 
