@@ -45,6 +45,7 @@ class versionsCtrl extends jController {
         $tpl = new jTpl();
         $tpl->assign('title',jLocale::get('boosteradmin~admin.version.validation.or.modification'));
         $tpl->assign('form',$form);
+        $tpl->assign('item_by',jDao::get('booster~boo_items')->get($form->getData('item_id'))->nickname);
         $tpl->assign('action','boosteradmin~versions:savenew');
         $tpl->assign('id',$this->intParam('id'));
         $rep->body->assign('MAIN',$tpl->fetch('edit'));

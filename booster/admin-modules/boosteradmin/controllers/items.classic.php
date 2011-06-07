@@ -46,6 +46,7 @@ class itemsCtrl extends jController {
         $tpl->assign('id',$this->intParam('id'));
         $tpl->assign('title',jLocale::get('boosteradmin~admin.item.validation.or.modification'));
         $tpl->assign('form',$form);
+        $tpl->assign('item_by',jDao::get('booster~boo_items')->get($this->intParam('id'))->nickname);
         $tpl->assign('action','boosteradmin~items:savenew');
         $rep->body->assign('MAIN',$tpl->fetch('edit'));
         return $rep;
