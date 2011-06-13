@@ -88,6 +88,13 @@ code.constant {}
 code.literal {}
 code.returnvalue {}
 
+li
+{
+    margin-left: 0px;
+}
+
+
+
 #logo{ margin:3px 0; padding:0; font-size:1.2em; float:left; width:160px; text-align:center;
 text-shadow: #aaa 0px 0px 5px;}
 #logo a { color:#0594c8; text-decoration:none; }
