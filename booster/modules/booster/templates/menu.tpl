@@ -1,6 +1,6 @@
 {ifuserconnected}
 <h2>{@main.item@}</h2>
-<a href="{jurl 'booster~add'}">{@main.add.an.item@}</a>
+<a class="jforms-submit" href="{jurl 'booster~add'}">{@main.add.an.item@}</a>
 {ifacl2 'booster.admin.index'}
 <div class="booster_tasktodo">
 <span>{@main.waiting.your.validation@} : </span>

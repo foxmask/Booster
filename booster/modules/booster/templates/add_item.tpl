@@ -7,14 +7,18 @@
         <td>{ctrl_label 'item_info_id'}</td><td>{ctrl_control 'item_info_id'}</td>
     </tr>
     <tr>
-        <td>{ctrl_label 'jelix_versions'}</td><td colspan="3">{ctrl_control 'jelix_versions'}</td>
+        <td>{ctrl_label 'jelix_versions'}</td>
+        <td colspan="3">{ctrl_control 'jelix_versions'}</td>
     </tr>
     <tr>
         <td>{ctrl_label 'type_id'}</td><td>{ctrl_control 'type_id'}</td>
         <td>{ctrl_label 'tags'}</td><td>{ctrl_control 'tags'}</td>
     </tr>
     <tr>
-        <td>{ctrl_label 'short_desc'}</td><td colspan="3">{ctrl_control 'short_desc'}</td>
+        <td colspan="4">{ctrl_label 'short_desc'}</td>
+    </tr>
+    <tr>
+        <td colspan="4">{ctrl_control 'short_desc'}</td>
     </tr>
     <tr>
         <td>{ctrl_label 'url_website'}</td><td>{ctrl_control 'url_website'}</td>
