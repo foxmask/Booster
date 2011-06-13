@@ -2,8 +2,8 @@
 /**
 * @package   booster
 * @subpackage booster
-* @author    Olivier Demah
-* @copyright 2011 olivier demah
+* @author    Olivier Demah,Florian LB
+* @copyright 2011 olivier demah, Florian LB
 * @link      http://www.jelix.org
 * @license   http://www.gnu.org/licenses/lgpl.html  GNU Lesser General Public Licence, see LICENCE file
 */
@@ -120,11 +120,10 @@ class booster {
         $record->version_id =  $form->getData('id');
         return ($dao->insert($record)) ? true : false;
     }
-
-
     /**
      * function that search items according to criteria in the form
      * @return array    items corresponding to the search
+     * @TODO search with/by JelixVersions
      */
     function search() {
 
@@ -135,12 +134,12 @@ class booster {
         if ($form->getData('name') == '' and
             $form->getData('types') == '' and
             $form->getData('author_by') == '' and
+            $form->getData('jelix_versions') == '' and 
             $form->getData('tags') == ''
             )
             return jDao::get('booster~boo_items')->findAll();
 
         $conditions = jDao::createConditions();
-
         //Types
         $conditions->startGroup('OR');
         $types = $form->getData('types');
@@ -149,7 +148,6 @@ class booster {
                 $conditions->addCondition('type_id', '=', $type);
         }
         $conditions->endGroup();
-
         //Name
         $conditions->startGroup('OR');
         $name = $form->getData('name');
@@ -157,7 +155,6 @@ class booster {
             $conditions->addCondition('name', '=', $name);
         }
         $conditions->endGroup();
-
         //Author_by
         $conditions->startGroup('OR');
         $author_by = $form->getData('author_by');

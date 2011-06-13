@@ -222,11 +222,11 @@ text-shadow: #aaa 0px 0px 5px;}
     -webkit-border-bottom-right-radius: 15px;
     -o-border-radius:0px 0px 15px 15px;
     border-radius:0px 0px 15px 15px ;
-    /*height: 20px;*/
 }
 
 #submenubar ul {
     font-size: 0.9em;
+    margin-bottom: 0;
 }
 #submenubar ul#booster_action {
     text-align: left;
@@ -329,14 +329,14 @@ text-shadow: #aaa 0px 0px 5px;}
     margin-right: 5px;
     margin-top: 0;
     padding-right: 5px;
-    width: 12%;
+    width: 13%;
 }
 
 #content {
     border-left: 2px solid #D8E1E4;
     padding: 5px 5px 5px 15px;
     float: right;
-    width: 84%;
+    width: 83%;
 }
 
 #footer {
@@ -612,7 +612,7 @@ legend {
 
 #submenubar ul#login-status {
     text-align: right;
-    clear: right;
+    /*clear: right;*/
 }
 #submenubar ul#login-status li#connected {
     color: #FFA08F;
@@ -638,7 +638,7 @@ legend {
     background-color: #002830;
     text-decoration: none;
     color: #fff;
-    padding: 1px;
+    padding: 3px 6px 3px 6px;
     -moz-border-radius:5px 5px 5px  5px ;
     -o-border-radius:5px 5px 5px  5px ;
     -webkit-border-top-right-radius: 5px;
@@ -647,14 +647,15 @@ legend {
     -moz-box-shadow: #999 3px 3px 8px 0px;
     -webkit-box-shadow: #999  3px 3px 8px;
     -o-box-shadow: #999 3px 3px 8px 0px;
-    box-shadow: #999 3px 3px 8px 0px;    
+    box-shadow: #999 3px 3px 8px 0px;
+    border-width: 0px;
 }
 
 #main .jcommunity-box ul li a:hover, .jforms-submit:hover, #main a.jforms-submit:hover  {
     background-color: #3f6f7a;
     text-decoration: none;
     color: #fff;
-    padding: 1px;
+    padding: 3px 6px 3px 6px;
     -moz-border-radius:5px 5px 5px  5px ;
     -o-border-radius:5px 5px 5px  5px ;
     -webkit-border-top-right-radius: 5px;
@@ -663,7 +664,8 @@ legend {
     -moz-box-shadow: #999 3px 3px 8px 0px;
     -webkit-box-shadow: #999  3px 3px 8px;
     -o-box-shadow: #999 3px 3px 8px 0px;
-    box-shadow: #999 3px 3px 8px 0px;    
+    box-shadow: #999 3px 3px 8px 0px;
+    border-width: 0px;
 }
 
 #main .jcommunity-box ul li a:active,  .jforms-submit:active, .jforms-submit a:active  {

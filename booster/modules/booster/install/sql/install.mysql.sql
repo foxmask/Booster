@@ -1,8 +1,12 @@
+--
+-- Structure de la table `boo_items`
+--
+
 CREATE TABLE %%PREFIX%%boo_items (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(60) NOT NULL,
   `item_info_id` varchar(100) NOT NULL,
-  `short_desc` varchar(255) NOT NULL,
+  `short_desc` text NOT NULL,
   `type_id` int(12) NOT NULL,
   `url_website` varchar(255) NOT NULL,
   `url_repo` varchar(255) NOT NULL,
@@ -21,7 +25,37 @@ CREATE TABLE %%PREFIX%%boo_items (
   KEY `modified` (`modified`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+--
+-- Structure de la table `boo_items_mod`
+--
 
+CREATE TABLE %%PREFIX%%boo_items_mod (
+  `id` int(11) NOT NULL,
+  `name` varchar(60) NOT NULL,
+  `item_info_id` varchar(100) NOT NULL,
+  `short_desc` text NOT NULL,
+  `type_id` int(12) NOT NULL,
+  `url_website` varchar(255) NOT NULL,
+  `url_repo` varchar(255) NOT NULL,
+  `author` varchar(80) NOT NULL,
+  `item_by` int(12) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '0',
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  `edited` datetime DEFAULT NULL,
+  `tags` varchar(80) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `item_by` (`item_by`),
+  KEY `type_id` (`type_id`),
+  KEY `status` (`status`),
+  KEY `created` (`created`),
+  KEY `modified` (`modified`),
+  KEY `edited` (`edited`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Structure de la table boo_type
+--
 
 CREATE TABLE %%PREFIX%%boo_type (
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
@@ -33,6 +67,10 @@ INSERT INTO %%PREFIX%%boo_type (`id`, `type_name`) VALUES
 (2, 'Module'),
 (3, 'Plugins'),
 (4, 'PackLang');
+
+--
+-- Structure de la table `boo_versions`
+--
 
 CREATE TABLE IF NOT EXISTS %%PREFIX%%boo_versions (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -53,11 +91,6 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%boo_versions (
   KEY `edited` (`edited`),
   KEY `modified` (`modified`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
-
-
-
-
--- --------------------------------------------------------
 
 --
 -- Structure de la table `boo_versions_mod`
@@ -82,7 +115,6 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%boo_versions_mod (
   KEY `edited` (`edited`),
   KEY `modified` (`modified`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
-
 
 --
 -- Structure de la table `boo_items_jelix_versions`

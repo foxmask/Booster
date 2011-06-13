@@ -27,8 +27,7 @@
     <label locale="booster~main.jelix.versions"/>
 </checkboxes>
 
-
-<input ref="tags" size="40" maxlength="80">
+<input ref="tags" maxlength="80">
     <label locale="booster~main.tags"/>
 </input>
 
