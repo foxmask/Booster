@@ -35,7 +35,7 @@ class myHtmlResponse extends jResponseHtml {
         $this->body->assign('modules', false);
         $this->body->assign('plugins', false);
         $this->body->assign('packlang', false);
-         $this->body->assign('your_ressources', false);
+        $this->body->assign('your_ressources', false);
 
         if ( array_key_exists('module', $gJCoord->request->params) ) {
             if ( $gJCoord->request->params['module'] == 'booster' ) {
