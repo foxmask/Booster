@@ -11,7 +11,10 @@
         <td>{ctrl_label 'download_url'}</td><td>{ctrl_control 'download_url'}</td>
     </tr>
     <tr>
-        <td>{ctrl_label 'last_changes'}</td><td colspan="3">{ctrl_control 'last_changes'}</td>
+        <td colspan="4">{ctrl_label 'last_changes'}</td>
+    </tr>
+    <tr>
+        <td colspan="4">{ctrl_control 'last_changes'}</td>
     </tr>
 </table>
 </fieldset>

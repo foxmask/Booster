@@ -112,7 +112,8 @@ class defaultCtrl extends jController {
         $rep = $this->getResponse('redirect');
         $form = jForms::fill('booster~items');
         if ($form->check()) {
-            if ($data = jClasses::getService('booster~booster')->saveItem()) {
+            $data = jClasses::getService('booster~booster')->saveItem();
+            if (!empty($data)) {
                 jMessage::add(jLocale::get('booster~main.item.saved'));
                 $saved = true;
             }
