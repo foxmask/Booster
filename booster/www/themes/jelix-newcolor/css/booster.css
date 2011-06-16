@@ -673,3 +673,6 @@ legend {
     top: 1px;
     left: 1px;
 }
+
+#markItUpJforms_booster_version_last_changes{position:relative;}
+#markItUpJforms_booster_version_last_changes .charCounter{position:absolute;top:0;right:0;}

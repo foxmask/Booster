@@ -5,6 +5,7 @@
 {meta_html cssthemeltie7 'css/ie6.css'}
 
 {meta_html js $j_jelixwww.'jquery/jquery.js'}
+{meta_html js $j_basepath.'booster/js/charCount.js'}
 
 <div id="top-box">
     <div id="accessibility">Quick links:
