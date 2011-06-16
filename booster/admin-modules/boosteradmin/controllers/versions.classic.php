@@ -71,7 +71,7 @@ class versionsCtrl extends jController {
             $form->saveToDao('boosteradmin~boo_versions');
         }
         else {
-            jMessage::add('boosteradmin~admin.invalid.data');
+            jMessage::add(jLocale::get('boosteradmin~admin.invalid.data'));
         }
         $rep = $this->getResponse('redirect');
         $rep->action = 'boosteradmin~versions:index';

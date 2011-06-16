@@ -6,7 +6,7 @@
     </thead>
     <tbody>
 {foreach $datas as $data}
-        <tr><td>{$data->name}</td><td><a href="{jurl 'boosteradmin~versions:editnew',array('id'=>$data->version_id)}">{$data->version_name}</a></td><td>{$data->created|jdatetime}</td><td>{$data->nickname}</td></tr>
+        <tr class="{cycle array('even','odd')}"><td>{$data->name|eschtml}</td><td><a href="{jurl 'boosteradmin~versions:editnew',array('id'=>$data->version_id)}">{$data->version_name}</a></td><td>{$data->created|jdatetime}</td><td>{$data->nickname|eschtml}</td></tr>
 {/foreach}
     </tbody>
 </table>

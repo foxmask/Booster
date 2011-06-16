@@ -2,8 +2,8 @@
 /**
 * @package   booster
 * @subpackage booster
-* @author    Olivier Demah,Florian LB
-* @copyright 2011 olivier demah, Florian LB
+* @author    Olivier Demah, Florian Lonqueu-Brochard
+* @copyright 2011 Olivier Demah, Florian Lonqueu-Brochard
 * @link      http://www.jelix.org
 * @license   http://www.gnu.org/licenses/lgpl.html  GNU Lesser General Public Licence, see LICENCE file
 */
@@ -21,20 +21,20 @@ class booster {
         $form = jForms::fill('booster~items');
         $dao = jDao::get('booster~boo_items');
         $record = jDao::createRecord('booster~boo_items');
-        $record->name = $form->getData('name');
-        $record->item_info_id = $form->getData('item_info_id');
-        $record->short_desc = $form->getData('short_desc');
-        $record->type_id = $form->getData('type_id');
-        $record->url_website = $form->getData('url_website');
-        $record->url_repo = $form->getData('url_repo');
-        $record->author = $form->getData('author');
-        $record->item_by = $form->getData('item_by');
-        $record->status = 0; //will need moderation
+        $record->name           = $form->getData('name');
+        $record->item_info_id   = $form->getData('item_info_id');
+        $record->short_desc     = $form->getData('short_desc');
+        $record->type_id        = $form->getData('type_id');
+        $record->url_website    = $form->getData('url_website');
+        $record->url_repo       = $form->getData('url_repo');
+        $record->author         = $form->getData('author');
+        $record->item_by        = $form->getData('item_by');
+        $record->status         = 0; //will need moderation
 
         if ($dao->insert($record)) {
             $id_booster = $record->id;
-            $data['id']=$id_booster;
-            $data['name'] = $form->getData('name');
+            $data['id']     = $id_booster;
+            $data['name']   = $form->getData('name');
         }
 
         if ($id_booster != 0) {
@@ -55,13 +55,13 @@ class booster {
     function saveVersion($form) {
         $dao = jDao::get('booster~boo_versions');
         $record = jDao::createRecord('booster~boo_versions');
-        $record->version_name = $form->getData('version_name');
-        $record->status = 0; //will need moderation
-        $record->item_id = $form->getData('item_id');
-        $record->last_changes = $form->getData('last_changes');
-        $record->stability = $form->getData('stability');
-        $record->filename = $form->getData('filename');
-        $record->download_url = $form->getData('download_url');
+        $record->version_name   = $form->getData('version_name');
+        $record->status         = 0; //will need moderation
+        $record->item_id        = $form->getData('item_id');
+        $record->last_changes   = $form->getData('last_changes');
+        $record->stability      = $form->getData('stability');
+        $record->filename       = $form->getData('filename');
+        $record->download_url   = $form->getData('download_url');
         return ($dao->insert($record)) ? true : false;
     }
     /**
@@ -76,7 +76,7 @@ class booster {
 
         $dao = jDao::get('boosteradmin~boo_items_mod');
         $record = jDao::createRecord('boosteradmin~boo_items');
-        $record->id             =  $id_booster;
+        $record->id             = $id_booster;
         $record->name           = $form->getData('name');
         $record->item_info_id   = $form->getData('item_info_id');
         $record->short_desc     = $form->getData('short_desc');
@@ -87,8 +87,8 @@ class booster {
         $record->item_by        = $form->getData('item_by');
         $record->tags           = $form->getData("tags");
         $record->status         = 0; //will need moderation
-        $record->created        =  jDao::get('booster~boo_items')->get($id_booster)->created;
-        $record->modified       =  $dt->toString(jDateTime::DB_DTFORMAT);
+        $record->created        = jDao::get('booster~boo_items')->get($id_booster)->created;
+        $record->modified       = $dt->toString(jDateTime::DB_DTFORMAT);
 
         $return = ($dao->insert($record)) ? true : false;
 
@@ -115,9 +115,9 @@ class booster {
         $record->stability      = $form->getData('stability');
         $record->filename       = $form->getData('filename');
         $record->download_url   = $form->getData('download_url');
-        $record->created        =  jDao::get('booster~boo_versions')->get($form->getData('id'))->created;
-        $record->modified       =  $dt->toString(jDateTime::DB_DTFORMAT);
-        $record->version_id =  $form->getData('id');
+        $record->created        = jDao::get('booster~boo_versions')->get($form->getData('id'))->created;
+        $record->modified       = $dt->toString(jDateTime::DB_DTFORMAT);
+        $record->version_id     = $form->getData('id');
         return ($dao->insert($record)) ? true : false;
     }
     /**
@@ -134,7 +134,7 @@ class booster {
         if ($form->getData('name') == '' and
             $form->getData('types') == '' and
             $form->getData('author_by') == '' and
-            $form->getData('jelix_versions') == '' and 
+            $form->getData('jelix_versions') == '' and
             $form->getData('tags') == ''
             )
             return jDao::get('booster~boo_items')->findAll();
