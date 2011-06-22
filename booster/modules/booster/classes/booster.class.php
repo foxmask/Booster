@@ -57,6 +57,7 @@ class booster {
         $record = jDao::createRecord('booster~boo_versions');
         $record->version_name   = $form->getData('version_name');
         $record->status         = 0; //will need moderation
+        $record->id_jelix_version = $form->getData('id_jelix_version');
         $record->item_id        = $form->getData('item_id');
         $record->last_changes   = $form->getData('last_changes');
         $record->stability      = $form->getData('stability');
@@ -92,7 +93,7 @@ class booster {
 
         $return = ($dao->insert($record)) ? true : false;
 
-        $form->saveControlToDao('jelix_versions', 'booster~boo_items_jelix_versions', null, array('id_item', 'id_version'));
+        //$form->saveControlToDao('jelix_versions', 'booster~boo_items_jelix_versions', null, array('id_item', 'id_version'));
 
         return $return;
     }
@@ -111,6 +112,7 @@ class booster {
         $record->version_name   = $form->getData('version_name');
         $record->status_version = 0; //will need moderation
         $record->item_id        = $form->getData('item_id');
+        $record->id_jelix_version = $form->getData('id_jelix_version');
         $record->last_changes   = $form->getData('last_changes');
         $record->stability      = $form->getData('stability');
         $record->filename       = $form->getData('filename');

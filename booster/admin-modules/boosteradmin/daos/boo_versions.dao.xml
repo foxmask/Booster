@@ -2,10 +2,14 @@
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
         <primarytable name="versions" realname="boo_versions" primarykey="id" />
+
+
+        
     </datasources>
     <record>
         <property name="version_id" fieldname="id" datatype="int" autoincrement="true"/>
         <property name="item_id" fieldname="item_id" datatype="int" required="true"/>
+        <property name="id_jelix_version" fieldname="id_jelix_version" datatype="int" required="true"/>
         <property name="version_name" fieldname="version_name" datatype="varchar" required="true" maxlength="80"/>
         <property name="last_changes" fieldname="last_changes" datatype="varchar" required="true" maxlength="255"/>
         <property name="stability" fieldname="stability" datatype="enum" required="true" default="stable"/>

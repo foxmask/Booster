@@ -1,7 +1,7 @@
 <?php
 /**
 * @package      jcommunity
-* @subpackage   
+* @subpackage
 * @author       Laurent Jouanneau <laurent@xulfr.org>
 * @contributor
 * @copyright    2007 Laurent Jouanneau
@@ -16,6 +16,8 @@ class defaultCtrl extends jController {
     function index() {
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
+        if (jAuth::isConnected())
+            $tpl->assign('login',jAuth::getUserSession()->login);
         $rep->body->assign('MAIN',$tpl->fetch('startpage'));
         return $rep;
     }

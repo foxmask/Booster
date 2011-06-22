@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form xmlns="http://jelix.org/ns/forms/1.1">
-
-<hidden ref="item_id"/>
 <hidden ref="id"/>
+<hidden ref="item_id"/>
 
 <input ref="version_name" required="true" maxlength="60">
     <label locale="booster~main.version_name"/>
@@ -11,6 +10,11 @@
 <wikieditor ref="last_changes" required="true" maxlength="255">
     <label locale="booster~main.last_changes"/>
 </wikieditor>
+
+<menulist ref="id_jelix_version" required="true">
+    <datasource dao="booster~boo_jelix_versions" method="findAll" labelproperty="version" valueproperty="id"/>
+    <label locale="booster~main.jelix.versions"/>
+</menulist>
 
 <menulist ref="stability" required="true">
     <label locale="booster~main.stability"/>

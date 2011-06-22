@@ -6,9 +6,6 @@
             <li class="user-rank user-image">{@booster~main.item_by@} {$data->nickname}</li>
         </ul>
         <ul class="member-info">
-            <li class="booster_jelix_versions">
-                {zone 'booster~jelix_versions',array('id'=>$data->id)}
-            </li>
             <li class="booster_url">
                 {if $data->url_website != null}<a href="{$data->url_website}">{@booster~main.website@}</a>{/if}
                 {if $data->url_website != null && $data->url_repo != null}::{/if}

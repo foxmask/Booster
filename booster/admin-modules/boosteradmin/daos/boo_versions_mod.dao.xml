@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
-        <primarytable name="boo_versions_mod" realname="boo_versions_mod" primarykey="id" />
+        <primarytable name="boo_versions_mod" realname="boo_versions_mod"
+                      primarykey="id" />
         <foreigntable name="items" realname="boo_items"
                       primarykey="id" onforeignkey="item_id" />
+        <foreigntable name="jelix_versions" realname="boo_jelix_versions"
+                            primarykey="id" onforeignkey="id_jelix_version" />
     </datasources>
     <record>
         <property name="version_id" fieldname="id" datatype="int" autoincrement="true"/>
         <property name="item_id" fieldname="item_id" datatype="int" required="true"/>
+        <property name="id_jelix_version" fieldname="id_jelix_version" datatype="int" required="true"/>
         <property name="status_version" fieldname="status" datatype="int" required="true"/>
         <property name="version_name" fieldname="version_name" datatype="varchar" required="true" maxlength="80"/>
         <property name="last_changes" fieldname="last_changes" datatype="varchar" required="true" maxlength="255"/>
@@ -19,6 +23,8 @@
         <property name="modified" fieldname="modified" datatype="datetime" updatepattern="NOW()"/>
 
         <property name="name" fieldname="name" table="items" datatype="varchar" required="true" maxlength="60"/>    </record>
+
+        <property name="version" fieldname="version" datatype="varchar" table="jelix_versions" required="true" maxlength="15"/>
 
     <factory>
         <!--<method name="findByStage" type="select/selectfirst/delete/update/php">

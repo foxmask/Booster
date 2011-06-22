@@ -1,3 +1,1 @@
-{foreach $jelix_versions as $v}
-    <span>{$v->version}</span>
-{/foreach}
+<span>{$jelix_versions->version}</span>

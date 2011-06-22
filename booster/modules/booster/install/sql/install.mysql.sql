@@ -75,6 +75,7 @@ INSERT INTO %%PREFIX%%boo_type (`id`, `type_name`) VALUES
 CREATE TABLE IF NOT EXISTS %%PREFIX%%boo_versions (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `item_id` int(12) NOT NULL,
+  `id_jelix_version` int(12) NOT NULL,
   `status` int(1) NOT NULL,
   `version_name` varchar(80) NOT NULL,
   `last_changes` varchar(255) NOT NULL,
@@ -89,7 +90,8 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%boo_versions (
   KEY `status` (`status`),
   KEY `created` (`created`),
   KEY `edited` (`edited`),
-  KEY `modified` (`modified`)
+  KEY `modified` (`modified`),
+  KEY `id_jelix_version` (`id_jelix_version`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
@@ -99,13 +101,14 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%boo_versions (
 CREATE TABLE IF NOT EXISTS %%PREFIX%%boo_versions_mod (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `item_id` int(12) NOT NULL,
+  `id_jelix_version` int(12) NOT NULL,
   `status` int(1) NOT NULL,
   `version_name` varchar(80) NOT NULL,
   `last_changes` varchar(255) NOT NULL,
   `stability` enum('pre-alpha','alpha','stable','mature') NOT NULL DEFAULT 'stable',
   `filename` varchar(80) NOT NULL,
   `download_url` varchar(255) NOT NULL,
-  `created` datetime DEFAULT NULL,
+  `created` datetime NOT NULL,
   `edited` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -113,18 +116,9 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%boo_versions_mod (
   KEY `status` (`status`),
   KEY `created` (`created`),
   KEY `edited` (`edited`),
-  KEY `modified` (`modified`)
+  KEY `modified` (`modified`),
+  KEY `id_jelix_version` (`id_jelix_version`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
-
---
--- Structure de la table `boo_items_jelix_versions`
---
-
-CREATE TABLE IF NOT EXISTS %%PREFIX%%boo_items_jelix_versions (
-  `id_item` int(11) NOT NULL,
-  `id_version` smallint(5) unsigned NOT NULL,
-  PRIMARY KEY (`id_item`,`id_version`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Structure de la table `boo_jelix_versions`

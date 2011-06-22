@@ -9,20 +9,25 @@
     <label locale="booster~main.item_name"/>
 </input>
 
-<input ref="item_info_id" required="true" maxlength="100">
-    <label locale="booster~main.item_info_id"/>
-    <help locale="booster~main.item_info_id_hlp"/>
-</input>
-
-<wikieditor ref="short_desc" required="true">
-    <label locale="booster~main.short_desc"/>
-</wikieditor>
-
 <menulist ref="type_id" required="true">
     <datasource dao="booster~boo_type" method="findAll"
                 labelproperty="type_name" valueproperty="id"/>
     <label locale="booster~main.item_type"/>
 </menulist>
+
+<wikieditor ref="short_desc" required="true">
+    <label locale="booster~main.short_desc"/>
+</wikieditor>
+
+<input ref="author" required="true" maxlength="80">
+    <label locale="booster~main.item_author"/>
+</input>
+
+
+<input ref="item_info_id" required="true" maxlength="100">
+    <label locale="booster~main.item_info_id"/>
+    <help locale="booster~main.item_info_id_hlp"/>
+</input>
 
 <input ref="tags" size="80">
     <label locale="booster~main.tags"/>
@@ -36,9 +41,6 @@
     <label locale="booster~main.item_repo_url"/>
 </input>
 
-<input ref="author" required="true" maxlength="80">
-    <label locale="booster~main.item_author"/>
-</input>
 
 <menulist ref="status" required="true">
     <label locale="booster~main.status"/>

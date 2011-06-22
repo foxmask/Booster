@@ -86,6 +86,14 @@ class versionsCtrl extends jController {
         $form->setData('id',$this->intParam('id'));
         $tpl = new jTpl();
         $rep = $this->getResponse('html');
+
+        $item_by = 'undefined';
+        $item = jDao::get('boosteradmin~boo_items')->get($this->intParam('id'));
+        if ($item !== false)
+            $item_by = jDao::get('jcommunity~user')->getById($item->item_by)->login;
+
+        $tpl->assign('item_by',$item_by);
+
         $tpl->assign('title',jLocale::get('boosteradmin~admin.version.validation.or.modification'));
         $tpl->assign('form',$form);
         $tpl->assign('id',$this->intParam('id'));

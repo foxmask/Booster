@@ -216,17 +216,15 @@ class defaultCtrl extends jController {
 
         $form = jForms::create('booster~items',$data->id);
         $form->initFromDao('booster~boo_items');
-        $form->initControlFromDao('jelix_versions', 'booster~boo_items_jelix_versions', null, array('id_item', 'id_version'));
+        //$form->initControlFromDao('jelix_versions', 'booster~boo_items_jelix_versions', null, array('id_item', 'id_version'));
         $form->setData('tags',$tags);
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
-        $tpl->assign('title',jLocale::get('booster~main.item.edit'));
-        $tpl->assign('legend',jLocale::get('booster~main.version.edit'));
         $tpl->assign('id',$data->id);
         $tpl->assign('form',$form);
         $tpl->assign('item_not_moderated',0);
         $tpl->assign('action','booster~saveEditItem');
-        $rep->body->assign('MAIN',$tpl->fetch('edit'));
+        $rep->body->assign('MAIN',$tpl->fetch('edit_item'));
         $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
     }
@@ -300,12 +298,10 @@ class defaultCtrl extends jController {
 
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
-        $tpl->assign('title',jLocale::get('booster~main.version.edit'));
-        $tpl->assign('legend',jLocale::get('booster~main.version.edit'));
         $tpl->assign('id',$data->id);
         $tpl->assign('form',$form);
         $tpl->assign('action','booster~saveEditVersion');
-        $rep->body->assign('MAIN',$tpl->fetch('edit'));
+        $rep->body->assign('MAIN',$tpl->fetch('edit_version'));
         $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
 

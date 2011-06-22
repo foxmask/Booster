@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
-        <primarytable name="versions" realname="boo_versions" primarykey="id" />
+        <primarytable name="versions" realname="boo_versions"
+                            primarykey="id" />
+        <foreigntable name="jelix_versions" realname="boo_jelix_versions"
+                            primarykey="id" onforeignkey="id_jelix_version" />
     </datasources>
     <record>
         <property name="id" fieldname="id" datatype="int" autoincrement="true"/>
         <property name="item_id" fieldname="item_id" datatype="int" required="true"/>
+        <property name="id_jelix_version" fieldname="id_jelix_version" datatype="int" required="true"/>
         <property name="version_name" fieldname="version_name" datatype="varchar" required="true" maxlength="80"/>
         <property name="last_changes" fieldname="last_changes" datatype="varchar" required="true" maxlength="255"/>
         <property name="stability" fieldname="stability" datatype="enum" required="true" default="stable"/>
@@ -15,6 +19,10 @@
         <property name="created" fieldname="created" datatype="datetime" insertpattern="NOW()" />
         <property name="edited" fieldname="edited" datatype="datetime" updatepattern="NOW()"/>
         <property name="modified" fieldname="modified" datatype="datetime" updatepattern="NOW()"/>
+
+        <property name="version" fieldname="version" datatype="varchar" table="jelix_versions" required="true" maxlength="15"/>
+
+
     </record>
     <factory>
         <method name="findLastValidated" type="select">
