@@ -25,7 +25,7 @@
 
 <div id="header">
     <div id="topmenubar">
-        <a href="{jurl 'booster~default:index'}">Jelix BOOSTER</a>
+        <a href="{jurl 'booster~default:index'}">Jelix BOOSTER</a>, le portail des ressources produites par la communauté
     </div>
     <div id="submenubar">
         <ul id="booster_action">
@@ -55,7 +55,7 @@
         {$MENU}
     </div>
     <div id="content">
-        {if $is_home}<h2>Bienvenue sur Booster.</h2>{/if}
+        {*if $is_home}<h2>Bienvenue sur Booster.</h2>{/if*}
         {jmessage}
         {$MAIN}
     </div>

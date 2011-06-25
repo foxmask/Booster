@@ -25,11 +25,11 @@
 
         <property name="nickname" fieldname="nickname" table="usr" datatype="varchar" required="true" maxlength="80"/>
         <property name="user_id" fieldname="id" table="usr" datatype="int"/>
-
+		<property name="id_version" fieldname="id" table="type" datatype="int" autoincrement="true"/>
         <property name="type_name" fieldname="type_name" table="type" datatype="varchar" required="true" maxlength="80"/>
     </record>
     <factory>
-        <method name="findAll" type="select">
+        <method name="findAllValidated" type="select">
             <conditions>
                 <eq property="status" value="1" />
             </conditions>

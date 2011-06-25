@@ -48,7 +48,7 @@ class defaultCtrl extends jController {
             $tpl->assign('datas',$dao->findLastCreated($GLOBALS['gJConfig']->booster['last_items_created']));
         }
         $tpl->assign('item_not_moderated','');
-        $rep->body->assign('MAIN',$tpl->fetch('index'));
+        $rep->body->assign('MAIN',$tpl->fetch('list'));
         $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
     }
@@ -294,7 +294,6 @@ class defaultCtrl extends jController {
 
         $form = jForms::create('booster~version',$data->id);
         $form->initFromDao('booster~boo_versions');
-        $form->setData('item_by',$user_id);
 
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
@@ -314,7 +313,8 @@ class defaultCtrl extends jController {
         $form = jForms::fill('booster~version',$id);
 
         if ($form->check()) {
-            if ($form->getData('item_by') != jAuth::getUserSession()->id  or
+            $user_id = jDao::get('booster~boo_items')->get($form->getData('item_id'))->item_by;
+            if ($user_id != jAuth::getUserSession()->id  or
                 ! jAcl2::check('booster.edit.version')) {
                 $rep = $this->getResponse('html');
                 $rep->bodyTpl = 'jelix~403.html';

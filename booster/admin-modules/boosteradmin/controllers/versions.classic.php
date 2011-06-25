@@ -88,7 +88,7 @@ class versionsCtrl extends jController {
         $rep = $this->getResponse('html');
 
         $item_by = 'undefined';
-        $item = jDao::get('boosteradmin~boo_items')->get($this->intParam('id'));
+        $item = jDao::get('booster~boo_items')->get($this->intParam('id'));
         if ($item !== false)
             $item_by = jDao::get('jcommunity~user')->getById($item->item_by)->login;
 

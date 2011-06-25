@@ -76,7 +76,7 @@ class booster {
         $dt->now();
 
         $dao = jDao::get('boosteradmin~boo_items_mod');
-        $record = jDao::createRecord('boosteradmin~boo_items');
+        $record = jDao::createRecord('booster~boo_items');
         $record->id             = $id_booster;
         $record->name           = $form->getData('name');
         $record->item_info_id   = $form->getData('item_info_id');
@@ -141,56 +141,102 @@ class booster {
             )
             return jDao::get('booster~boo_items')->findAll();
 
-        $conditions = jDao::createConditions();
+        $name           = $form->getData('name');
+        $types          = $form->getData('types');
+        $author         = $form->getData('author_by');
+        $jelix_versions = $form->getData('jelix_versions');
+        $tags           = $form->getData('tags');
+
+        $q      = '';
+        $from   = '';
+        $where  = '';
+        $orderby = '';
+        $cond   = '';
+
+        $c = jDb::getConnection();
+        //columns
+        $q = 'SELECT items.id,
+                    items.name,
+                    items.item_info_id,
+                    items.short_desc,
+                    type.id AS type_id,
+                    items.url_website,
+                    items.url_repo,
+                    items.author,
+                    items.item_by,
+                    usr.nickname,
+                    type.type_name,
+                    versions.id AS version_id,
+                    versions.version_name,
+                    versions.last_changes,
+                    versions.stability,
+                    versions.filename,
+                    versions.download_url,
+                    versions.status AS status_version,
+                    versions.created,
+                    versions.edited,
+                    versions.modified,
+                    versions.id_jelix_version,
+                    versions.status';
+
+        //tables
+        $from = '
+                FROM '.
+                $c->prefixTable('boo_items').' AS items
+                 LEFT JOIN ' .$c->prefixTable('boo_versions').' AS versions ON ( items.id=versions.item_id )
+                 LEFT JOIN ' . $c->prefixTable('boo_jelix_versions'). ' AS jelix_versions ON (versions.id_jelix_version=jelix_versions.id ), '.
+                $c->prefixTable('boo_type').' AS type ,'.
+                $c->prefixTable('community_users'). ' AS usr ';
+        //where conditions
+        $where = "
+                WHERE items.type_id=type.id
+                    AND items.item_by=usr.id
+                    AND versions.status = '1' " ;
         //Types
-        $conditions->startGroup('OR');
-        $types = $form->getData('types');
         if(!empty($types)) {
-            foreach($types as $type)
-                $conditions->addCondition('type_id', '=', $type);
+            $cond .= $this->buildCond($types,'type_id');
         }
-        $conditions->endGroup();
         //Name
-        $conditions->startGroup('OR');
-        $name = $form->getData('name');
-        if(!empty($name)) {
-            $conditions->addCondition('name', '=', $name);
+        if($name != '') {
+            $cond .= "
+                    AND name  ='$name' ";
         }
-        $conditions->endGroup();
-        //Author_by
-        $conditions->startGroup('OR');
-        $author_by = $form->getData('author_by');
-        if(!empty($author_by)) {
-            $conditions->addCondition('author', '=', $author_by);
-            $conditions->addCondition('nickname', '=', $author_by);
+        //Author
+        if($author != '') {
+            $cond .= "
+                    AND ( author ='$author' OR nickname ='$author' ) ";
         }
-        $conditions->endGroup();
+        //version
+        if(!empty($jelix_versions)) {
+            $cond .= $this->buildCond($jelix_versions,'id_jelix_version');
+        }
 
-        //we only retrieve the Validated Items
-        $conditions->addCondition('status','=','1');
+        $orderby = '
+                    ORDER BY versions.created desc';
 
-        //Results
-        $dao_items = jDao::get('booster~boo_items');
+        $sql = $q.$from.$where.$cond.$orderby;
+        //get the datas
+        $datas = $c->query($sql);
+
         $items = $results = array();
-
-        if(!empty($name) OR !empty($types) OR !empty($author_by)) {
-            foreach($dao_items->findBy($conditions) as $item) {
-                $items[$item->id] = $item;
-            }
+        foreach($datas as $item) {
+            $items[$item->id] = $item;
         }
 
-        $tags = $form->getData('tags');
+        // tags ?
         if( !empty($tags)) {
+            //get tags
             $srvTags = jClasses::getService("jtags~tags");
             $subjects = $srvTags->getSubjectsByTags($tags, "booscope");
             foreach($subjects as $id){
+                // get records of this tags
                 if(isset($items[$id]) OR empty($items))
-                    $results[$id] = $dao_items->get($id);
+                    $results[$id] = $items[$id];
             }
         }
+        // no tag !
         else
             $results = $items;
-
         return $results;
     }
     /**
@@ -206,5 +252,34 @@ class booster {
             return ( $rec->status == 0) ? false : true;
         else
             return true;
+    }
+
+    /**
+     * build the Where conditions from :
+     * @params $vars array to read to build the condition
+     * @param $column name of the column for the where condition
+     * @return string $cond return the built condition
+     */
+    private function buildCond($vars,$column) {
+        $i = 0;
+        $cond = "";
+        if (count($vars) == 1)
+            $cond .= "
+                    AND  ";
+        else
+            $cond .= "
+                    AND  ( ";
+
+        foreach($vars as $str) {
+            $i++;
+            $cond .= $column ." = '".$str."' ";
+            if (count($vars) > 1 and count($vars) > $i )
+                $cond .= " OR ";
+        }
+
+        if (count($vars) > 1)
+            $cond .= " ) ";
+
+        return $cond;
     }
 }

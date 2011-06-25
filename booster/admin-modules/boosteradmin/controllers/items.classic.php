@@ -20,7 +20,7 @@ class itemsCtrl extends jController {
         $tpl = new jTpl();
         $rep = $this->getResponse('html');
         $tpl->assign('datas_mod',jDao::get('boosteradmin~boo_items_mod')->findAll());
-        $tpl->assign('datas_new',jDao::get('boosteradmin~boo_items')->findAllNotModerated());
+        $tpl->assign('datas_new',jDao::get('booster~boo_items')->findAllNotModerated());
         $rep->body->assign('MAIN',$tpl->fetch('items_mod'));
         return $rep;
     }
@@ -30,7 +30,7 @@ class itemsCtrl extends jController {
     function indexAll() {
         $tpl = new jTpl();
         $rep = $this->getResponse('html');
-        $tpl->assign('datas',jDao::get('boosteradmin~boo_items')->findAllValidated());
+        $tpl->assign('datas',jDao::get('booster~boo_items')->findAllValidated());
         $rep->body->assign('MAIN',$tpl->fetch('items_all'));
         return $rep;
     }
@@ -39,7 +39,7 @@ class itemsCtrl extends jController {
      */
     function editnew() {
         $form = jForms::create('boosteradmin~items_mod',$this->intParam('id'));
-        $form->initFromDao('boosteradmin~boo_items');
+        $form->initFromDao('booster~boo_items');
         $form->setData('id',$this->intParam('id'));
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
@@ -68,7 +68,7 @@ class itemsCtrl extends jController {
             else {
                 jMessage::add(jLocale::get('boosteradmin~admin.item_saved_but_not_validated_yet'));
             }
-            $form->saveToDao('boosteradmin~boo_items');
+            $form->saveToDao('booster~boo_items');
         }
         else {
             jMessage::add('boosteradmin~admin.invalid.data');
@@ -109,7 +109,7 @@ class itemsCtrl extends jController {
                 $tags = explode(",", $tagStr);
                 jClasses::getService("jtags~tags")->saveTagsBySubject($tags, 'booscope', $this->intParam('id'));
 
-                $form->saveToDao('boosteradmin~boo_items');
+                $form->saveToDao('booster~boo_items');
 
                 //delete the moderated item from the "mirror" table
                 jDao::get('boosteradmin~boo_items_mod')->delete($form->getData('id'));
