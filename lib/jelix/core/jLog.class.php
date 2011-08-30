@@ -74,6 +74,11 @@ class jLog {
     protected static $allMessages = array();
 
     /**
+     * messages count of each categories, for the memory logger
+     */
+    protected static $messagesCount = array();
+
+    /**
      * private constructor. static class
      */
     private function __construct(){}
@@ -142,6 +147,19 @@ class jLog {
             if ($loggername == '')
                 continue;
             if ($loggername == 'memory') {
+                global $gJConfig;
+                $cat = $message->getCategory();
+                if (isset($gJConfig->memorylogger[$cat]))
+                    $max = intval($gJConfig->memorylogger[$cat]);
+                else {
+                    $max = intval($gJConfig->memorylogger['default']);
+                }
+                if (!isset(self::$messagesCount[$cat])) {
+                    self::$messagesCount[$cat] = 0;
+                }
+                if(++self::$messagesCount[$cat] > $max) {
+                    continue;
+                }
                 self::$allMessages[] = $message;
                 continue;
             }
@@ -187,6 +205,16 @@ class jLog {
     }
 
     /**
+     * @return integer
+     */
+    static function getMessagesCount($category) {
+        if (isset(self::$messagesCount[$category])) {
+            return self::$messagesCount[$category];
+        }
+        return 0;
+    }
+
+    /**
      * call each loggers so they have the possibility to inject data into the
      * given response
      * @param jResponse $response
@@ -203,7 +231,7 @@ class jLog {
      * @param string $category the category
      * @return boolean true if it is activated
      */
-    public function isPluginActivated($logger, $category) {
+    public static function isPluginActivated($logger, $category) {
         global $gJConfig;
 
         $loggers = preg_split('/[\s,]+/', $gJConfig->logger['_all']);

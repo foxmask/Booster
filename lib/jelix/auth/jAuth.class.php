@@ -15,6 +15,8 @@
 
 require(JELIX_LIB_PATH.'auth/jIAuthDriver.iface.php');
 
+require(JELIX_LIB_PATH.'auth/jAuthDriverBase.class.php');
+
 /**
  * This is the main class for authentification process
  * @package    jelix
@@ -345,7 +347,7 @@ class jAuth {
         }
 
         $nbLower = floor(($length-$nbNumber-$nbSpec)/2);
-        $nbUpper = $length-$nbNumber-$nbUpper-$nbSpec;
+        $nbUpper = $length-$nbNumber-$nbLower-$nbSpec;
 
         $pass = '';
 

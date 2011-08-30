@@ -118,7 +118,8 @@ class jUrl extends jUrlBase {
         }
         static $url = false;
         if ($url === false){
-            $url = 'http://'.$_SERVER['HTTP_HOST'].$GLOBALS['gJCoord']->request->urlScript.$GLOBALS['gJCoord']->request->urlPathInfo.'?';
+            $req = $GLOBALS['gJCoord']->request;
+            $url = $req->getServerURI().$req->urlScript.$req->urlPathInfo.'?';
             $q = http_build_query($_GET, '', ($forxml?'&amp;':'&'));
             if(strpos($q, '%3A')!==false)
                 $q = str_replace( '%3A', ':', $q);
@@ -181,26 +182,30 @@ class jUrl extends jUrlBase {
     * @return string the url string
     */
     static function getFull ($actSel, $params = array (), $what=0, $domainName = null) {
-        global $gJConfig;
+        global $gJCoord;
 
-        if ($domainName) {
-            $domain = $domainName;
+        $domain = '';
+
+        $url = self::get($actSel, $params, ($what != self::XMLSTRING?self::STRING:$what));
+        if (!preg_match('/^http/', $url)) {
+            if ($domainName) {
+                $domain = $domainName;
+                if (!preg_match('/^http/', $domainName))
+                    $domain = $gJCoord->request->getProtocol() . $domain;
+            }
+            else {
+                $domain = $gJCoord->request->getServerURI();
+            }
+
+            if ($domain == '') {
+                throw new jException('jelix~errors.urls.domain.void');
+            }
         }
-        elseif ($gJConfig->domainName != '') {
-            $domain = $gJConfig->domainName;
-        }
-        elseif (isset($_SERVER['HTTP_HOST'])) {
-            $domain = $_SERVER['HTTP_HOST'];
-        }
-        else {
-            throw new jException('jelix~errors.urls.domain.void');
+        else if ($domainName != '') {
+            $url = str_replace($gJCoord->request->getDomainName(), $domainName, $url);
         }
 
-        if (!preg_match('/^http/', $domain)) {
-            $domain = $GLOBALS['gJCoord']->request->getProtocol().$domain;
-        }
-
-        return $domain . self::get($actSel, $params, ($what != self::XMLSTRING?self::STRING:$what));
+        return $domain.$url;
     }
 
     /**

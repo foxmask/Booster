@@ -158,7 +158,6 @@ class jTplCompiler
         $this->_locales = jTplConfig::$localizedMessages;
     }
 
-
     /**
      * Launch the compilation of a template
      *

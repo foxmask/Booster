@@ -18,7 +18,7 @@ class jelixModuleUpgrader_newerrormanager extends jInstallerModule {
         if ($this->firstExec($conf->getFileName()))
             $this->modifyIni($conf);
     }
-    
+
     /**
      * @param jIniFileModifier $ini
      */
@@ -77,9 +77,9 @@ class jelixModuleUpgrader_newerrormanager extends jInstallerModule {
             }
             if ($logEmailHeaders) {
                 $ini->removeValue('emailHeaders', 'error_handling');
-                $ini->setValue('emailHeaders',$logEmail,'mailLogger');
+                $ini->setValue('emailHeaders',$logEmailHeaders,'mailLogger');
             }
-            
+
         }
     }
 
@@ -88,8 +88,11 @@ class jelixModuleUpgrader_newerrormanager extends jInstallerModule {
      */
     protected function addValue($ini, $name, $section, $val) {
         $oldval = $ini->getValue($name, $section);
-        if (!is_null($oldval) && strpos($oldval, $val) !== false) {
-            $val = $oldval.','.$val;
+        if (!is_null($oldval)) {
+            $list = preg_split('/ *, */', $oldval);
+            if (!in_array($val, $list)) {
+                $val = $oldval.','.$val;
+            }
         }
         $ini->setValue($name, $val, $section);
     }

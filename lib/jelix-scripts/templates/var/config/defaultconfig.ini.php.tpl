@@ -63,8 +63,9 @@ engine        = basic_significant
 ; because the jelix-www directory is outside the yourapp/www/ directory, you should create a link to
 ; jelix-www, or copy its content in yourapp/www/ (with a name like 'jelix' for example)
 ; so you should indicate the relative path of this link/directory to the basePath, or an absolute path.
+; if you change it, you probably want to change path in datepickers, wikieditors and htmleditors sections
 jelixWWWPath = "jelix/"
-
+jqueryPath="jelix/jquery/"
 
 ; enable the parsing of the url. Set it to off if the url is already parsed by another program
 ; (like mod_rewrite in apache), if the rewrite of the url corresponds to a simple url, and if
@@ -87,9 +88,8 @@ defaultEntrypoint= index
 
 entrypointExtension= .php
 
-; leave empty to have jelix error messages
-notfoundAct =
-;notfoundAct = "jelix~error:notfound"
+; action to show the 'page not found' error
+notfoundAct = "jelix~error:notfound"
 
 ; list of actions which require https protocol for the simple url engine
 ; syntax of the list is the same as explained in the simple_urlengine_entrypoints

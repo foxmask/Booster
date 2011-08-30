@@ -10,14 +10,14 @@
  * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
 
-require_once(LIB_PATH . 'php5redis/Php5Redis.php');
+require_once(LIB_PATH . 'php5redis/Redis.php');
 
 class redisKVDriver extends jKVDriver implements jIKVSet, jIKVttl {
-  
+
     /**
      * Connects to the redis server
      *
-     * @return Php5Redis object
+     * @return Redis object
      */
    	protected function _connect() {
 
@@ -26,7 +26,7 @@ class redisKVDriver extends jKVDriver implements jIKVSet, jIKVttl {
      		throw new jException(
                 'jelix~kvstore.error.no.host', $this->_profileName);
         }
- 
+
         // A port is needed as well
         if (! isset($this->_profile['port'])) {
      		throw new jException(
@@ -34,7 +34,7 @@ class redisKVDriver extends jKVDriver implements jIKVSet, jIKVttl {
         }
 
         // OK, let's connect now
-        $cnx = new Php5Redis($this->_profile['host'], $this->_profile['port']);
+        $cnx = new Redis($this->_profile['host'], $this->_profile['port']);
         return $cnx;
     }
 
@@ -89,7 +89,7 @@ class redisKVDriver extends jKVDriver implements jIKVSet, jIKVttl {
     public function flush() {
         return $this->_connection->flushall();
     }
-	
+
     public function append($key, $value) {
         if (is_resource($value))
             return false;
@@ -120,16 +120,30 @@ class redisKVDriver extends jKVDriver implements jIKVSet, jIKVttl {
         $val = $this->get($key);
         if ($val === null || !is_numeric($val) || !is_numeric($incvalue))
             return false;
-        return $this->_connection->incr($key, $incvalue);
+        if (intval($val) == $val)
+            return $this->_connection->incr($key, intval($incvalue));
+        else { // float values
+            $result = intval($val)+intval($incvalue);
+            if($this->_connection->set($key, $result))
+                return $result;
+            return false;
+        }
     }
 
     public function decrement($key, $decvalue = 1) {
         $val = $this->get($key);
         if ($val === null || !is_numeric($val) || !is_numeric($decvalue))
             return false;
-        return $this->_connection->decr($key, $decvalue);
+        if (intval($val) == $val)
+            return $this->_connection->decr($key, intval($decvalue));
+        else { // float values
+            $result = intval($val)-intval($decvalue);
+            if ($this->_connection->set($key, $result))
+                return $result;
+            return false;
+        }
     }
-	
+
     // jIKVttl -------------------------------------------------------------
     public function setWithTtl($key, $value, $ttl) {
         if (is_resource($value))
@@ -157,7 +171,7 @@ class redisKVDriver extends jKVDriver implements jIKVSet, jIKVttl {
     protected function esc($val) {
         if (is_numeric($val) || is_int($val))
             return (string)$val;
-        else 
+        else
             return serialize($val);
     }
 
@@ -173,7 +187,7 @@ class redisKVDriver extends jKVDriver implements jIKVSet, jIKVttl {
             return $val;
         }
     }
-	
+
 	// jIKVSet -------------------------------------------------------------
 
     public function sAdd($skey, $value) {

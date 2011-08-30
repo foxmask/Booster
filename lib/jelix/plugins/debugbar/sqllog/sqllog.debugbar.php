@@ -43,18 +43,27 @@ class sqllogDebugbarPlugin implements jIDebugbarPlugin {
             $info->label .= 'memory logger is not active';
         }
         else {
-            $info->htmlLabel .= count($messages);
-            if (count($messages)) {
-                $info->popupContent = '<ul id="jxdb-sqllog" class="jxdb-list">';
+            $realCount = jLog::getMessagesCount('sql');
+            $currentCount = count($messages);
+            $info->htmlLabel .= $realCount;
+            if ($realCount) {
+                if ($realCount > $currentCount) {
+                    $info->popupContent = '<p class="jxdb-msg-warning">Too many queries ('.$realCount.'). Only first '.$currentCount.' queries are shown.</p>';
+                }
+                $info->popupContent .= '<ul id="jxdb-sqllog" class="jxdb-list">';
                 foreach($messages as $msg) {
-                    $info->popupContent .= '<li>
-                    <h5><a href="#" onclick="jxdb.toggleDetails(this);return false;"><span>'.htmlspecialchars($msg->getMessage()).'</span></a></h5>
-                    <div>
-                    <p>Time: '.$msg->getTime().'s<br/>';
                     $dao = $msg->getDao();
-                    if ($dao)
-                        $info->popupContent.='Dao: '.$dao;
-                    $info->popupContent.='</p>'.$debugbar->formatTrace($msg->getTrace());
+                    if ($dao) {
+                        $m = 'DAO '.$dao;
+                    }
+                    else $m = substr($msg->getMessage(), 0,50).' [...]';
+
+                    $info->popupContent .= '<li>
+                    <h5><a href="#" onclick="jxdb.toggleDetails(this);return false;"><span>'.htmlspecialchars($m).'</span></a></h5>
+                    <div>
+                    <p>Time: '.$msg->getTime().'s</p>';
+                    $info->popupContent.= '<pre style="white-space:pre-wrap">'.htmlspecialchars($msg->getMessage()).'</pre>';
+                    $info->popupContent.= $debugbar->formatTrace($msg->getTrace());
                     $info->popupContent .='</div></li>';
                 }
                 $info->popupContent .= '</ul>';

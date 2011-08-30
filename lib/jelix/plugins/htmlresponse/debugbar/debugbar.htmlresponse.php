@@ -163,16 +163,9 @@ ul.jxdb-list li.jxdb-opened  h5 a {background-image: url('data:image/png;base64,
 #jxdb-header {
     padding:3px;
     background:-moz-linear-gradient(top, #EFF4F6, #87CDEF);
-    background-color: #EFF4F6;
-    -moz-border-radius:0px 0px  5px 5px;
-    -o-border-radius:0px 0px  5px 5px ;
-    -webkit-border-bottom-left-radius: 5px;
-    -webkit-border-bottom-right-radius: 5px;
-    border-radius:0px 0px  5px 5px ;
-    -moz-box-shadow: #969CB4 3px 3px 6px 0px;
-    -webkit-box-shadow: #6B6F80 3px 3px 6px;
-    -o-box-shadow: #6B6F80 3px 3px 6px 0px;
-    box-shadow: #6B6F80 3px 3px 6px 0px;
+    background-color: #EFF4F6;    
+    border-radius:0px 0px  5px 5px ;-webkit-border-bottom-right-radius: 5px;-webkit-border-bottom-left-radius: 5px;-o-border-radius:0px 0px  5px 5px ;-moz-border-radius:0px 0px  5px 5px;
+    box-shadow: #6B6F80 3px 3px 6px 0px;-moz-box-shadow: #969CB4 3px 3px 6px 0px;-webkit-box-shadow: #6B6F80 3px 3px 6px;-o-box-shadow: #6B6F80 3px 3px 6px 0px;
     font-size:10pt;
     color:#797979;
     float:right;
@@ -194,15 +187,8 @@ ul.jxdb-list li.jxdb-opened  h5 a {background-image: url('data:image/png;base64,
 #jxdb-tabpanels {
     clear:both;
     background-color: #CCE4ED;
-    -moz-border-radius: 5px;
-    -o-border-radius:0px 0px  5px 5px ;
-    -webkit-border-bottom-left-radius: 5px;
-    -webkit-border-bottom-right-radius: 5px;
-    border-radius:0px 0px  5px 5px ;
-    -moz-box-shadow: #969CB4 3px 3px 3px 0px;
-    -webkit-box-shadow: #6B6F80 3px 3px 3px;
-    -o-box-shadow: #6B6F80 3px 3px 3px 0px;
-    box-shadow: #6B6F80 3px 3px 3px 0px;
+    border-radius:0px 0px  5px 5px ;-moz-border-radius: 0 0 5px 5px;-o-border-radius:0px 0px  5px 5px ;-webkit-border-bottom-left-radius: 5px;-webkit-border-bottom-right-radius: 5px;
+    box-shadow: #6B6F80 3px 3px 3px 0px;-moz-box-shadow: #969CB4 3px 3px 3px 0px;-webkit-box-shadow: #6B6F80 3px 3px 3px;-o-box-shadow: #6B6F80 3px 3px 3px 0px;
     z-index:1100;
     margin:0;
     padding:0;
@@ -223,9 +209,11 @@ ul.jxdb-list li.jxdb-opened  h5 a {background-image: url('data:image/png;base64,
 #jxdb-errors li {background-color: inherit;}
 #jxdb-errors li.jxdb-msg-error h5 {background-color:#FFD3D3;}
 #jxdb-errors li.jxdb-msg-notice h5 {background-color:#DDFFE6;}
-#jxdb-errors li.jxdb-msg-warning h5 { background-color:#FFF6D3;}
+#jxdb-errors li.jxdb-msg-warning h5 { background-color:#FFB94E;}
 .jxdb-list li >div {display:none;}
 .jxdb-list li.jxdb-opened >div {display:block;}
+p.jxdb-msg-error { background-color:#FFD3D3;}
+p.jxdb-msg-warning { background-color:#FFB94E;}
 
 '.$css.'
 </style>
@@ -316,7 +304,7 @@ var jxdb={plugins:{},init:function(event){for(var i in jxdb.plugins)jxdb.plugins
      * @param array $trace
      * @return string
      */
-    function formatTrace(&$trace) {
+    function formatTrace($trace) {
         $html = '<table>';
         foreach($trace as $k=>$t) {
             if (isset($t['file'])) {

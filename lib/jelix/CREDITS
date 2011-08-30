@@ -15,10 +15,10 @@ Vincent Bonnard
 Brunto
  - bug fix in the formdatafull plugin (#1027)
  - bug fix in jImageModifier (#1161)
+ - improvement in crud controllers (#1189)
 
 Cedric
  - bug fix in jFile::read
-
 
 Uriel Corfa
  - Support of class datasources in jForms (#323)
@@ -135,7 +135,7 @@ Julien Issler
  - jAuth: update usersession when needed (#461)
  - jSession: cannot use NOW() in dao storage because sqlite doesn't support it (#949)
  - jDbPDOConnection: syntax error when setting utf-8 charset in mysql driver
- - fixed also #1331, #1334
+ - fixed also #1331, #1334, #1335, #1338
 
 Julien Jacottet
  - tpl plugin link_to_remote (#30)
@@ -187,6 +187,7 @@ Hadrien Lanneau
  - jCrypt : default key in configuration (#1137)
  - jUrl::getFull() (#1186)
  - fixed an error in jLog with jRequest (#1273)
+ - better length check in datatype (#1377)
 
 Nicolas Lassalle
  - bug fix in jResponseBinary (#188)
@@ -220,9 +221,13 @@ Vincent Viaud (aka Litchi)
  - acl listener for jauth::logout (#1236)
  - modifier round (#1206)
  - fixed auth_url_return transmission during a logout (#1258)
+ - fixed issues in ckeditor bindings (#1329)
 
 Hugues Magnier (aka BaGroN)
  - tpl plugin stripws (#140)
+
+Aurélien Marcel
+ - fixed bad variable name in jDbSchema (#1420)
 
 Loic Mathaud (bballizlife):
  - testor, many bug fixes and many patches on jelix
@@ -287,6 +292,9 @@ Philippe Schelté (aka dubphil)
 Warren Seine (aka SooW)
  - <script /> tags don't end with a newline (#536)
 
+Brice G. (aka briceg)
+ - short format in jDateTime (#1400)
+
 Brice Tence (aka brayce/bricet)
  - small testapp bug solved about missing tables (#1064)
  - fixed bug in jInstallChecker (#1087)
@@ -294,6 +302,8 @@ Brice Tence (aka brayce/bricet)
  - type attribut on link tag should be optional (#1188)
  - added lock on jCache::call to prevent multiple calls on CPU high-consuming functions (ticket #1237)
  - fixed the support of meta in included template (#1196)
+ - http version setting (#1411)
+ - support of referer in error lof messages (#1421)
 
 Christophe Thiriot (aka Doubleface)
  - testor

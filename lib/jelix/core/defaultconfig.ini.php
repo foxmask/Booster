@@ -7,6 +7,9 @@ locale = "en_US"
 charset = "UTF-8"
 theme = default
 
+; set "1.0" or "1.1" if you want to force an HTTP version
+httpVersion=""
+
 ; see http://www.php.net/manual/en/timezones.php for supported values
 ; if empty, jelix will try to get the default timezone
 timeZone =
@@ -14,12 +17,21 @@ timeZone =
 pluginsPath = app:plugins/
 modulesPath = lib:jelix-modules/,app:modules/
 
-; default domain name to use with jfullurl for example.
+; Default domain name to use with jfullurl for example.
 ; Let it empty to use $_SERVER['SERVER_NAME'] value instead.
+; For cli script, fill it.
 domainName =
 
 ; the locale to fallback when the asked string doesn't exist in the current locale
 fallbackLocale =
+
+; indicate HTTP(s) port if it should be forced to a specific value that PHP cannot
+; guess (if the application is behind a proxy on a specific port for example)
+; true for default port, or a number for a specific port. leave empty to use the
+; current server port.
+forceHTTPPort =
+forceHTTPSPort =
+
 
 ; ---  don't set the following options to on, except if you know what you do
 
@@ -185,9 +197,8 @@ defaultEntrypoint= index
 
 entrypointExtension= .php
 
-; leave empty to have jelix error messages
-notfoundAct =
-;notfoundAct = "jelix~error:notfound"
+; action to show the 'page not found' error
+notfoundAct = "jelix~error:notfound"
 
 ; list of actions which require https protocol for the simple url engine
 ; syntax of the list is the same as explained in the simple_urlengine_entrypoints
@@ -242,6 +253,8 @@ notice=file
 deprecated=
 strict=
 debug=
+sql=
+soap=
 
 ; log files for categories which have "file"
 [fileLogger]
@@ -252,6 +265,18 @@ notice=errors.log
 deprecated=errors.log
 strict=errors.log
 debug=debug.log
+
+[memorylogger]
+; number of messages to store in memory for each categories, to avoid memory issues
+default=20
+error= 10
+warning=10
+notice=10
+deprecated=10
+strict=10
+debug=20
+sql=20
+soap=20
 
 [mailLogger]
 email = root@localhost

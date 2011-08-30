@@ -154,7 +154,6 @@ class jTplCompiler
 
     }
 
-
     /**
      * Launch the compilation of a template
      *

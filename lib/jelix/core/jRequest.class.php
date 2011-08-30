@@ -39,6 +39,11 @@ abstract class jRequest {
     public $defaultResponseType = '';
 
     /**
+     * @var string the name of the base class for an allowed response for the current request
+     */
+    public $authorizedResponseClass = '';
+
+    /**
      * the path of the entry point in the url (basePath included)
      * if the url is /foo/index.php/bar, its value is /foo/
      * @var string
@@ -139,10 +144,11 @@ abstract class jRequest {
     }
 
     /**
-     * @param string $respclass the name of a response class
+     * @param jResponse $response the response
+     * @return boolean true if the given class is allowed for the current request
      */
-    public function isAllowedResponse($respclass){
-        return true;
+    public function isAllowedResponse($response){
+        return ($response instanceof $this->authorizedResponseClass);
     }
 
     /**
@@ -157,31 +163,53 @@ abstract class jRequest {
             $type = $this->defaultResponseType;
         }
 
-        if($useOriginal){
-            if(!isset($gJConfig->_coreResponses[$type])){
-                throw new jException('jelix~errors.ad.response.type.unknown',array($gJCoord->action->resource,$type,$gJCoord->action->getPath()));
+        if ($useOriginal)
+            $responses = &$gJConfig->_coreResponses;
+        else
+            $responses = &$gJConfig->responses;
+
+        if(!isset($responses[$type])){
+            if ($gJCoord->action) {
+               $action = $gJCoord->action->resource;
+               $path = $gJCoord->action->getPath();
             }
-            $respclass = $gJConfig->_coreResponses[$type];
-            $path = $gJConfig->_coreResponses[$type.'.path'];
-        }else{
-            if(!isset($gJConfig->responses[$type])){
-                throw new jException('jelix~errors.ad.response.type.unknown',array($gJCoord->action->resource,$type,$gJCoord->action->getPath()));
+            else {
+               $action = $gJCoord->moduleName.'~'.$gJCoord->actionName;
+               $path = '';
             }
-            $respclass = $gJConfig->responses[$type];
-            $path = $gJConfig->responses[$type.'.path'];
+            if ($type == $this->defaultResponseType)
+               throw new jException('jelix~errors.default.response.type.unknown',array($action,$type));
+            else
+               throw new jException('jelix~errors.ad.response.type.unknown',array($action, $type, $path));
         }
 
-        if(!$this->isAllowedResponse($respclass)){
-            throw new jException('jelix~errors.ad.response.type.notallowed',array($gJCoord->action->resource,$type,$gJCoord->action->getPath()));
-        }
+        $respclass = $responses[$type];
+        $path = $responses[$type.'.path'];
 
         if(!class_exists($respclass,false))
             require($path);
-
         $response = new $respclass();
+
+        if (!$this->isAllowedResponse($response)){
+            throw new jException('jelix~errors.ad.response.type.notallowed',array($gJCoord->action->resource, $type, $gJCoord->action->getPath()));
+        }
+
         $gJCoord->response = $response;
 
         return $response;
+    }
+
+    /**
+     * @return jResponse
+     */
+    public function getErrorResponse($currentResponse) {
+      try {
+         return $this->getResponse('', true);
+      }
+      catch(Exception $e) {
+         require_once(JELIX_LIB_CORE_PATH.'response/jResponseText.class.php');
+         return new jResponseText();
+      }
     }
 
     /**
@@ -224,10 +252,7 @@ abstract class jRequest {
      * @since 1.2
      */
    function getProtocol() {
-      static $proto = null;
-      if ($proto === null)
-         $proto = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] && $_SERVER['HTTPS'] != 'off' ? 'https://':'http://');
-      return $proto;
+      return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] && $_SERVER['HTTPS'] != 'off' ? 'https://':'http://');
    }
 
    /**
@@ -240,6 +265,80 @@ abstract class jRequest {
          return ($_SERVER['HTTP_X_REQUESTED_WITH'] === "XMLHttpRequest");
       else
          return false;
+   }
+
+   /**
+    * return the application domain name
+    * @return string
+    * @since 1.2.3
+    */
+   function getDomainName() {
+      global $gJConfig;
+      if ($gJConfig->domainName != '') {
+         return $gJConfig->domainName;
+      }
+      elseif (isset($_SERVER['SERVER_NAME'])) {
+         return $_SERVER['SERVER_NAME'];
+      }
+      elseif (isset($_SERVER['HTTP_HOST'])) {
+         if (($pos = strpos($_SERVER['HTTP_HOST'], ':')) !== false)
+            return substr($_SERVER['HTTP_HOST'],0, $pos);
+         return $_SERVER['HTTP_HOST'];
+      }
+      return '';
+   }
+
+   /**
+    * return the server URI of the application (protocol + server name + port)
+    * @return string the serveur uri
+    * @since 1.2.4
+    */
+   function getServerURI($forceHttps = null) {
+      $isHttps = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] && $_SERVER['HTTPS'] != 'off');
+
+      if ( ($forceHttps === null && $isHttps) || $forceHttps) {
+         $uri = 'https://';
+      }
+      else {
+         $uri = 'http://';
+      }
+
+      $uri .= $this->getDomainName();
+      $uri .= $this->getPort($forceHttps);
+      return $uri;
+   }
+
+   /**
+    * return the server port of the application
+    * @return string the ":port" or empty string
+    * @since 1.2.4
+    */
+   function getPort($forceHttps = null) {
+      $isHttps = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] && $_SERVER['HTTPS'] != 'off');
+
+      if ($forceHttps === null)
+         $https = $isHttps;
+      else
+         $https = $forceHttps;
+
+      global $gJConfig;
+      $forcePort = ($https ? $gJConfig->forceHTTPSPort : $gJConfig->forceHTTPPort);
+      if ($forcePort === true) {
+         return '';
+      }
+      else if ($forcePort) { // a number
+         $port = $forcePort;
+      }
+      else if($isHttps != $https) {
+         // the asked protocol is different from the current protocol
+         // we use the standard port for the asked protocol
+         return '';
+      } else {
+         $port = $_SERVER['SERVER_PORT'];
+      }
+      if (($https && $port == '443' ) || (!$https && $port == '80' ))
+         return '';
+      return ':'.$port;
    }
 
    /**
