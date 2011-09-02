@@ -19,8 +19,8 @@ class booster {
         $id_booster = 0;
 
         $form = jForms::fill('booster~items');
-        $dao = jDao::get('booster~boo_items');
-        $record = jDao::createRecord('booster~boo_items');
+        $dao = jDao::get('booster~boo_items','booster');
+        $record = jDao::createRecord('booster~boo_items','booster');
         $record->name           = $form->getData('name');
         $record->item_info_id   = $form->getData('item_info_id');
         $record->short_desc     = $form->getData('short_desc');
@@ -53,8 +53,8 @@ class booster {
      * @return boolean
      */
     function saveVersion($form) {
-        $dao = jDao::get('booster~boo_versions');
-        $record = jDao::createRecord('booster~boo_versions');
+        $dao = jDao::get('booster~boo_versions','booster');
+        $record = jDao::createRecord('booster~boo_versions','booster');
         $record->version_name   = $form->getData('version_name');
         $record->status         = 0; //will need moderation
         $record->id_jelix_version = $form->getData('id_jelix_version');
@@ -75,8 +75,8 @@ class booster {
         $dt = new jDateTime();
         $dt->now();
 
-        $dao = jDao::get('boosteradmin~boo_items_mod');
-        $record = jDao::createRecord('booster~boo_items');
+        $dao = jDao::get('boosteradmin~boo_items_mod','booster');
+        $record = jDao::createRecord('booster~boo_items','booster');
         $record->id             = $id_booster;
         $record->name           = $form->getData('name');
         $record->item_info_id   = $form->getData('item_info_id');
@@ -88,7 +88,7 @@ class booster {
         $record->item_by        = $form->getData('item_by');
         $record->tags           = $form->getData("tags");
         $record->status         = 0; //will need moderation
-        $record->created        = jDao::get('booster~boo_items')->get($id_booster)->created;
+        $record->created        = jDao::get('booster~boo_items','booster')->get($id_booster)->created;
         $record->modified       = $dt->toString(jDateTime::DB_DTFORMAT);
 
         $return = ($dao->insert($record)) ? true : false;
@@ -107,8 +107,8 @@ class booster {
         $dt = new jDateTime();
         $dt->now();
 
-        $dao = jDao::get('boosteradmin~boo_versions_mod');
-        $record = jDao::createRecord('boosteradmin~boo_versions_mod');
+        $dao = jDao::get('boosteradmin~boo_versions_mod','booster');
+        $record = jDao::createRecord('boosteradmin~boo_versions_mod','booster');
         $record->version_name   = $form->getData('version_name');
         $record->status_version = 0; //will need moderation
         $record->item_id        = $form->getData('item_id');
@@ -117,7 +117,7 @@ class booster {
         $record->stability      = $form->getData('stability');
         $record->filename       = $form->getData('filename');
         $record->download_url   = $form->getData('download_url');
-        $record->created        = jDao::get('booster~boo_versions')->get($form->getData('id'))->created;
+        $record->created        = jDao::get('booster~boo_versions','booster')->get($form->getData('id'))->created;
         $record->modified       = $dt->toString(jDateTime::DB_DTFORMAT);
         $record->version_id     = $form->getData('id');
         return ($dao->insert($record)) ? true : false;
@@ -139,7 +139,7 @@ class booster {
             $form->getData('jelix_versions') == '' and
             $form->getData('tags') == ''
             )
-            return jDao::get('booster~boo_items')->findAll();
+            return jDao::get('booster~boo_items','booster')->findAll();
 
         $name           = $form->getData('name');
         $types          = $form->getData('types');
@@ -247,7 +247,7 @@ class booster {
     function isModerated($id,$source) {
         if ($source != 'items' and $source != 'versions') return false;
 
-        $rec = jDao::get('boosteradmin~boo_'.$source.'_mod')->get($id);
+        $rec = jDao::get('boosteradmin~boo_'.$source.'_mod','booster')->get($id);
         if ($rec !== false)
             return ( $rec->status == 0) ? false : true;
         else

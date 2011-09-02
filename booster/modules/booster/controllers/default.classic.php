@@ -44,11 +44,11 @@ class defaultCtrl extends jController {
             }
         }
         else{
-            $dao = jDao::get('booster~boo_items');
+            $dao = jDao::get('booster~boo_items','booster');
             $tpl->assign('datas',$dao->findLastCreated($GLOBALS['gJConfig']->booster['last_items_created']));
         }
         $tpl->assign('item_not_moderated','');
-        $rep->body->assign('MAIN',$tpl->fetch('list'));
+        $rep->body->assign('MAIN',$tpl->fetch('index'));
         $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
     }
@@ -65,7 +65,7 @@ class defaultCtrl extends jController {
             $tpl->assign('current_user','');
         }
 
-        $data = jDao::get('booster~boo_items')->get( $this->param('id') );
+        $data = jDao::get('booster~boo_items','booster')->get( $this->param('id') );
         // is the current user the author or the admin ?
         if (( jAuth::isConnected() and $data->user_id == jAuth::getUserSession ()->id) or
             jAcl2::check('booster.admin.index') ) {
@@ -156,7 +156,7 @@ class defaultCtrl extends jController {
             if (jClasses::getService('booster~booster')->saveVersion($form)) {
                 jMessage::add(jLocale::get('booster~main.version.saved'));
                 $saved = true;
-                $item = jDao::get('booster~boo_items')->get($form->getData('item_id'));
+                $item = jDao::get('booster~boo_items','booster')->get($form->getData('item_id'));
                 if ($item->status == 1) {
                     $rep->action = 'viewItem';
                     $rep->params = array('id'=> $item->id,'name'=>$item->name);
@@ -182,7 +182,7 @@ class defaultCtrl extends jController {
      */
     function editItem() {
         $id = $this->intParam('id');
-        $data = jDao::get('booster~boo_items')->get($id);
+        $data = jDao::get('booster~boo_items','booster')->get($id);
 
         if ($data->user_id != jAuth::getUserSession()->id  or
             ! jAcl2::check('booster.edit.item')) {
@@ -262,8 +262,8 @@ class defaultCtrl extends jController {
      */
     function editVersion() {
         $id = $this->intParam('id');
-        $data = jDao::get('booster~boo_versions')->get($id);
-        $user_id = jDao::get('booster~boo_items')->get($data->item_id)->item_by;
+        $data = jDao::get('booster~boo_versions','booster')->get($id);
+        $user_id = jDao::get('booster~boo_items','booster')->get($data->item_id)->item_by;
 
         if ($user_id != jAuth::getUserSession()->id  or
             ! jAcl2::check('booster.edit.version')) {
@@ -284,7 +284,7 @@ class defaultCtrl extends jController {
             else {
                 $tpl->assign('current_user','');
             }
-            $data = jDao::get('booster~boo_items')->get($data->item_id);
+            $data = jDao::get('booster~boo_items','booster')->get($data->item_id);
             $tpl->assign('data',$data);
             $tpl->assign('item_not_moderated',1);
             $rep->body->assign('MAIN',$tpl->fetch('view_item'));
@@ -313,7 +313,7 @@ class defaultCtrl extends jController {
         $form = jForms::fill('booster~version',$id);
 
         if ($form->check()) {
-            $user_id = jDao::get('booster~boo_items')->get($form->getData('item_id'))->item_by;
+            $user_id = jDao::get('booster~boo_items','booster')->get($form->getData('item_id'))->item_by;
             if ($user_id != jAuth::getUserSession()->id  or
                 ! jAcl2::check('booster.edit.version')) {
                 $rep = $this->getResponse('html');
@@ -347,9 +347,9 @@ class defaultCtrl extends jController {
 
         $items = array();
         //get factory of the moderated item
-        $dao = jDao::get('boo_items');
+        $dao = jDao::get('boo_items','booster');
         // get factory of the item which are waiting for moderation
-        $daoMod = jDao::get('boosteradmin~boo_items_mod');
+        $daoMod = jDao::get('boosteradmin~boo_items_mod','booster');
         foreach ($tags as $subj_id) {
             //get record not yet validated
             $rec = $daoMod->get($subj_id);
@@ -385,7 +385,7 @@ class defaultCtrl extends jController {
     function applis () {
         $rep = $this->getResponse('html');
         $rep->title = jLocale::get('booster~main.applis.list');
-        $datas = jDao::get('booster~boo_items')->findByTypeId(1);
+        $datas = jDao::get('booster~boo_items','booster')->findByTypeId(1);
         $tpl = new jTpl();
         if(jAuth::isConnected()) {
             $tpl->assign('current_user',jAuth::getUserSession ()->id);
@@ -405,7 +405,7 @@ class defaultCtrl extends jController {
     function modules () {
         $rep = $this->getResponse('html');
         $rep->title = jLocale::get('booster~main.modules.list');
-        $datas = jDao::get('booster~boo_items')->findByTypeId(2);
+        $datas = jDao::get('booster~boo_items','booster')->findByTypeId(2);
         $tpl = new jTpl();
         if(jAuth::isConnected()) {
             $tpl->assign('current_user',jAuth::getUserSession ()->id);
@@ -425,7 +425,7 @@ class defaultCtrl extends jController {
     function plugins () {
         $rep = $this->getResponse('html');
         $rep->title = jLocale::get('booster~main.plugins.list');
-        $datas = jDao::get('booster~boo_items')->findByTypeId(3);
+        $datas = jDao::get('booster~boo_items','booster')->findByTypeId(3);
         $tpl = new jTpl();
         if(jAuth::isConnected()) {
             $tpl->assign('current_user',jAuth::getUserSession ()->id);
@@ -445,7 +445,7 @@ class defaultCtrl extends jController {
     function packlang () {
         $rep = $this->getResponse('html');
         $rep->title = jLocale::get('booster~main.packlang.list');
-        $datas = jDao::get('booster~boo_items')->findByTypeId(4);
+        $datas = jDao::get('booster~boo_items','booster')->findByTypeId(4);
         $tpl = new jTpl();
         if(jAuth::isConnected()) {
             $tpl->assign('current_user',jAuth::getUserSession ()->id);
@@ -465,7 +465,7 @@ class defaultCtrl extends jController {
     function yourressources () {
         $rep = $this->getResponse('html');
         $rep->title = jLocale::get('booster~main.your.ressources');
-        $datas = jDao::get('booster~boo_items')->findAllReportedBy(jAuth::getUserSession ()->id);
+        $datas = jDao::get('booster~boo_items','booster')->findAllReportedBy(jAuth::getUserSession ()->id);
         $tpl = new jTpl();
         if(jAuth::isConnected()) {
             $tpl->assign('current_user',jAuth::getUserSession ()->id);

@@ -13,6 +13,6 @@ class jelix_versionsZone extends jZone {
 
     protected function _prepareTpl(){
 
-        $this->_tpl->assign('jelix_versions', jDao::get('boo_jelix_versions')->get($this->param('id')));
+        $this->_tpl->assign('jelix_versions', jDao::get('boo_jelix_versions','booster')->get($this->param('id')));
     }
 }

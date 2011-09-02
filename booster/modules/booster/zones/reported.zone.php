@@ -16,7 +16,7 @@ class reportedZone extends jZone {
 
     protected function _prepareTpl(){
 
-        $datas = jDao::get('boo_items')->findAllReportedBy(jAuth::getUserSession ()->id);
+        $datas = jDao::get('boo_items','booster')->findAllReportedBy(jAuth::getUserSession ()->id);
 
         $items= array(); $i = 0;
         foreach($datas as $data){

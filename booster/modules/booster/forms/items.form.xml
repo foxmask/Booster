@@ -18,7 +18,7 @@
 
 <menulist ref="type_id" required="true">
     <datasource dao="booster~boo_type" method="findAll"
-                labelproperty="type_name" valueproperty="id"/>
+                labelproperty="type_name" valueproperty="id" profile="booster"/>
     <label locale="booster~main.item_type"/>
 </menulist>
 

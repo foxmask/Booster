@@ -12,9 +12,6 @@
 class boosteradminModuleInstaller extends jInstallerModule {
 
     function install() {
-        if ($this->firstDbExec())
-            $this->execSQLScript('sql/install');
-
         if ($this->firstExec('acl2')) {
             jAcl2DbManager::addSubject('booster.admin.index', 'booster~booster.admin.index');
             jAcl2DbManager::addRight('admins', 'booster.admin.index'); // for admin group

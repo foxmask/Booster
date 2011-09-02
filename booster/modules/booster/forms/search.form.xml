@@ -2,12 +2,12 @@
 <form xmlns="http://jelix.org/ns/forms/1.1">
     
     <checkboxes ref="types">
-        <datasource dao="booster~boo_type" method="findAll" labelproperty="type_name" valueproperty="id"/>
+        <datasource dao="booster~boo_type" method="findAll" labelproperty="type_name" valueproperty="id" profile="booster"/>
         <label locale="booster~main.item_type"/>
     </checkboxes>
 
     <checkboxes ref="jelix_versions">
-        <datasource dao="boo_jelix_versions" method="findAll" labelproperty="version" valueproperty="id"/>
+        <datasource dao="boo_jelix_versions" method="findAll" labelproperty="version" valueproperty="id" profile="booster"/>
         <label locale="booster~main.jelix.versions"/>
     </checkboxes>
     

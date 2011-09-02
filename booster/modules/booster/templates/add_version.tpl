@@ -7,7 +7,7 @@
         <td>{ctrl_label 'stability'}</td><td>{ctrl_control 'stability'}</td>
     </tr>
     <tr>
-        <td>{ctrl_label 'jelix_versions'}</td><td>{ctrl_control 'jelix_versions'}</td>
+        <td>{ctrl_label 'id_jelix_version'}</td><td>{ctrl_control 'id_jelix_version'}</td>
     </tr>
     <tr>
         <td>{ctrl_label 'filename'}</td><td>{ctrl_control 'filename'}</td>

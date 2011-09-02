@@ -81,7 +81,7 @@ persistant_cookie_path =
 dao = "jcommunity~user"
 
 ; profile to use for jDb
-profile = ""
+profile = "hfnu"
 
 ; name of the php function to crypt the password in the database
 password_crypt_function = sha1
