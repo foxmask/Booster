@@ -13,7 +13,6 @@ class reportedZone extends jZone {
 
     protected $number_to_display = 5;
 
-
     protected function _prepareTpl(){
 
         $datas = jDao::get('boo_items','booster')->findAllReportedBy(jAuth::getUserSession ()->id);

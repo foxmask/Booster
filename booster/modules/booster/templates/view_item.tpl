@@ -3,7 +3,7 @@
     <div class="booster_itemauthor">
         <ul class="member-ident">
             <li class="user-name user-image">{@booster~main.author@} {$data->author}</li>
-            <li class="user-rank user-image">{@booster~main.item_by@} {$data->nickname}</li>
+            <li class="user-rank user-image">{@booster~main.item_by@} {zone 'booster~author', array('id'=>$data->item_by)}</li>
         </ul>
         <ul class="member-info">
             <li class="booster_url">

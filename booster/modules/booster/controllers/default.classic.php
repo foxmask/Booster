@@ -65,9 +65,10 @@ class defaultCtrl extends jController {
             $tpl->assign('current_user','');
         }
 
-        $data = jDao::get('booster~boo_items','booster')->get( $this->param('id') );
+        $data = jDao::get('booster~boo_items','booster')->get(
+                                    $this->param('id') );
         // is the current user the author or the admin ?
-        if (( jAuth::isConnected() and $data->user_id == jAuth::getUserSession ()->id) or
+        if (( jAuth::isConnected() and $data->item_by == jAuth::getUserSession ()->id) or
             jAcl2::check('booster.admin.index') ) {
             //so let's warn him if the item is moderated or not
             $tpl->assign('item_not_moderated',!$data->status);
@@ -184,7 +185,7 @@ class defaultCtrl extends jController {
         $id = $this->intParam('id');
         $data = jDao::get('booster~boo_items','booster')->get($id);
 
-        if ($data->user_id != jAuth::getUserSession()->id  or
+        if ($data->item_by != jAuth::getUserSession()->id  or
             ! jAcl2::check('booster.edit.item')) {
             $rep = $this->getResponse('html');
             $rep->bodyTpl = 'jelix~403.html';
@@ -215,7 +216,7 @@ class defaultCtrl extends jController {
         $tags = implode(',', jClasses::getService("jtags~tags")->getTagsBySubject('booscope', $data->id) ) ;
 
         $form = jForms::create('booster~items',$data->id);
-        $form->initFromDao('booster~boo_items');
+        $form->initFromDao('booster~boo_items','booster');
         //$form->initControlFromDao('jelix_versions', 'booster~boo_items_jelix_versions', null, array('id_item', 'id_version'));
         $form->setData('tags',$tags);
         $rep = $this->getResponse('html');

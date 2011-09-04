@@ -153,7 +153,7 @@ class booster {
         $orderby = '';
         $cond   = '';
 
-        $c = jDb::getConnection();
+        $c = jDb::getConnection('booster');
         //columns
         $q = 'SELECT items.id,
                     items.name,
@@ -164,7 +164,7 @@ class booster {
                     items.url_repo,
                     items.author,
                     items.item_by,
-                    usr.nickname,
+                    -- usr.nickname,
                     type.type_name,
                     versions.id AS version_id,
                     versions.version_name,
@@ -185,12 +185,12 @@ class booster {
                 $c->prefixTable('boo_items').' AS items
                  LEFT JOIN ' .$c->prefixTable('boo_versions').' AS versions ON ( items.id=versions.item_id )
                  LEFT JOIN ' . $c->prefixTable('boo_jelix_versions'). ' AS jelix_versions ON (versions.id_jelix_version=jelix_versions.id ), '.
-                $c->prefixTable('boo_type').' AS type ,'.
-                $c->prefixTable('community_users'). ' AS usr ';
+                $c->prefixTable('boo_type').' AS type ';
+                //.', '.$c->prefixTable('community_users'). ' AS usr ';
         //where conditions
         $where = "
                 WHERE items.type_id=type.id
-                    AND items.item_by=usr.id
+                    -- AND items.item_by=usr.id
                     AND versions.status = '1' " ;
         //Types
         if(!empty($types)) {
@@ -204,7 +204,8 @@ class booster {
         //Author
         if($author != '') {
             $cond .= "
-                    AND ( author ='$author' OR nickname ='$author' ) ";
+                    AND ( author ='$author' ) ";
+                    //AND ( author ='$author' ) OR nickname ='$author' ) ";
         }
         //version
         if(!empty($jelix_versions)) {
