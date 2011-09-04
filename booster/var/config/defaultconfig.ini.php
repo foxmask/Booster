@@ -28,21 +28,24 @@ domainName=
 ; 1 if accessible by other modules (other modules can use it, but it is not accessible directly through the web)
 ; 2 if public (accessible through the web)
 
+; jcommunity.access=2
 jelix.access=2
 
-; jacldb is deprecated. keep it uninstall if possible. install jacl2db instead
-jacldb.access=0
+master_admin.access=1
+jacl2db_admin.access=1
+jauthdb_admin.access=1
 
-jacl2db.access=0
-jauth.access=0
-jauthdb.access=0
-junittests.access=0
+jacl2db.access=1
+jacldb.access=0
+jauth.access=2
+jauthdb.access=1
 jWSDL.access=0
 
-booster.access=2
+jcommunity.access=2
 jtags.access=2
 
-jcommunity.access=2
+boosteradmin.access=1
+
 [coordplugins]
 ;name = file_ini_name or 1
 

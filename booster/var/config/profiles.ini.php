@@ -3,7 +3,7 @@
 
 [jdb]
 ; name of the default profile to use for any connection
-default=hfnu
+default=booster
 
 jacl2_profile=booster
 

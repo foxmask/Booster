@@ -4,16 +4,27 @@
 startModule=booster
 startAction="default:index"
 
+dbProfils=profiles.ini.php
+
 [responses]
 
 [modules]
-booster.access=2
-jtags.access=2
-jcommunity.access=2
+
+jelix.access=2
+
+master_admin.access=0
+jacl2db_admin.access=0
+jauthdb_admin.access=0
+
 jacl2db.access=2
 jauth.access=2
+jauthdb.access=1
 
-boosteradmin.access=2
+jcommunity.access=2
+jtags.access=2
+
+booster.access=2
+
 [coordplugins]
 auth="index/auth.coord.ini.php"
 autolocale="index/autolocale.plugin.ini.php"
@@ -21,4 +32,17 @@ jacl2="index/jacl2.coord.ini.php"
 
 [acl2]
 driver=db
+
+
+
+
+
+
+
+
+
+
+
+
+
 

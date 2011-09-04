@@ -3,31 +3,32 @@
 
 startModule=master_admin
 startAction="default:index"
+dbProfils=booster_profiles.ini.php
 
 [responses]
 html=adminHtmlResponse
 htmlauth=adminLoginHtmlResponse
 
 [modules]
-jacldb.access=0
-junittests.access=0
-jWSDL.access=0
-jauth.access=2
+jelix.access=2
 master_admin.access=2
-jauthdb.access=2
-jauthdb.installparam=defaultuser
-jauthdb_admin.access=2
-jacl2db.access=2
-jacl2db.installparam=defaultuser
 jacl2db_admin.access=2
-jcommunity.access=2
-jtags.access=2
-booster.access=2
+jauthdb_admin.access=2
+
+jacl2db.access=2
+jauth.access=2
+jauthdb.access=2
+
+jcommunity.access=1
+jtags.access=1
 
 boosteradmin.access=2
+
 [simple_urlengine_entrypoints]
 adminboost="jacl2db~*@classic, jauth~*@classic, jacl2db_admin~*@classic, jauthdb_admin~*@classic, master_admin~*@classic, jcommunity~*@classic, booster~*@classic, jtags~*@classic"
 
 [coordplugins]
 auth="adminboost/auth.coord.ini.php"
 jacl2="adminboost/jacl2.coord.ini.php"
+
+
