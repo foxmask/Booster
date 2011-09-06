@@ -4,8 +4,6 @@
 startModule=booster
 startAction="default:index"
 
-dbProfils=profiles.ini.php
-
 [responses]
 
 [modules]
@@ -32,17 +30,3 @@ jacl2="index/jacl2.coord.ini.php"
 
 [acl2]
 driver=db
-
-
-
-
-
-
-
-
-
-
-
-
-
-

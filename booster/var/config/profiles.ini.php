@@ -7,8 +7,6 @@ default=booster
 
 jacl2_profile=booster
 
-jauth_profile=hfnu
-
 [jdb:hfnu]
 ; the driver name : mysql, pgsql, sqlite...
 driver=mysql
@@ -16,8 +14,8 @@ driver=mysql
 ; For most of drivers:
 database=hfnu
 host=localhost
-user=hfnu
-password=hfnu
+user=havefnubb
+password=havefnubb
 persistent=off
 
 ; when you have charset issues, enable force_encoding so the connection will be

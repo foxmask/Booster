@@ -3,7 +3,6 @@
 
 startModule=master_admin
 startAction="default:index"
-dbProfils=booster_profiles.ini.php
 
 [responses]
 html=adminHtmlResponse
@@ -30,5 +29,3 @@ adminboost="jacl2db~*@classic, jauth~*@classic, jacl2db_admin~*@classic, jauthdb
 [coordplugins]
 auth="adminboost/auth.coord.ini.php"
 jacl2="adminboost/jacl2.coord.ini.php"
-
-
