@@ -15,9 +15,9 @@
     </info>
     <dependencies>
         <jelix minversion="1.3pre.*" maxversion="1.3.*"/>
-        <!-- module name="jacl2db" minversion="0.1pre" maxversion="1.*"/ -->
+        <module name="jacl2db" minversion="0.1pre" maxversion="1.*"/>
         <module name="jcommunity" minversion="0.1pre" maxversion="1.*"/>
-        <!--module name="jtags" minversion="0.1pre" maxversion="1.*"/-->
+        <module name="jtags" minversion="0.1pre" maxversion="1.*"/>
         <!-- module name="boosteradmin" minversion="0.1pre" maxversion="1.*"/ -->
     </dependencies>
 </module>

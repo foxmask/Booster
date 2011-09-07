@@ -22,6 +22,7 @@ jcommunity.access=1
 jtags.access=1
 
 boosteradmin.access=2
+booster.access=1
 
 [simple_urlengine_entrypoints]
 adminboost="jacl2db~*@classic, jauth~*@classic, jacl2db_admin~*@classic, jauthdb_admin~*@classic, master_admin~*@classic, jcommunity~*@classic, booster~*@classic, jtags~*@classic"
