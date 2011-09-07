@@ -33,7 +33,7 @@ class boosterModuleInstaller extends jInstallerModule {
             // from the 'users' table
             // thus we share the same user database
             // and use different acl.
-            $recs = jDao::get('jcommunity~user','default')->findAll();
+            $recs = jDao::get('jcommunity~user','hfnu')->findAll();
             foreach ($recs as $rec) {
                 //admin
                 if ($rec->login == 'foxmask' or $rec->login =='laurentj')

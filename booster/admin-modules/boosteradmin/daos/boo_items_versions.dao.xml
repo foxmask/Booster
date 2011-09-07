@@ -4,8 +4,8 @@
         <primarytable name="items" realname="boo_items" primarykey="id" />
         <foreigntable name="type" realname="boo_type"
                       primarykey="id" onforeignkey="type_id" />
-        <foreigntable name="usr" realname="community_users"
-                      primarykey="id" onforeignkey="item_by" />
+        <!--foreigntable name="usr" realname="community_users"
+                      primarykey="id" onforeignkey="item_by" /-->
 
         <optionalforeigntable name="versions" realname="boo_versions"
                       primarykey="item_id" onforeignkey="id" />
@@ -20,7 +20,7 @@
         <property name="url_repo" fieldname="url_repo" datatype="varchar" required="true" maxlength="255"/>
         <property name="author" fieldname="author" datatype="varchar" required="true" maxlength="80"/>
         <property name="item_by" fieldname="item_by" datatype="int" required="true"/>
-        <property name="nickname" fieldname="nickname" table="usr" datatype="varchar" required="true" maxlength="80"/>
+        <!--property name="nickname" fieldname="nickname" table="usr" datatype="varchar" required="true" maxlength="80"/ -->
         <property name="type_id" fieldname="id" table="type" datatype="int" autoincrement="true"/>
         <property name="type_name" fieldname="type_name" table="type" datatype="varchar" required="true" maxlength="80"/>
 

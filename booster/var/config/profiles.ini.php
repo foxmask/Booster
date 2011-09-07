@@ -14,8 +14,8 @@ driver=mysql
 ; For most of drivers:
 database=hfnu
 host=localhost
-user=havefnubb
-password=havefnubb
+user=hfnu
+password=hfnu
 persistent=off
 
 ; when you have charset issues, enable force_encoding so the connection will be

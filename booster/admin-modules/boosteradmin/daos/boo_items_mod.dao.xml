@@ -4,8 +4,8 @@
         <primarytable name="boo_items_mod" realname="boo_items_mod" primarykey="id" />
         <foreigntable name="type" realname="boo_type"
                       primarykey="id" onforeignkey="type_id" />
-        <foreigntable name="usr" realname="community_users"
-                      primarykey="id" onforeignkey="item_by" />
+        <!--foreigntable name="usr" realname="community_users"
+                      primarykey="id" onforeignkey="item_by" /-->
     </datasources>
     <record>
         <property name="id" fieldname="id" datatype="int" required="true"/>
@@ -23,7 +23,7 @@
         <property name="edited" fieldname="edited" datatype="datetime" default=""/>
         <property name="tags" fieldname="tags" datatype="varchar" default="" maxlength="80"/>
 
-        <property name="nickname" fieldname="nickname" table="usr" datatype="varchar" required="true" maxlength="80"/>
+        <!-- property name="nickname" fieldname="nickname" table="usr" datatype="varchar" required="true" maxlength="80"/ -->
         <property name="id_version" fieldname="id" table="type" datatype="int" autoincrement="true"/>
         <property name="type_name" fieldname="type_name" table="type" datatype="varchar" required="true" maxlength="80"/>
     </record>
