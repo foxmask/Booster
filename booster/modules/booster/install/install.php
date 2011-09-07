@@ -18,6 +18,10 @@ class boosterModuleInstaller extends jInstallerModule {
         }
 
         if ($this->firstExec('acl2')) {
+        
+            $this->execSQLScript('user.sql', 'jacl2db');
+            $this->execSQLScript('groups.sql', 'jacl2db');
+        
             //subjects
             jAcl2DbManager::addSubject('booster.edit.item', 'booster~booster.edit.item','booster.management');
             jAcl2DbManager::addSubject('booster.edit.version', 'booster~booster.edit.version','booster.management');

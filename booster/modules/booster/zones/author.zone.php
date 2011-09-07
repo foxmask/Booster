@@ -16,7 +16,7 @@ class authorZone extends jZone {
     protected function _prepareTpl(){
         
         $this->_tpl->assign('nickname',
-                            jDao::get('jcommunity~user')->
+                            jDao::get('jcommunity~user', 'hfnu')->
                                 getById((int) $this->getParam('id'))->nickname);
     }
 }
