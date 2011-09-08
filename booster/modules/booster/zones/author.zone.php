@@ -9,14 +9,10 @@
 */
 
 class authorZone extends jZone {
-    protected $_tplname='zone.author';
     
     protected $_useCache = true;
     
-    protected function _prepareTpl(){
-        
-        $this->_tpl->assign('nickname',
-                            jDao::get('jcommunity~user', 'hfnu')->
-                                getById((int) $this->getParam('id'))->nickname);
+    protected function _createContent(){
+        return htmlspecialchars(jDao::get('jcommunity~user', 'hfnu')->getById((int) $this->getParam('id'))->nickname);
     }
 }
