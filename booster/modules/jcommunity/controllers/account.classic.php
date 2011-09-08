@@ -26,6 +26,14 @@ class accountCtrl extends jController {
         return $plugin->config['Db']['dao'];
     }
 
+    protected function getProfileName() {
+        global $gJCoord;
+        $plugin = $gJCoord->getPlugin('auth');
+        if($plugin === null)
+            throw new jException('jelix~auth.error.plugin.missing');
+        return $plugin->config['Db']['profile'];
+    }
+
     /**
     * show informations about a user
     */
@@ -34,7 +42,7 @@ class accountCtrl extends jController {
         $tpl = new jTpl();
         $tpl->assign('username',$this->param('user'));
 
-        $users = jDao::get($this->getDaoName());
+        $users = jDao::get($this->getDaoName(), $this->getProfileName());
 
         $user = $users->getByLogin($this->param('user'));
         if(!$user || $user->status < JCOMMUNITY_STATUS_VALID) {
@@ -68,7 +76,7 @@ class accountCtrl extends jController {
         jEvent::notify('jcommunity_init_edit_form_account', array('login'=>$user,'form'=>$form));
 
         try {
-            $form->initFromDao('user');
+            $form->initFromDao('user',null, $this->getProfileName());
         }catch(Exception $e){
             return $rep;
         }
@@ -129,7 +137,7 @@ class accountCtrl extends jController {
 
         $form->initFromRequest();
         $form->check();
-        $accountFact = jDao::get($this->getDaoName());
+        $accountFact = jDao::get($this->getDaoName(), $this->getProfileName());
         if($accountFact->verifyNickname($user, $form->getData('nickname'))){
             $form->setErrorOn('nickname', jLocale::get('account.error.dup.nickname'));
         }
@@ -138,7 +146,7 @@ class accountCtrl extends jController {
         if(count($form->getErrors())){
             $rep->action = 'jcommunity~account:edit';
         } else {
-            extract($form->prepareDaoFromControls($this->getDaoName()),EXTR_PREFIX_ALL, "form");
+            extract($form->prepareDaoFromControls($this->getDaoName(), null, $this->getProfileName()),EXTR_PREFIX_ALL, "form");
             jEvent::notify('jcommunity_save_account', array('login'=>$user,'form'=>$form,'factory'=>$form_dao,'record'=>$form_daorec, 'to_insert'=>$form_toInsert));
             if($form_toInsert)
                 $form_dao->insert($form_daorec);

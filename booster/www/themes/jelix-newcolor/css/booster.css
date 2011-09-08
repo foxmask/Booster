@@ -468,8 +468,8 @@ text-shadow: #aaa 0px 0px 5px;}
 
 .booster_itemtags li {
     list-style: none;
-    padding-left:15px;
-    list-style-type:none;
+    padding-left:20px;
+    list-style-type:none !important;
     list-style-position:outside;
     background-image: url("../images/posts/tag_green.png");
     background-color: transparent;
@@ -515,9 +515,10 @@ text-shadow: #aaa 0px 0px 5px;}
     text-decoration:underline;
 }
 
-.booster_postbody p {
+.booster_postbody .compatibility {
     font-weight: bold;
 }
+
 .booster_downloads {
     background-color: #edede6;
     font-weight: bold;
@@ -557,6 +558,13 @@ text-shadow: #aaa 0px 0px 5px;}
     display: list-item;
     list-style: square outside none;
     margin-left: 30px;
+}
+#content-menu #jforms_booster_search_name, #content-menu #jforms_booster_search_tags, #content-menu #jforms_booster_search_author_by{
+    display:block;
+    margin-left:17px;
+}
+#content-menu .jforms-submit{
+    margin:10px 0;display:inline-block;
 }
 
 .booster_reported span, .booster_tasktodo span {

@@ -22,8 +22,8 @@
                 {/if}
             </div>
             <div class="booster_postbody">
-                <p>{@booster~main.compatible.with@}: {$version->version}</p>
-                <p>{@booster~main.last_changes@}</p>
+                <p class="compatibility">{@booster~main.compatible.with@}: {$version->version}</p>
+                <h4>{@booster~main.last_changes@}</h4>
                 <blockquote>{$version->last_changes|wiki:'wr3_to_xhtml'}</blockquote>
             </div>
             <div class="booster_downloads">

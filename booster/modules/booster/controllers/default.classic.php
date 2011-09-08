@@ -216,7 +216,7 @@ class defaultCtrl extends jController {
         $tags = implode(',', jClasses::getService("jtags~tags")->getTagsBySubject('booscope', $data->id) ) ;
 
         $form = jForms::create('booster~items',$data->id);
-        $form->initFromDao('booster~boo_items','booster');
+        $form->initFromDao('booster~boo_items',null, 'booster');
         //$form->initControlFromDao('jelix_versions', 'booster~boo_items_jelix_versions', null, array('id_item', 'id_version'));
         $form->setData('tags',$tags);
         $rep = $this->getResponse('html');
