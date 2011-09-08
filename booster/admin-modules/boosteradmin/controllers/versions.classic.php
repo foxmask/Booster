@@ -62,6 +62,11 @@ class versionsCtrl extends jController {
             if ($form->getData('status_version')==1) {
                 jMessage::add(jLocale::get('boosteradmin~admin.version_validated'));
             }
+            //validator submit via the "Validate" button so we automaticaly validate the version
+            elseif($form->getData('_validate')){
+                $form->setData('status_version', 1);
+                jMessage::add(jLocale::get('boosteradmin~admin.version_validated'));
+            }
             // we just edit the new content of the version
             // but we didnt validate it so :
             // save all the modification

@@ -29,15 +29,15 @@
     <help locale="booster~main.item_info_id_hlp"/>
 </input>
 
-<input ref="tags" size="80">
+<input ref="tags" size="60">
     <label locale="booster~main.tags"/>
 </input>
 
-<input ref="url_website" type="url">
+<input ref="url_website" type="url" size="60">
     <label locale="booster~main.item_website_url"/>
 </input>
 
-<input ref="url_repo" required="true" type="url">
+<input ref="url_repo" required="true" type="url" size="60">
     <label locale="booster~main.item_repo_url"/>
 </input>
 
@@ -50,6 +50,10 @@
 
 
 <submit ref="_submit">
-    <label>ok</label>
+    <label locale="boosteradmin~admin.form.save"/>
+</submit>
+
+<submit ref="_validate">
+    <label locale="boosteradmin~admin.form.validate"/>
 </submit>
 </form>

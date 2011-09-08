@@ -62,6 +62,11 @@ class itemsCtrl extends jController {
             if ($form->getData('status')==1) {
                 jMessage::add(jLocale::get('boosteradmin~admin.item_validated'));
             }
+            //validator submit via the "Validate" button so we automaticaly validate the item
+            elseif($form->getData('_validate')){
+                $form->setData('status', 1);
+                jMessage::add(jLocale::get('boosteradmin~admin.item_validated'));
+            }
             // we just edit the new content of the item
             // but we didnt validate it so :
             // save all the modification

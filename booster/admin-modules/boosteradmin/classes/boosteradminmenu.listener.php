@@ -21,7 +21,7 @@ class boosteradminmenuListener extends jEventListener{
                         jUrl::get('boosteradmin~items:indexAll'),
                         301,
                         'booster');
-            $item->icon = $chemin . 'images/items.png';
+            $item->icon = $chemin . 'images/item.png';
             $event->add($item);
 
             $item = new masterAdminMenuItem('items',
@@ -29,7 +29,7 @@ class boosteradminmenuListener extends jEventListener{
                         jUrl::get('boosteradmin~items:index'),
                         302,
                         'booster');
-            $item->icon = $chemin . 'images/items.png';
+            $item->icon = $chemin . 'images/item_mod.png';
             $event->add($item);
 
 
@@ -38,7 +38,7 @@ class boosteradminmenuListener extends jEventListener{
                         jUrl::get('boosteradmin~versions:indexAll'),
                         303,
                         'booster');
-            $item->icon = $chemin . 'images/versions.png';
+            $item->icon = $chemin . 'images/version.png';
             $event->add($item);
 
             $item = new masterAdminMenuItem('versions',
@@ -46,7 +46,7 @@ class boosteradminmenuListener extends jEventListener{
                         jUrl::get('boosteradmin~versions:index'),
                         304,
                         'booster');
-            $item->icon = $chemin . 'images/versions.png';
+            $item->icon = $chemin . 'images/version_mod.png';
             $event->add($item);
 
         }

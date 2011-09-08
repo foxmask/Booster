@@ -24,11 +24,11 @@
     <item value="mature">mature</item>
 </menulist>
 
-<input ref="filename" required="true" maxlength="80">
+<input ref="filename" required="true" maxlength="80" size="80">
     <label locale="booster~main.filename"/>
 </input>
 
-<input ref="download_url" required="true" maxlength="255">
+<input ref="download_url" required="true" maxlength="255" size="80">
     <label locale="booster~main.download_url"/>
 </input>
 
@@ -39,6 +39,10 @@
 </menulist>
 
 <submit ref="_submit">
-    <label>ok</label>
+    <label locale="boosteradmin~admin.form.save"/>
+</submit>
+
+<submit ref="_validate">
+    <label locale="boosteradmin~admin.form.validate"/>
 </submit>
 </form>
