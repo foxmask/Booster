@@ -8,28 +8,14 @@ default=booster
 jacl2_profile=booster
 
 [jdb:hfnu]
-; the driver name : mysql, pgsql, sqlite...
 driver=mysql
-
-; For most of drivers:
-database=hfnu
+database=jelix_www
 host=localhost
-user=hfnu
-password=hfnu
-persistent=off
-
-; when you have charset issues, enable force_encoding so the connection will be
-; made with the charset indicated in jelix config
-;force_encoding = on
-
-; with the following parameter, you can specify a table prefix which will be
-; applied to DAOs automatically. For manual jDb requests, please use the method
-; jDbConnection::prefixTable().
-table_prefix = hf_
-
-; to use pdo
-;usepdo=on
-
+user=jelixwww
+password=pifuter
+persistent=on
+force_encoding=on
+table_prefix=
 
 
 [jdb:booster]
@@ -40,12 +26,12 @@ driver=mysql
 database=booster
 host=localhost
 user=booster
-password=booster
-persistent=off
+password=n4nthr4x1pp0n
+persistent=on
 
 ; when you have charset issues, enable force_encoding so the connection will be
 ; made with the charset indicated in jelix config
-;force_encoding = on
+force_encoding = on
 
 ; with the following parameter, you can specify a table prefix which will be
 ; applied to DAOs automatically. For manual jDb requests, please use the method
