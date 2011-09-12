@@ -19,8 +19,8 @@ class versionsCtrl extends jController {
     function index() {
         $tpl = new jTpl();
         $rep = $this->getResponse('html');
-        $tpl->assign('datas_mod',jDao::get('boosteradmin~boo_versions_mod')->findAll());
-        $tpl->assign('datas_new',jDao::get('boosteradmin~boo_items_versions')->findAllNotModerated());
+        $tpl->assign('datas_mod',jDao::get('boosteradmin~boo_versions_mod','booster')->findAll());
+        $tpl->assign('datas_new',jDao::get('boosteradmin~boo_items_versions','booster')->findAllNotModerated());
         $rep->body->assign('MAIN',$tpl->fetch('versions_mod'));
         return $rep;
     }
@@ -30,7 +30,7 @@ class versionsCtrl extends jController {
     function indexAll() {
         $tpl = new jTpl();
         $rep = $this->getResponse('html');
-        $tpl->assign('datas',jDao::get('boosteradmin~boo_items_versions')->findAllValidated());
+        $tpl->assign('datas',jDao::get('boosteradmin~boo_items_versions','booster')->findAllValidated());
         $rep->body->assign('MAIN',$tpl->fetch('versions_all'));
         return $rep;
     }
@@ -45,7 +45,7 @@ class versionsCtrl extends jController {
         $tpl = new jTpl();
         $tpl->assign('title',jLocale::get('boosteradmin~admin.version.validation.or.modification'));
         $tpl->assign('form',$form);
-        $tpl->assign('item_by',jDao::get('booster~boo_items')->get($form->getData('item_id'))->nickname);
+        $tpl->assign('item_by',jDao::get('booster~boo_items','booster')->get($form->getData('item_id'))->nickname);
         $tpl->assign('action','boosteradmin~versions:savenew');
         $tpl->assign('id',$this->intParam('id'));
         $rep->body->assign('MAIN',$tpl->fetch('edit'));
@@ -93,9 +93,9 @@ class versionsCtrl extends jController {
         $rep = $this->getResponse('html');
 
         $item_by = 'undefined';
-        $item = jDao::get('booster~boo_items')->get($this->intParam('id'));
+        $item = jDao::get('booster~boo_items','booster')->get($this->intParam('id'));
         if ($item !== false)
-            $item_by = jDao::get('jcommunity~user')->getById($item->item_by)->login;
+            $item_by = jDao::get('jcommunity~user','hfnu')->getById($item->item_by)->login;
 
         $tpl->assign('item_by',$item_by);
 
@@ -117,7 +117,7 @@ class versionsCtrl extends jController {
             if ($form->getData('status_version')==1) {
                 $form->saveToDao('boosteradmin~boo_versions');
                 //delete the moderated item from the "mirror" table
-                jDao::get('boosteradmin~boo_versions_mod')->delete($form->getData('id'));
+                jDao::get('boosteradmin~boo_versions_mod','booster')->delete($form->getData('id'));
                 //msg to the admin ;)
                 jMessage::add(jLocale::get('boosteradmin~admin.version_validated'));
             }

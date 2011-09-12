@@ -19,8 +19,8 @@ class itemsCtrl extends jController {
     function index() {
         $tpl = new jTpl();
         $rep = $this->getResponse('html');
-        $tpl->assign('datas_mod',jDao::get('boosteradmin~boo_items_mod')->findAll());
-        $tpl->assign('datas_new',jDao::get('booster~boo_items')->findAllNotModerated());
+        $tpl->assign('datas_mod',jDao::get('boosteradmin~boo_items_mod','booster')->findAll());
+        $tpl->assign('datas_new',jDao::get('booster~boo_items','booster')->findAllNotModerated());
         $rep->body->assign('MAIN',$tpl->fetch('items_mod'));
         return $rep;
     }
@@ -30,7 +30,7 @@ class itemsCtrl extends jController {
     function indexAll() {
         $tpl = new jTpl();
         $rep = $this->getResponse('html');
-        $tpl->assign('datas',jDao::get('booster~boo_items')->findAllValidated());
+        $tpl->assign('datas',jDao::get('booster~boo_items','booster')->findAllValidated());
         $rep->body->assign('MAIN',$tpl->fetch('items_all'));
         return $rep;
     }
@@ -46,7 +46,7 @@ class itemsCtrl extends jController {
         $tpl->assign('id',$this->intParam('id'));
         $tpl->assign('title',jLocale::get('boosteradmin~admin.item.validation.or.modification'));
         $tpl->assign('form',$form);
-        $tpl->assign('item_by',jDao::get('booster~boo_items')->get($this->intParam('id'))->nickname);
+        $tpl->assign('item_by',jDao::get('booster~boo_items','booster')->get($this->intParam('id'))->nickname);
         $tpl->assign('action','boosteradmin~items:savenew');
         $rep->body->assign('MAIN',$tpl->fetch('edit'));
         return $rep;
@@ -91,7 +91,7 @@ class itemsCtrl extends jController {
         $form->setData('id',$this->intParam('id'));
         $tpl = new jTpl();
         $rep = $this->getResponse('html');
-        $tpl->assign('item_by',jDao::get('jcommunity~user')->getById(jDao::get('boosteradmin~boo_items_mod')->get($this->intParam('id'))->item_by)->login);
+        $tpl->assign('item_by',jDao::get('jcommunity~user','hfnu')->getById(jDao::get('boosteradmin~boo_items_mod','booster')->get($this->intParam('id'))->item_by)->login);
         $tpl->assign('id',$this->intParam('id'));
         $tpl->assign('title',jLocale::get('boosteradmin~admin.item.validation.or.modification'));
         $tpl->assign('form',$form);
@@ -117,7 +117,7 @@ class itemsCtrl extends jController {
                 $form->saveToDao('booster~boo_items');
 
                 //delete the moderated item from the "mirror" table
-                jDao::get('boosteradmin~boo_items_mod')->delete($form->getData('id'));
+                jDao::get('boosteradmin~boo_items_mod','booster')->delete($form->getData('id'));
                 //msg to the admin ;)
                 jMessage::add(jLocale::get('boosteradmin~admin.item_validated'));
             }
