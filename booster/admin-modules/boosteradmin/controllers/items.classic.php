@@ -11,7 +11,7 @@
 class itemsCtrl extends jController {
     public $pluginParams = array(
         '*'     => array('auth.required'=>true,
-                         'booster.admin.index'=>true),
+                         'jacl2.right' =>'booster.admin.index'),
     );
     /**
      * Index page that list all the "waiting items"
