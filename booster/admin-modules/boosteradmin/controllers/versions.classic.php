@@ -114,7 +114,10 @@ class versionsCtrl extends jController {
         if ($form->check()) {
             // we validate the modifications, so replace the old data
             // then remove the data from the "waiting table" (items_mod)
-            if ($form->getData('status_version')==1) {
+            if ($form->getData('status_version')==1 OR $form->getData('_validate')) {
+                //in case, direct click on validate
+                $form->setData('status_version', 1);
+                
                 $form->saveToDao('boosteradmin~boo_versions');
                 //delete the moderated item from the "mirror" table
                 jDao::get('boosteradmin~boo_versions_mod','booster')->delete($form->getData('id'));
