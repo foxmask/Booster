@@ -46,7 +46,7 @@ class itemsCtrl extends jController {
         $tpl->assign('id',$this->intParam('id'));
         $tpl->assign('title',jLocale::get('boosteradmin~admin.item.validation.or.modification'));
         $tpl->assign('form',$form);
-        $tpl->assign('item_by',jDao::get('booster~boo_items','booster')->get($this->intParam('id'))->nickname);
+        $tpl->assign('item_by',jDao::get('booster~boo_items','booster')->get($this->intParam('id'))->item_by);
         $tpl->assign('action','boosteradmin~items:savenew');
         $rep->body->assign('MAIN',$tpl->fetch('edit'));
         return $rep;
@@ -91,7 +91,7 @@ class itemsCtrl extends jController {
         $form->setData('id',$this->intParam('id'));
         $tpl = new jTpl();
         $rep = $this->getResponse('html');
-        $tpl->assign('item_by',jDao::get('jcommunity~user','hfnu')->getById(jDao::get('boosteradmin~boo_items_mod','booster')->get($this->intParam('id'))->item_by)->login);
+        $tpl->assign('item_by',jDao::get('jcommunity~user','hfnu')->getById(jDao::get('boosteradmin~boo_items_mod','booster')->get($this->intParam('id'))->item_by)->nickname);
         $tpl->assign('id',$this->intParam('id'));
         $tpl->assign('title',jLocale::get('boosteradmin~admin.item.validation.or.modification'));
         $tpl->assign('form',$form);

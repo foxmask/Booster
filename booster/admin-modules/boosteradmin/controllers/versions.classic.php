@@ -45,7 +45,7 @@ class versionsCtrl extends jController {
         $tpl = new jTpl();
         $tpl->assign('title',jLocale::get('boosteradmin~admin.version.validation.or.modification'));
         $tpl->assign('form',$form);
-        $tpl->assign('item_by',jDao::get('booster~boo_items','booster')->get($form->getData('item_id'))->nickname);
+        $tpl->assign('item_by',jDao::get('booster~boo_items','booster')->get($form->getData('item_id'))->item_by);
         $tpl->assign('action','boosteradmin~versions:savenew');
         $tpl->assign('id',$this->intParam('id'));
         $rep->body->assign('MAIN',$tpl->fetch('edit'));
@@ -95,7 +95,7 @@ class versionsCtrl extends jController {
         $item_by = 'undefined';
         $item = jDao::get('booster~boo_items','booster')->get($this->intParam('id'));
         if ($item !== false)
-            $item_by = jDao::get('jcommunity~user','hfnu')->getById($item->item_by)->login;
+            $item_by = jDao::get('jcommunity~user','hfnu')->getById($item->item_by)->nickname;
 
         $tpl->assign('item_by',$item_by);
 
