@@ -38,15 +38,19 @@ class itemsCtrl extends jController {
      * edit the new submitted item
      */
     function editnew() {
-        $form = jForms::create('boosteradmin~items_mod',$this->intParam('id'));
+        $id = $this->intParam('id');
+        $form = jForms::create('boosteradmin~items_mod', $id);
         $form->initFromDao('booster~boo_items');
-        $form->setData('id',$this->intParam('id'));
+        $form->setData('id',$id);
+        
+        $tags = implode(',', jClasses::getService("jtags~tags")->getTagsBySubject('booscope', $id) ) ;
+        $form->setData('tags', $tags);
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
-        $tpl->assign('id',$this->intParam('id'));
+        $tpl->assign('id',$id);
         $tpl->assign('title',jLocale::get('boosteradmin~admin.item.validation.or.modification'));
         $tpl->assign('form',$form);
-        $tpl->assign('item_by',jDao::get('booster~boo_items','booster')->get($this->intParam('id'))->item_by);
+        $tpl->assign('item_by',jDao::get('booster~boo_items','booster')->get($id)->item_by);
         $tpl->assign('action','boosteradmin~items:savenew');
         $rep->body->assign('MAIN',$tpl->fetch('edit'));
         return $rep;
@@ -74,6 +78,7 @@ class itemsCtrl extends jController {
                 jMessage::add(jLocale::get('boosteradmin~admin.item_saved_but_not_validated_yet'));
             }
             $form->saveToDao('booster~boo_items');
+            jClasses::getService("jtags~tags")->saveTagsBySubject(explode(',', $form->getData('tags')), 'booscope', $this->intParam('id'));
         }
         else {
             jMessage::add('boosteradmin~admin.invalid.data');
