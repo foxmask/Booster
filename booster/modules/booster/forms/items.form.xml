@@ -24,6 +24,7 @@
 
 <input ref="tags" maxlength="80">
     <label locale="booster~main.tags"/>
+    <help locale="booster~main.tag_hlp"/>
 </input>
 
 <input ref="url_website" type="url">

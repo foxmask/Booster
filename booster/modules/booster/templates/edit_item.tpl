@@ -14,6 +14,9 @@
         <td colspan="4">{ctrl_control 'short_desc'}</td>
     </tr>
     <tr>
+        <td>{ctrl_label 'tags'}</td><td colspan="3">{ctrl_control 'tags'}</td>
+    </tr>
+    <tr>
         <td>{ctrl_label 'author'}</td><td>{ctrl_control 'author'}</td>
         <td>{ctrl_label 'item_info_id'}</td><td>{ctrl_control 'item_info_id'}</td>
     </tr>
