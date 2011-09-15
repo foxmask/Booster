@@ -396,7 +396,7 @@ class defaultCtrl extends jController {
         }
         $tpl->assign('datas', $datas);
         $tpl->assign('item_not_moderated','');
-        $rep->body->assign('MAIN',$tpl->fetch('index'));
+        $rep->body->assign('MAIN',$tpl->fetch('list'));
         $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
     }
@@ -416,7 +416,7 @@ class defaultCtrl extends jController {
         }
         $tpl->assign('datas', $datas);
         $tpl->assign('item_not_moderated','');
-        $rep->body->assign('MAIN',$tpl->fetch('index'));
+        $rep->body->assign('MAIN',$tpl->fetch('list'));
         $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
     }
@@ -436,7 +436,7 @@ class defaultCtrl extends jController {
         }
         $tpl->assign('datas', $datas);
         $tpl->assign('item_not_moderated','');
-        $rep->body->assign('MAIN',$tpl->fetch('index'));
+        $rep->body->assign('MAIN',$tpl->fetch('list'));
         $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
     }
@@ -456,7 +456,7 @@ class defaultCtrl extends jController {
         }
         $tpl->assign('datas', $datas);
         $tpl->assign('item_not_moderated','');
-        $rep->body->assign('MAIN',$tpl->fetch('index'));
+        $rep->body->assign('MAIN',$tpl->fetch('list'));
         $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
     }

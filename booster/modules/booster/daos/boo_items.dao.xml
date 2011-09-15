@@ -78,6 +78,20 @@
             </order>
         </method>
 
+        <method name="findLastCreatedByTypeId" type="select">
+            <parameter name="type_id"/>
+            <parameter name="number" />
+            <conditions>
+                <eq property="status" value="1" />
+                <eq property="type_id" expr="$type_id" />
+            </conditions>
+            <order>
+                <orderitem property="created" way="desc" />
+            </order>
+            <limit offset="0" count="$number"/>
+        </method>
+
+
         <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
             <parameter name="" />
             <values>

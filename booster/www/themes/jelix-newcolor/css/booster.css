@@ -684,3 +684,50 @@ legend {
 
 #markItUpJforms_booster_version_last_changes{position:relative;}
 #markItUpJforms_booster_version_last_changes .charCounter{position:absolute;top:0;right:0;}
+
+
+.homepage-block{
+    width:49%;
+    margin:0 0 15px 1%;
+    float:left;
+    position:relative;
+}
+#main .homepage-block h2{margin:0.5em 0 -1.8em;}
+.homepage-block .content{
+    padding:7px;
+    background: #EFF4F6;
+    border: 1px solid #002830;
+    border-top:0;
+    min-height:5em;
+}
+.block-type-1, .block-type-3{margin-left:0;}
+.homepage-block ul{margin-left:25px;}
+.browse-list{text-align:right;margin-bottom:0;}
+.homepage-block li{margin-bottom:3px;}
+
+.homepage-block .tabs{
+    border-bottom: 3px solid #002830;
+    list-style-type: none;
+    margin: 1em 0 0 0;
+    padding: 5px 25px;
+    text-align: right;
+}
+.homepage-block .tabs li{
+    font-size:1em;
+    font-weight:normal;
+    color: #666666;
+    margin: 0;
+    padding: 6px 8px 5px;
+    text-decoration: none;
+    display:inline;
+    background:-moz-linear-gradient(top, #2b4c53,#27474E 40%, #244148 60%, #002830);
+    background-color:#2b4c53;
+    color: #fff;
+    position: relative;
+    top: 2px;
+    -moz-border-radius:5px 5px 0 0;
+    -webkit-border-radius:5px 5px 0 0;
+}
+.homepage-block .tabs .selected{}
+.homepage-block .date{font-size:0.8em;}
+.clear{clear:both;}

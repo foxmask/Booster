@@ -10,9 +10,22 @@
         {/foreach}
     {/if}
 {else}
+    
+    
+    {zone 'booster~homepage_block', array('type'=>1)}
+    {zone 'booster~homepage_block', array('type'=>2)}
+    <div class="clear"></div>
+    {zone 'booster~homepage_block', array('type'=>3)}
+    {zone 'booster~homepage_block', array('type'=>4)}
+    
+    {*
+    
     <h2>{@booster~main.last.items.created@}</h2>
+    
     {foreach $datas as $data}
         {include 'booster~view_item'}
     {/foreach}
+    
+    *}
 
 {/if}
