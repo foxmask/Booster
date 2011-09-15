@@ -1,41 +1,55 @@
 {literal}
 <script type="text/javascript">
 //<![CDATA[
-var imagePath = '/booster/images/';
-$(document).ready(function(){
-  // hide search
-  $("#jforms_booster_search").hide();
-  // show search form
-  $("#booster-search").click(function () {
-     $(this).toggleClass("active").next().slideToggle("slow");
-  });
-  //toggle Image
-  $("#booster-search").toggle(
-    function () {
-      $(this).find("img").attr({src:imagePath+"delete.png"});
-    },
-    function () {
-      $(this).find("img").attr({src:imagePath+"add.png"});
-    }
-  );
-});
+(function(){
+    $(document).ready(function(){
+        var imagePath = '/booster/images/';
+        // hide search
+        var $search = $("#jforms_booster_search");
+        $search.hide();
+        // show search form
+        $trigger = $("#search-trigger");
+        $trigger.click(function () {
+            $(this).toggleClass("active");
+            $search.slideToggle("slow");
+            toggleImage($trigger);
+        });
+    
+      var add = true;
+      var toggleImage = function($el){
+            if(add){
+                $el.find('img').attr({src:imagePath+"delete.png"});
+                add = false;
+            }
+            else{
+                $el.find('img').attr({src:imagePath+"add.png"});
+                add = true;
+            }
+      }
+    });
+})();
 //]]>
 </script>
 {/literal}
 <div id="booster-search">
-    <h2 id="search-filter">{image '/booster/images/add.png',array('alt'=>'Click to use search')}{@main.search@}</h2>
+    <div>
+        <button id="search-trigger"><img src="/booster/images/add.png" alt="Click to use search"/></button>
+        <h2>{@main.search@}</h2>
+    </div>
+
+    {form $form, $submitAction, array('search' => true)}
+        <div>
+            {ctrl_label 'types'}
+            {ctrl_control 'types'}
+        </div>
+        {formcontrols}
+        <div>
+           {ctrl_label}{ctrl_control}
+        </div>
+        {/formcontrols}
+        <div>
+        {formsubmit}
+        </div>
+    {/form}
+
 </div>
-{form $form, $submitAction, array('search' => true)}
-    <div>
-        {ctrl_label 'types'}
-        {ctrl_control 'types'}
-    </div>
-    {formcontrols}
-    <div>
-       {ctrl_label}{ctrl_control}
-    </div>
-    {/formcontrols}
-    <div>
-    {formsubmit}
-    </div>
-{/form}
