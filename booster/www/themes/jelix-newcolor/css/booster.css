@@ -362,7 +362,7 @@ text-shadow: #aaa 0px 0px 5px;}
     -moz-box-shadow: #999 3px 0px 0px 0px;
     box-shadow: #999 3px 3px 3px 3px;
     border-radius: 5px 0px 5px 0px;
-    font-size: large;
+    font-size: small;
     padding: 30px;
 }
 

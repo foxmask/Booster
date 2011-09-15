@@ -9,7 +9,7 @@
     </div>
 
 {else}
-
+Si vous possédez déjà un compte sur le <a href="http://jelix.org/forums/">forum</a> alors vous pouvez l'utilisez également ici
 {form $form, 'jcommunity~login:in'}
     <p> {ctrl_label 'auth_login'} {ctrl_control 'auth_login'}
      - {ctrl_label 'auth_password'} {ctrl_control 'auth_password'}

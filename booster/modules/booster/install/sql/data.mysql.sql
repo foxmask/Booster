@@ -1,4 +1,4 @@
-INSERT INTO %%%PREFIX%%%boo_items (name,item_info_id,short_desc,type_id,url_website,url_repo,author,item_by,status,created) values
+INSERT INTO %%PREFIX%%boo_items (name,item_info_id,short_desc,type_id,url_website,url_repo,author,item_by,status,created) values
 ('HaveFnuBB','havefnubb@havefnubb.org','HaveFnuBB, est un logiciel de gestion de Forums OpenSource (sous licence GPL 2.0) avec pour buts d etre : Rapide, Leger et Agreable !',1,'http://www.havefnubb.org','https://github.com/havefnubb/havefnubb','foxmask',154,1,'2011-09-10 10:00:00');
 
 INSERT INTO %%PREFIX%%boo_versions (`id`, `item_id`, `id_jelix_version`, `status`, `version_name`, `last_changes`, `stability`, `filename`, `download_url`, `created`, `edited`, `modified`) VALUES
