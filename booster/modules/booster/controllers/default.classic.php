@@ -342,6 +342,7 @@ class defaultCtrl extends jController {
         $rep = $this->getResponse('html');
 
         $tag = $this->param('tag');
+        $tag = str_replace(' ', '-', $tag);
 
         $srvTags = jClasses::getService("jtags~tags");
         $tags = $srvTags->getSubjectsByTags($tag, "booscope");
