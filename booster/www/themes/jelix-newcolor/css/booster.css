@@ -255,7 +255,7 @@ text-shadow: #aaa 0px 0px 5px;}
 #main h3 a,#main h4 a, #main h5 a { color: #002830; }
 #main h1 a.anchor { color: #c03033; text-decoration:none;}
 #main h3 a.anchor,#main h4 a.anchor, #main h5 a.anchor { color: #002830; text-decoration:none; }
-#main h2 { color: #802022;  margin:1em 0 0.5em 0; font-size:1.5em;}
+#main h2 { color: #802022;  margin:1em 0 0.5em 0; font-size:1.5em; cursor: pointer; }
 #main h2 a.anchor { color: #802022; text-decoration:none; }
 #main h2 a { color: #802022; }
 #main h3 { color: #002830;  margin:1em 0 0.5em 0; font-size:1.3em;}
@@ -380,6 +380,7 @@ text-shadow: #aaa 0px 0px 5px;}
 .booster_itemauthor {
     float:left;
     width: 20%;
+    margin: 1.5em;
     border: 1px solid #fff;
     background:-moz-linear-gradient(top, #edede6,#edede6, #edede6);
     background-color:#edede6;
@@ -409,7 +410,7 @@ text-shadow: #aaa 0px 0px 5px;}
 }
 
 .booster_itembody {
-    width: 77%;
+    width: 75%;
     margin-left: 2%;
     float: left;
 }
@@ -564,7 +565,9 @@ text-shadow: #aaa 0px 0px 5px;}
     margin-left:17px;
 }
 #content-menu .jforms-submit{
-    margin:10px 0;display:inline-block;
+    margin: 10px 0;
+    display: inline-block;
+    cursor: pointer;
 }
 
 .booster_reported span, .booster_tasktodo span {
