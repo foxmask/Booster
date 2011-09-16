@@ -381,7 +381,7 @@ text-shadow: #aaa 0px 0px 5px;}
 .booster_itemauthor {
     float:left;
     width: 20%;
-    margin: 0 1.5em 1.5em 1.5em;
+    margin: 0 0 1.5em 1.5em;
     border: 1px solid #fff;
     background:-moz-linear-gradient(top, #edede6,#edede6, #edede6);
     background-color:#edede6;
