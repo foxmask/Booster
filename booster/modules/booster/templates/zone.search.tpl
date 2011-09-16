@@ -8,11 +8,10 @@
         var $search = $("#jforms_booster_search");
         $search.hide();
         // show search form
-        $trigger = $("#search-trigger");
-        $trigger.click(function () {
+        $("#search-trigger, #booster-search h2").click(function () {
             $(this).toggleClass("active");
             $search.slideToggle("slow");
-            toggleImage($trigger);
+            toggleImage($("#search-trigger"));
         });
     
       var add = true;

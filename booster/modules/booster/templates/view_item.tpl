@@ -16,22 +16,25 @@
     </div>
     <div class="booster_itembody">
         {if $item_not_moderated}
-        <div id="item_not_moderated">
-            <h4>{@booster~main.item_not_moderated@}</h4>
-            <div>{@booster~main.your.item.is.not.moderated.yet@}</div>
-        </div>
-        {literal}
-        <script type="text/javascript">
-        //<![CDATA[
-        $(document).ready(function(){
-            $("#item_not_moderated").fadeOut(20000);
-            return false;
-        });
-        //]]>
-        </script>
-        {/literal}
+            <div id="item_not_moderated">
+                <h4>{@booster~main.item_not_moderated@}</h4>
+                {if $current_user == $data->item_by}
+                    <div>{@booster~main.your.item.is.not.moderated.yet@}</div>
+                {/if}
+            </div>
+            {literal}
+            <script type="text/javascript">
+            //<![CDATA[
+            $(document).ready(function(){
+                $("#item_not_moderated").fadeOut(20000);
+                return false;
+            });
+            //]]>
+            </script>
+            {/literal}
         {/if}
-        <h4>{@booster~main.short_desc@} </h4>
+        
+        
         <div class="booster_short_desc">{$data->short_desc|wiki:'wr3_to_xhtml'}</div>
         {zone 'booster~tagsitem',array('id'=>$data->id)}
 
