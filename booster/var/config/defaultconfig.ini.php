@@ -154,8 +154,8 @@ debug=memory
 ;plugins="sqllog,sessiondata,defaultlog"
 
 [mailer]
-webmasterEmail="root@localhost"
-webmasterName=
+webmasterEmail="webmaster@jelix.org"
+webmasterName="Webmaster Booster.jelix.org"
 
 ; How to send mail : "mail" (mail()), "sendmail" (call sendmail), "smtp" (send directly to a smtp)
 ;                   or "file" (store the mail into a file, in filesDir directory)

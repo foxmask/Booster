@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <dao xmlns="http://jelix.org/ns/dao/1.0">
    <datasources>
-      <primarytable name="usr" realname="member" primarykey="login" />
+      <primarytable name="usr" realname="member" primarykey="member_login" />
 
    </datasources>
    <record>
