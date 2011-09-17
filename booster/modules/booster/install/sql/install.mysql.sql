@@ -25,6 +25,10 @@ CREATE TABLE %%PREFIX%%boo_items (
   KEY `modified` (`modified`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+
+
+ALTER TABLE  %%PREFIX%%boo_items ADD UNIQUE (`name`);
+
 --
 -- Structure de la table `boo_items_mod`
 --
