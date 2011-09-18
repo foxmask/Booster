@@ -11,7 +11,8 @@
         <property name="id" fieldname="id" datatype="int" required="true"/>
         <property name="name" fieldname="name" datatype="varchar" required="true" maxlength="60"/>
         <property name="item_info_id" fieldname="item_info_id" datatype="varchar" required="true" maxlength="100"/>
-        <property name="short_desc" fieldname="short_desc" datatype="text" required="true"/>
+        <property name="short_desc" fieldname="short_desc" datatype="text"/>
+        <property name="short_desc_fr" fieldname="short_desc_fr" datatype="text"/>
         <property name="type_id" fieldname="type_id" datatype="int" required="true"/>
         <property name="url_website" fieldname="url_website" datatype="varchar" required="true" maxlength="255"/>
         <property name="url_repo" fieldname="url_repo" datatype="varchar" required="true" maxlength="255"/>

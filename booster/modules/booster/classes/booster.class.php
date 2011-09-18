@@ -24,6 +24,7 @@ class booster {
         $record->name           = $form->getData('name');
         $record->item_info_id   = $form->getData('item_info_id');
         $record->short_desc     = $form->getData('short_desc');
+        $record->short_desc_fr  = $form->getData('short_desc_fr');
         $record->type_id        = $form->getData('type_id');
         $record->url_website    = $form->getData('url_website');
         $record->url_repo       = $form->getData('url_repo');
@@ -81,6 +82,7 @@ class booster {
         $record->name           = $form->getData('name');
         $record->item_info_id   = $form->getData('item_info_id');
         $record->short_desc     = $form->getData('short_desc');
+        $record->short_desc_fr  = $form->getData('short_desc_fr');        
         $record->type_id        = $form->getData('type_id');
         $record->url_website    = $form->getData('url_website');
         $record->url_repo       = $form->getData('url_repo');
@@ -159,6 +161,7 @@ class booster {
                     items.name,
                     items.item_info_id,
                     items.short_desc,
+                    items.short_desc_fr,
                     type.id AS type_id,
                     items.url_website,
                     items.url_repo,

@@ -12,8 +12,12 @@
     <help locale="booster~main.item_info_id_hlp"/>
 </input>
 
-<wikieditor ref="short_desc" required="true">
+<wikieditor ref="short_desc">
     <label locale="booster~main.short_desc"/>
+</wikieditor>
+
+<wikieditor ref="short_desc_fr">
+    <label locale="booster~main.short_desc_fr"/>
 </wikieditor>
 
 <menulist ref="type_id" required="true">

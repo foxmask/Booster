@@ -17,6 +17,12 @@
         <td colspan="4">{ctrl_control 'short_desc'}</td>
     </tr>
     <tr>
+        <td colspan="4">{ctrl_label 'short_desc_fr'}</td>
+    </tr>
+    <tr>
+        <td colspan="4">{ctrl_control 'short_desc_fr'}</td>
+    </tr>    
+    <tr>
         <td>{ctrl_label 'url_website'}</td><td>{ctrl_control 'url_website'}</td>
         <td>{ctrl_label 'url_repo'}</td><td>{ctrl_control 'url_repo'}</td>
     </tr>
