@@ -61,6 +61,14 @@ class itemsCtrl extends jController {
     function savenew() {
         $form = jForms::fill('boosteradmin~items_mod',$this->intParam('id'));
         if ($form->check()) {
+            if ($form->getData('short_desc_fr') == ''  and
+                $form->getData('short_desc') == '' ) {
+                $form->setErrorOn('short_desc',jLocale::get('booster~main.desc.mandatory'));
+                $form->setErrorOn('short_desc_fr',jLocale::get('booster~main.desc.mandatory'));
+                $rep->action='add';
+                return $rep;                
+            }        
+            
             // we validate the new item
             // then remove the data from the "waiting table" (items_mod)
             if ($form->getData('status')==1) {
@@ -110,6 +118,14 @@ class itemsCtrl extends jController {
     function savemod() {
         $form = jForms::fill('boosteradmin~items_mod',$this->intParam('id'));
         if ($form->check()) {
+            if ($form->getData('short_desc_fr') == ''  and
+                $form->getData('short_desc') == '' ) {
+                $form->setErrorOn('short_desc',jLocale::get('booster~main.desc.mandatory'));
+                $form->setErrorOn('short_desc_fr',jLocale::get('booster~main.desc.mandatory'));
+                $rep->action='add';
+                return $rep;                
+            }        
+            
             // we validate the modifications, so replace the old data
             // then remove the data from the "waiting table" (items_mod)
             if ($form->getData('status') == 1 OR $form->getData('_validate')) {

@@ -13,6 +13,13 @@
     <tr>
         <td colspan="4">{ctrl_control 'short_desc'}</td>
     </tr>
+    
+    <tr>
+        <td colspan="4">{ctrl_label 'short_desc_fr'}</td>
+    </tr>
+    <tr>
+        <td colspan="4">{ctrl_control 'short_desc_fr'}</td>
+    </tr>
     <tr>
         <td>{ctrl_label 'tags'}</td><td colspan="3">{ctrl_control 'tags'}</td>
     </tr>
