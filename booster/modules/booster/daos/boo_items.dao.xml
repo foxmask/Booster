@@ -74,7 +74,7 @@
                 <eq property="status" expr="1" />
             </conditions>
             <order>
-                <orderitem property="created" way="asc" />
+                <orderitem property="created" way="desc" />
             </order>
         </method>
 
@@ -90,6 +90,17 @@
             </order>
             <limit offset="0" count="$number"/>
         </method>
+        
+        <method name="setToValidated" type="update">
+            <parameter name="id"/>
+            <conditions>
+                <eq property="id" expr="$id" />
+            </conditions>
+           <values>
+                <value property="status" value="1" />
+            </values>
+        </method>
+        
 
 
         <!--<method name="findByStage" type="select/selectfirst/delete/update/php">

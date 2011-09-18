@@ -87,6 +87,7 @@ class defaultCtrl extends jController {
         $rep = $this->getResponse('html');
 
         $tpl->assign('data',$data);
+        $tpl->assign('is_admin', jAcl2::check('booster.admin.index'));
         $rep->title = $data->name;
         $rep->body->assign('MAIN',$tpl->fetch('view_item'));
         $rep->body->assign('MENU',$tpl->fetch('menu'));
@@ -480,4 +481,32 @@ class defaultCtrl extends jController {
         $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
     }
+    
+    
+    public function validNewItem(){
+
+        // is the current user is an admin ?
+        if (jAuth::isConnected() and jAcl2::check('booster.admin.index') ) {
+            
+            $id = $this->param('id');
+            jDao::get('booster~boo_items','booster')->setToValidated($id);
+
+        }
+        else {
+                $rep = $this->getResponse('html');
+                $rep->bodyTpl = 'jelix~403.html';
+                $rep->setHttpStatus('403', 'Permission denied');
+                return $rep;
+        }
+
+        $rep = $this->getResponse('redirect');
+        $rep->action = 'booster~default:viewItem';
+        $rep->params = array('id' => $id, 'name' => $this->param('name'));
+        return $rep;
+    }
+    
+    public function validVersion(){
+        
+    }
+    
 }
