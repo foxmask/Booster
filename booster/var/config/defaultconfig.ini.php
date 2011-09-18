@@ -19,6 +19,7 @@ modulesPath="lib:jelix-admin-modules/,lib:jelix-modules/,app:modules/,app:admin-
 
 ; default domain name to use with jfullurl for example.
 ; Let it empty to use $_SERVER['SERVER_NAME'] value instead.
+; Let it empty to use $_SERVER['SERVER_NAME'] value instead.
 domainName=
 
 
@@ -150,8 +151,8 @@ notice="file,memory"
 sql=memory
 debug=memory
 
-;[debugbar]
-;plugins="sqllog,sessiondata,defaultlog"
+[debugbar]
+plugins="sqllog,sessiondata,defaultlog"
 
 [mailer]
 webmasterEmail="webmaster@jelix.org"

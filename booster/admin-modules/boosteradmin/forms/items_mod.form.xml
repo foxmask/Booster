@@ -15,8 +15,12 @@
     <label locale="booster~main.item_type"/>
 </menulist>
 
-<wikieditor ref="short_desc" required="true">
+<wikieditor ref="short_desc">
     <label locale="booster~main.short_desc"/>
+</wikieditor>
+
+<wikieditor ref="short_desc_fr">
+    <label locale="booster~main.short_desc_fr"/>
 </wikieditor>
 
 <input ref="author" required="true" maxlength="80">

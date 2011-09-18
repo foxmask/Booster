@@ -56,7 +56,8 @@ class defaultCtrl extends jController {
      * View Item page
      */
     function viewItem() {
-
+        global $gJConfig;
+        
         $tpl = new jTpl();
         if(jAuth::isConnected()) {
             $tpl->assign('current_user',jAuth::getUserSession ()->id);
@@ -85,7 +86,16 @@ class defaultCtrl extends jController {
         }
 
         $rep = $this->getResponse('html');
-
+        
+        // Handle the Description to be displayed in the
+        // appropriate language 
+        $lang = $gJConfig->locale;
+        if ($data->short_desc != '' and $data->short_desc_fr != '') {
+            if (substr($lang,0,2) == 'fr')
+                $data->short_desc = $data->short_desc_fr;
+        } elseif ($data->short_desc == '') {
+            $data->short_desc = $data->short_desc_fr;
+        }
         $tpl->assign('data',$data);
         $tpl->assign('is_admin', jAcl2::check('booster.admin.index'));
         $rep->title = $data->name;
@@ -99,7 +109,9 @@ class defaultCtrl extends jController {
     function add() {
         $rep = $this->getResponse('html');
         $rep->title = jLocale::get('booster~main.add.an.item');
-        $form = jForms::create('booster~items');
+        $form = jForms::get('booster~items');
+        if ($form === null)
+            $form = jForms::create('booster~items');
         $form->setData('item_by',jAuth::getUserSession()->id);
         $tpl = new jTpl();
         $tpl->assign('form',$form);
@@ -114,6 +126,13 @@ class defaultCtrl extends jController {
         $rep = $this->getResponse('redirect');
         $form = jForms::fill('booster~items');
         if ($form->check()) {
+            if ($form->getData('short_desc_fr') == ''  and
+                $form->getData('short_desc') == '' ) {
+                $form->setErrorOn('short_desc',jLocale::get('booster~main.desc.mandatory'));
+                $form->setErrorOn('short_desc_fr',jLocale::get('booster~main.desc.mandatory'));
+                $rep->action='add';
+                return $rep;                
+            }
             $data = jClasses::getService('booster~booster')->saveItem();
             if (!empty($data)) {
                 jMessage::add(jLocale::get('booster~main.item.saved'));
@@ -247,6 +266,14 @@ class defaultCtrl extends jController {
                 return $rep;
             }
             else {
+                if ($form->getData('short_desc_fr') == ''  and
+                    $form->getData('short_desc') == '' ) {
+                    $form->setErrorOn('short_desc',jLocale::get('booster~main.desc.mandatory'));
+                    $form->setErrorOn('short_desc_fr',jLocale::get('booster~main.desc.mandatory'));
+                    $rep->action='add';
+                    return $rep;                
+                }        
+
                 if (jClasses::getService('booster~booster')->saveEditItem($form)) {
                     jMessage::add(jLocale::get('booster~main.item.edit.success'));
                 }
@@ -482,7 +509,6 @@ class defaultCtrl extends jController {
         return $rep;
     }
     
-    
     public function validNewItem(){
 
         // is the current user is an admin ?
@@ -503,10 +529,6 @@ class defaultCtrl extends jController {
         $rep->action = 'booster~default:viewItem';
         $rep->params = array('id' => $id, 'name' => $this->param('name'));
         return $rep;
-    }
-    
-    public function validVersion(){
-        
     }
     
 }

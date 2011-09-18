@@ -6,7 +6,7 @@
 * @contributor Laurent Jouanneau
 * @contributor Bastien Jaillot (bug fix)
 * @contributor Julien Issler
-* @copyright  2001-2005 CopixTeam, 2005-2010 Laurent Jouanneau
+* @copyright  2001-2005 CopixTeam, 2005-2011 Laurent Jouanneau
 * @copyright  2007-2008 Julien Issler
 * This class was get originally from the Copix project (CopixDAOGeneratorV1, Copix 2.3dev20050901, http://www.copix.org)
 * Few lines of code are still copyrighted 2001-2005 CopixTeam (LGPL licence).
@@ -566,18 +566,12 @@ class jDaoGenerator {
 
         list($sqlFrom, $sqlWhere) = $this->buildOuterJoins($tables, $ptname);
 
-        if($primarytable['name']!=$primarytable['realname'])
-            $sqlFrom =$ptrealname.$this->aliasWord.$ptname.$sqlFrom;
-        else
-            $sqlFrom =$ptrealname.$sqlFrom;
+        $sqlFrom =$ptrealname.$this->aliasWord.$ptname.$sqlFrom;
 
         foreach($this->_dataParser->getInnerJoins() as $tablejoin){
             $table= $tables[$tablejoin];
             $tablename = $this->_encloseName($table['name']);
-            if($table['name']!=$table['realname'])
-                $sqlFrom .=', '.$this->_encloseName($table['realname']).$this->aliasWord.$tablename;
-            else
-                $sqlFrom .=', '.$this->_encloseName($table['realname']);
+            $sqlFrom .=', '.$this->_encloseName($table['realname']).$this->aliasWord.$tablename;
 
             foreach($table['fk'] as $k => $fk){
                 $sqlWhere.=' AND '.$ptname.'.'.$this->_encloseName($fk).'='.$tablename.'.'.$this->_encloseName($table['pk'][$k]);
@@ -598,10 +592,7 @@ class jDaoGenerator {
             $table= $tables[$tablejoin[0]];
             $tablename = $this->_encloseName($table['name']);
 
-            if($table['name']!=$table['realname'])
-                $r =$this->_encloseName($table['realname']).$this->aliasWord.$tablename;
-            else
-                $r =$this->_encloseName($table['realname']);
+            $r =$this->_encloseName($table['realname']).$this->aliasWord.$tablename;
 
             $fieldjoin='';
             foreach($table['fk'] as $k => $fk){
@@ -1014,18 +1005,12 @@ class jDaoGenerator {
                 break;
             case 'double':
             case 'float':
-                if($checknull){
-                    $expr= '('.$expr.' === null ? \''.$opnull.'NULL\' : '.$forCondition.'doubleval('.$expr.'))';
-                }else{
-                    $expr= $forCondition.'doubleval('.$expr.')';
-                }
-                break;
             case 'numeric':
-            case 'decimal': 
+            case 'decimal':
                 if($checknull){
-                    $expr='('.$expr.' === null ? \''.$opnull.'NULL\' : '.$forCondition.'(is_numeric ('.$expr.') ? '.$expr.' : floatval('.$expr.')))';
+                    $expr='('.$expr.' === null ? \''.$opnull.'NULL\' : '.$forCondition.'jDb::floatToStr('.$expr.'))';
                 }else{
-                    $expr=$forCondition.'(is_numeric ('.$expr.') ? '.$expr.' : floatval('.$expr.'))';
+                    $expr=$forCondition.'jDb::floatToStr('.$expr.')';
                 }
                 break;
             case 'boolean':
@@ -1059,10 +1044,9 @@ class jDaoGenerator {
                 return 'create_function(\'$__e\',\'return intval($__e);\')';
             case 'double':
             case 'float':
-                return 'create_function(\'$__e\',\'return doubleval($__e);\')';
             case 'numeric':
             case 'decimal':
-                return 'create_function(\'$__e\',\'return (is_numeric ($__e) ? $__e : floatval($__e));\')';
+                return 'create_function(\'$__e\',\'return jDb::floatToStr($__e);\')';
             case 'boolean':
                 return 'array($this, \'_callbackBool\')';
             default:

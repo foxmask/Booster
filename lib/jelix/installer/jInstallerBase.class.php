@@ -36,13 +36,13 @@ abstract class jInstallerBase {
      * @var jIniMultiFilesModifier
      */
     public $config;
-
+    
     /**
      * the entry point property on which the installer is called
      * @var jInstallerEntryPoint
      */
     public $entryPoint;
-
+    
     /**
      * The path of the module
      * @var string
@@ -123,6 +123,7 @@ abstract class jInstallerBase {
         $this->entryPoint = $ep;
         $this->contextId = $contexts;
         $this->newContextId = array();
+
         if ($this->defaultDbProfile != '') {
             $this->useDbProfile($this->defaultDbProfile);
         }
@@ -235,7 +236,7 @@ abstract class jInstallerBase {
      * in the directory of the component. (replace databasetype by mysql, pgsql etc.)
      * You can however provide a script compatible with all databases, but then
      * you should indicate the full name of the script, with a .sql extension.
-     *
+     * 
      * @param string $name the name of the script
      * @param string $module the module from which we should take the sql file. null for the current module
      * @param boolean $inTransaction indicate if queries should be executed inside a transaction
@@ -289,7 +290,7 @@ abstract class jInstallerBase {
     /**
      * private function which copy the content of a directory to an other
      *
-     * @param string $sourcePath
+     * @param string $sourcePath 
      * @param string $targetPath
      */
     private function _copyDirectoryContent($sourcePath, $targetPath, $overwrite) {
