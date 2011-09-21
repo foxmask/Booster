@@ -334,7 +334,7 @@ text-shadow: #aaa 0px 0px 5px;}
 
 #content {
     border-left: 2px solid #D8E1E4;
-    padding: 5px 5px 5px 15px;
+    padding: 5px 5px 5px 5px;
     float: right;
     width: 83%;
 }
