@@ -159,4 +159,15 @@ class itemsCtrl extends jController {
         $rep->action = 'boosteradmin~items:index';
         return $rep;
     }
+    
+    function delete() {
+        $rep = $this->getResponse('redirect');
+        $rep->action = 'boosteradmin~items:indexAll';
+        $id = $this->intParam('id');
+        if (jDao::get('booster~boo_items')->delete($id))
+            jMessage::add(jLocale::get('boosteradmin~admin.item.deleted'));
+        else
+            jMessage::add(jLocale::get('boosteradmin~admin.item.not.deleted'));
+        return $rep;
+    }
 }

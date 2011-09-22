@@ -37,6 +37,7 @@
                 <orderitem property="created" way="desc" />
             </order>
         </method>
+		
         <method name="findAllNotModerated" type="select">
             <conditions>
                 <eq property="status" value="0" />
@@ -45,6 +46,7 @@
                 <orderitem property="edited" way="desc" />
             </order>
         </method>
+		
         <method name="findLastCreated" type="select">
             <conditions>
                 <eq property="status" value="1" />
@@ -62,10 +64,9 @@
                 <eq property="item_by" expr="$user_id" />
             </conditions>
             <order>
-                <orderitem property="created" way="asc" />
+                <orderitem property="created" way="desc" />
             </order>
         </method>
-
 
         <method name="findByTypeId" type="select">
             <parameter name="type_id"/>
@@ -100,23 +101,6 @@
                 <value property="status" value="1" />
             </values>
         </method>
-        
 
-
-        <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
-            <parameter name="" />
-            <values>
-                <value property="" value="" />
-            </values>
-            <conditions logic="and/or">
-                <eq property="" value="" />
-            </conditions>
-            <order>
-                <orderitem property="" way="asc/desc" />
-            </order>
-            <limit offset="" count=""/>
-            <body><![CDATA[
-            ]]></body>
-        </method>-->
     </factory>
 </dao>

@@ -13,6 +13,9 @@
         <param name="id" type="numeric"/>
     </url>
     <url pathinfo="/items/savemod"          action="items:savemod" />
+    <url pathinfo="/items/delete/:id"       action="items:delete" >
+        <param name="id" type="numeric"/>
+    </url>    
     <!-- versions-->
     <url pathinfo="/versions"               action="versions:index" />
     <url pathinfo="/versions/validated"     action="versions:indexAll" />
@@ -24,5 +27,7 @@
         <param name="id" type="numeric"/>
     </url>
     <url pathinfo="/versions/savemod"       action="versions:savemod" />
-
+    <url pathinfo="/versions/delete/:id"    action="versions:delete" >
+        <param name="id" type="numeric"/>
+    </url>
 </suburls>
