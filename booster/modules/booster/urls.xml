@@ -42,5 +42,6 @@
 
     <url pathinfo="/yourressources" action="default:yourressources"/>
 
+    <url pathinfo="/credits" action="default:credits"/>
 
 </suburls>
