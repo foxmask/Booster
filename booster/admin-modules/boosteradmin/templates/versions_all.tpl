@@ -7,6 +7,7 @@
             <th>{@boosteradmin~admin.versions_list.version@}</th>
             <th>{@boosteradmin~admin.versions_list.date_created@}</th>
             <th>{@boosteradmin~admin.item_by@}</th>
+            <th>{@boosteradmin~admin.action@}</th>
         </tr>
     </thead>
     <tbody>
@@ -16,7 +17,9 @@
             <td><a href="{jurl 'boosteradmin~versions:editnew',array('id'=>$data->version_id)}">{$data->version_name}</a></td>
             <td>{$data->created|jdatetime}</td>
             <td>{zone 'booster~author', array('id' => $data->item_by)}</td>
-            {*<td>{$data->nickname|eschtml}</td>*}
+            <td><a href="{jurl 'boosteradmin~versions:delete',array('id'=>$data->version_id)}"
+                   alt="{@boosteradmin~admin.action.delete@}"
+                   onclick="return confirm('{jlocale 'boosteradmin~admin.confirm.deletion',array($data->name)}')">{@boosteradmin~admin.action.delete@}</a></td>
         </tr>
 {/foreach}
     </tbody>

@@ -145,4 +145,16 @@ class versionsCtrl extends jController {
         $rep->action = 'boosteradmin~versions:index';
         return $rep;
     }
+    
+    function delete() {
+        $rep = $this->getResponse('redirect');
+        $rep->action = 'boosteradmin~versions:indexAll';
+        $id = $this->intParam('id');
+        if (jDao::get('booster~boo_versions')->delete($id))
+            jMessage::add(jLocale::get('boosteradmin~admin.version.deleted'));
+        else
+            jMessage::add(jLocale::get('boosteradmin~admin.version.not.deleted'));
+        return $rep;
+    }
+
 }

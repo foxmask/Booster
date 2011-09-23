@@ -21,7 +21,8 @@ class defaultCtrl extends jController {
         'applis' => array('auth.required'=>false),
         'modules' => array('auth.required'=>false),
         'plugins' => array('auth.required'=>false),
-        'packlang' => array('auth.required'=>false)
+        'packlang' => array('auth.required'=>false),
+        'credits' => array('auth.required'=>false)
     );
     /**
      *Main Page
@@ -528,6 +529,13 @@ class defaultCtrl extends jController {
         $rep = $this->getResponse('redirect');
         $rep->action = 'booster~default:viewItem';
         $rep->params = array('id' => $id, 'name' => $this->param('name'));
+        return $rep;
+    }
+    
+    function credits() {
+        $rep = $this->getResponse('html');
+        $tpl = new jTpl;
+        $rep->body->assign('MAIN',$tpl->fetch('credits'));        
         return $rep;
     }
     

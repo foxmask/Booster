@@ -17,7 +17,7 @@
                 <eq property="id_item" expr="$id_item" />
             </conditions>
             <order>
-                <orderitem property="version" way="asc" />
+                <orderitem property="version" way="desc" />
             </order>
         </method>
     </factory>

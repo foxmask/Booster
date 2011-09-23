@@ -55,7 +55,6 @@
         {$MENU}
     </div>
     <div id="content">
-        {*if $is_home}<h2>Bienvenue sur Booster.</h2>{/if*}
         {jmessage}
         {$MAIN}
     </div>
@@ -63,6 +62,6 @@
 </div>
 
 <div id="footer" class="full">
-    <a href="/articles/fr/credits">Contacts &amp; Crédits</a> - Copyright 2006-2011 Jelix team.<br/>
+    <span style="color:red">version BETA</span> - <a href="https://github.com/foxmask/Booster/issues/new">Un problème d'utilisation ? faites nous en part</a> - <a href="{jurl 'booster~default:credits'}">Crédits</a> - Copyright 2006-2011 Jelix team.<br/>
     <img src="/btn_jelix_powered.png" alt="page générée par Jelix" />
 </div>
