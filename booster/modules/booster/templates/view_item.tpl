@@ -1,3 +1,17 @@
+{meta_html js $j_jelixwww.'jquery/jquery.js'}
+{meta_html js $j_jelixwww.'jquery/ui/jquery.ui.widget.min.js'}
+{meta_html js $j_jelixwww.'jquery/ui/jquery.ui.core.min.js'}
+{meta_html js $j_jelixwww.'jquery/ui/jquery.ui.tabs.min.js'}
+{literal}
+<script type="text/javascript">
+//<![CDATA[
+$(document).ready(function(){
+    $(".tabs_desc").tabs();
+});
+//]]>
+</script>
+{/literal}
+
 <h3>{$data->type_name}: <a href="{jurl 'booster~viewItem',array('name'=>$data->name,'id'=>$data->id)}">{$data->name}</a> {if $item_not_moderated || $data->status == 0}(Non validé){/if}</h3>
 <div class="booster_item">
     <div class="booster_itemauthor">
@@ -33,9 +47,29 @@
             </script>
             {/literal}
         {/if}
-        
-        
-        <div class="booster_short_desc">{$data->short_desc|wiki:'wr3_to_xhtml'}</div>
+
+        {if $data->short_desc != '' and $data->short_desc_fr != ''}
+        <div class="tabs_desc">
+            <ul>
+                <li><a href="#short_desc_en_{$data->id}" title="View the english description">{image $j_basepath.'booster/images/flags/gb.gif',array('alt'=>'View the english description')}</a></li>
+                <li><a href="#short_desc_fr_{$data->id}" title="Voir la description française">{image $j_basepath.'booster/images/flags/fr.gif',array('alt'=>'Voir la description française')}</a></li>
+            </ul>
+            <div id="short_desc_en_{$data->id}">
+                {$data->short_desc|wiki:'wr3_to_xhtml'}
+            </div>
+            <div id="short_desc_fr_{$data->id}">
+                {$data->short_desc_fr|wiki:'wr3_to_xhtml'}
+            </div>
+        </div>
+        {elseif $data->short_desc != ''}
+            <div id="short_desc_{$data->id}">
+                {$data->short_desc|wiki:'wr3_to_xhtml'}
+            </div>
+        {else}
+            <div id="short_desc_fr_{$data->id}">
+                {$data->short_desc_fr|wiki:'wr3_to_xhtml'}
+            </div>
+        {/if}
         {zone 'booster~tagsitem',array('id'=>$data->id)}
 
     </div>

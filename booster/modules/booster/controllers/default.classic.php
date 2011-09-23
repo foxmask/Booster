@@ -57,8 +57,6 @@ class defaultCtrl extends jController {
      * View Item page
      */
     function viewItem() {
-        global $gJConfig;
-        
         $tpl = new jTpl();
         if(jAuth::isConnected()) {
             $tpl->assign('current_user',jAuth::getUserSession ()->id);
@@ -87,16 +85,7 @@ class defaultCtrl extends jController {
         }
 
         $rep = $this->getResponse('html');
-        
-        // Handle the Description to be displayed in the
-        // appropriate language 
-        $lang = $gJConfig->locale;
-        if ($data->short_desc != '' and $data->short_desc_fr != '') {
-            if (substr($lang,0,2) == 'fr')
-                $data->short_desc = $data->short_desc_fr;
-        } elseif ($data->short_desc == '') {
-            $data->short_desc = $data->short_desc_fr;
-        }
+
         $tpl->assign('data',$data);
         $tpl->assign('is_admin', jAcl2::check('booster.admin.index'));
         $rep->title = $data->name;
@@ -132,7 +121,7 @@ class defaultCtrl extends jController {
                 $form->setErrorOn('short_desc',jLocale::get('booster~main.desc.mandatory'));
                 $form->setErrorOn('short_desc_fr',jLocale::get('booster~main.desc.mandatory'));
                 $rep->action='add';
-                return $rep;                
+                return $rep;
             }
             $data = jClasses::getService('booster~booster')->saveItem();
             if (!empty($data)) {
@@ -272,8 +261,8 @@ class defaultCtrl extends jController {
                     $form->setErrorOn('short_desc',jLocale::get('booster~main.desc.mandatory'));
                     $form->setErrorOn('short_desc_fr',jLocale::get('booster~main.desc.mandatory'));
                     $rep->action='add';
-                    return $rep;                
-                }        
+                    return $rep;
+                }
 
                 if (jClasses::getService('booster~booster')->saveEditItem($form)) {
                     jMessage::add(jLocale::get('booster~main.item.edit.success'));
@@ -509,12 +498,12 @@ class defaultCtrl extends jController {
         $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
     }
-    
+
     public function validNewItem(){
 
         // is the current user is an admin ?
         if (jAuth::isConnected() and jAcl2::check('booster.admin.index') ) {
-            
+
             $id = $this->param('id');
             jDao::get('booster~boo_items','booster')->setToValidated($id);
 
@@ -531,12 +520,12 @@ class defaultCtrl extends jController {
         $rep->params = array('id' => $id, 'name' => $this->param('name'));
         return $rep;
     }
-    
+
     function credits() {
         $rep = $this->getResponse('html');
         $tpl = new jTpl;
-        $rep->body->assign('MAIN',$tpl->fetch('credits'));        
+        $rep->body->assign('MAIN',$tpl->fetch('credits'));
         return $rep;
     }
-    
+
 }
