@@ -64,7 +64,7 @@ class booster {
         $record->stability      = $form->getData('stability');
         $record->filename       = $form->getData('filename');
         $record->download_url   = $form->getData('download_url');
-        return ($dao->insert($record)) ? true : false;
+        return ($dao->insert($record)) ? $record->id : false;
     }
     /**
      * function to save one Editing Item

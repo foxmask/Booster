@@ -254,3 +254,4 @@ default.skin="jelix/markitup/skins/simple/style.css"
 [booster]
 title="Jelix Booster: Applis, Modules, Plugins, Pack de langues pour Jelix"
 last_items_created=5
+moderators_list = test@jelix.org, test2@jelix.org

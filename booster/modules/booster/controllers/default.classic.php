@@ -138,6 +138,8 @@ class defaultCtrl extends jController {
             if (!empty($data)) {
                 jMessage::add(jLocale::get('booster~main.item.saved'));
                 $saved = true;
+                
+                jEvent::notify('new_item_added', array('item_id' => $data['id']));
             }
             else {
                 $saved = false;
@@ -175,8 +177,10 @@ class defaultCtrl extends jController {
         $rep = $this->getResponse('redirect');
         $form = jForms::fill('booster~version');
         if ($form->check()) {
-            if (jClasses::getService('booster~booster')->saveVersion($form)) {
+            $data = jClasses::getService('booster~booster')->saveVersion($form);
+            if ($data) {
                 jMessage::add(jLocale::get('booster~main.version.saved'));
+                jEvent::notify('new_version_added', array('version_id' => $data));
                 $saved = true;
                 $item = jDao::get('booster~boo_items','booster')->get($form->getData('item_id'));
                 if ($item->status == 1) {
@@ -277,6 +281,7 @@ class defaultCtrl extends jController {
 
                 if (jClasses::getService('booster~booster')->saveEditItem($form)) {
                     jMessage::add(jLocale::get('booster~main.item.edit.success'));
+                    jEvent::notify('item_edited', array('item_id' => $id));
                 }
                 else {
                     jMessage::add(jLocale::get('booster~main.item.edit.failed'));
@@ -354,6 +359,7 @@ class defaultCtrl extends jController {
             else {
                 if (jClasses::getService('booster~booster')->saveEditVersion($form)) {
                     jMessage::add(jLocale::get('booster~main.version.edit.success'));
+                    jEvent::notify('version_edited', array('version_id' => $id));
                 }
                 else {
                     jMessage::add(jLocale::get('booster~main.version.edit.failed'));

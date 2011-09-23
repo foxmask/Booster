@@ -3,4 +3,10 @@
     <listener name="booster">
          <event name="BoosterTaskTodo" />
     </listener>
+    <listener name="modNotification">
+        <event name="new_item_added" />
+        <event name="new_version_added" />
+        <event name="item_edited" />
+        <event name="version_edited" />
+    </listener>
 </events>
