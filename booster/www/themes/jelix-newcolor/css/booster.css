@@ -768,3 +768,12 @@ legend {
 #search-trigger{background:none; border:0;}
 #booster-search h2{display:inline-block; zoom:1;}
 #jforms_booster_search{display:none;}
+
+
+.ui-tabs .ui-tabs-hide {
+     display: none;
+}
+
+.ui-tabs ul li {
+    display: inline;
+}
