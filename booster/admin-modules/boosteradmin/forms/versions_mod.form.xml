@@ -2,6 +2,7 @@
 <form xmlns="http://jelix.org/ns/forms/1.1">
 <hidden ref="id"/>
 <hidden ref="item_id"/>
+<hidden ref="date_version"/>
 
 <input ref="version_name" required="true" maxlength="60">
     <label locale="booster~main.version_name"/>

@@ -12,7 +12,7 @@
         <property name="name" fieldname="name" datatype="varchar" required="true" maxlength="60"/>
         <property name="item_info_id" fieldname="item_info_id" datatype="varchar" required="true" maxlength="100"/>
         <property name="short_desc" fieldname="short_desc" datatype="text" required="false"/>
-		<property name="short_desc_fr" fieldname="short_desc_fr" datatype="text" required="false"/>
+        <property name="short_desc_fr" fieldname="short_desc_fr" datatype="text" required="false"/>
         <property name="type_id" fieldname="type_id" datatype="int" required="true"/>
         <property name="url_website" fieldname="url_website" datatype="varchar" required="true" maxlength="255"/>
         <property name="url_repo" fieldname="url_repo" datatype="varchar" required="true" maxlength="255"/>
@@ -22,10 +22,11 @@
         <property name="created" fieldname="created" datatype="datetime" insertpattern="NOW()" />
         <property name="edited" fieldname="edited" datatype="datetime" updatepattern="NOW()"/>
         <property name="modified" fieldname="modified" datatype="datetime" updatepattern="NOW()"/>
+        <property name="date_version" fieldname="date_version" datatype="datetime"/>
 
         <!--property name="nickname" fieldname="nickname" table="usr" datatype="varchar" required="true" maxlength="80"/>
         <property name="user_id" fieldname="id" table="usr" datatype="int"/-->
-		<property name="id_version" fieldname="id" table="type" datatype="int" autoincrement="true"/>
+        <property name="id_version" fieldname="id" table="type" datatype="int" autoincrement="true"/>
         <property name="type_name" fieldname="type_name" table="type" datatype="varchar" required="true" maxlength="80"/>
     </record>
     <factory>
@@ -37,6 +38,7 @@
                 <orderitem property="created" way="desc" />
             </order>
         </method>
+
         <method name="findAllNotModerated" type="select">
             <conditions>
                 <eq property="status" value="0" />
@@ -45,13 +47,14 @@
                 <orderitem property="edited" way="desc" />
             </order>
         </method>
+
         <method name="findLastCreated" type="select">
             <conditions>
                 <eq property="status" value="1" />
             </conditions>
             <parameter name="number" />
             <order>
-                <orderitem property="created" way="desc" />
+                <orderitem property="date_version" way="desc" />
             </order>
             <limit offset="0" count="$number"/>
         </method>
@@ -62,7 +65,7 @@
                 <eq property="item_by" expr="$user_id" />
             </conditions>
             <order>
-                <orderitem property="created" way="asc" />
+                <orderitem property="date_version" way="desc" />
             </order>
         </method>
 
@@ -74,7 +77,7 @@
                 <eq property="status" expr="1" />
             </conditions>
             <order>
-                <orderitem property="created" way="desc" />
+                <orderitem property="date_version" way="desc" />
             </order>
         </method>
 
@@ -86,11 +89,11 @@
                 <eq property="type_id" expr="$type_id" />
             </conditions>
             <order>
-                <orderitem property="created" way="desc" />
+                <orderitem property="date_version" way="desc" />
             </order>
             <limit offset="0" count="$number"/>
         </method>
-        
+
         <method name="setToValidated" type="update">
             <parameter name="id"/>
             <conditions>
@@ -100,23 +103,5 @@
                 <value property="status" value="1" />
             </values>
         </method>
-        
-
-
-        <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
-            <parameter name="" />
-            <values>
-                <value property="" value="" />
-            </values>
-            <conditions logic="and/or">
-                <eq property="" value="" />
-            </conditions>
-            <order>
-                <orderitem property="" way="asc/desc" />
-            </order>
-            <limit offset="" count=""/>
-            <body><![CDATA[
-            ]]></body>
-        </method>-->
     </factory>
 </dao>

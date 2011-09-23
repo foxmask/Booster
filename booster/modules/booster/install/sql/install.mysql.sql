@@ -7,7 +7,7 @@ CREATE TABLE %%PREFIX%%boo_items (
   `name` varchar(60) NOT NULL,
   `item_info_id` varchar(100) NOT NULL,
   `short_desc` text NOT NULL,
-  `short_desc_fr` text NOT NULL,  
+  `short_desc_fr` text NOT NULL,
   `type_id` int(12) NOT NULL,
   `url_website` varchar(255) NOT NULL,
   `url_repo` varchar(255) NOT NULL,
@@ -17,16 +17,16 @@ CREATE TABLE %%PREFIX%%boo_items (
   `created` datetime NOT NULL,
   `edited` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
+  `date_version` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `item_by` (`item_by`),
   KEY `type_id` (`type_id`),
   KEY `status` (`status`),
   KEY `created` (`created`),
   KEY `edited` (`edited`),
-  KEY `modified` (`modified`)
+  KEY `modified` (`modified`),
+  KEY `date_version` (`date_version`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-
 
 ALTER TABLE  %%PREFIX%%boo_items ADD UNIQUE (`name`);
 
@@ -39,7 +39,7 @@ CREATE TABLE %%PREFIX%%boo_items_mod (
   `name` varchar(60) NOT NULL,
   `item_info_id` varchar(100) NOT NULL,
   `short_desc` text NOT NULL,
-  `short_desc_fr` text NOT NULL,    
+  `short_desc_fr` text NOT NULL,
   `type_id` int(12) NOT NULL,
   `url_website` varchar(255) NOT NULL,
   `url_repo` varchar(255) NOT NULL,
@@ -145,3 +145,4 @@ INSERT INTO %%PREFIX%%boo_jelix_versions (`id`, `version`) VALUES
 (2, 'Jelix 1.2'),
 (3, 'Jelix 1.3'),
 (4, 'trunk');
+

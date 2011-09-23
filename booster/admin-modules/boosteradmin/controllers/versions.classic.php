@@ -74,6 +74,12 @@ class versionsCtrl extends jController {
                 jMessage::add(jLocale::get('boosteradmin~admin.version_saved_but_not_validated_yet'));
             }
             $form->saveToDao('boosteradmin~boo_versions');
+            //update the date_version
+            $daoItem = jDao::get('booster~boo_items');
+            $rec = $daoItem->get($form->getData('item_id'));
+            $rec->date_version = date("Y-m-d H:i:s");
+            $daoItem->update($rec);
+
         }
         else {
             jMessage::add(jLocale::get('boosteradmin~admin.invalid.data'));
@@ -117,7 +123,7 @@ class versionsCtrl extends jController {
             if ($form->getData('status_version')==1 OR $form->getData('_validate')) {
                 //in case, direct click on validate
                 $form->setData('status_version', 1);
-                
+
                 $form->saveToDao('boosteradmin~boo_versions');
                 //delete the moderated item from the "mirror" table
                 jDao::get('boosteradmin~boo_versions_mod','booster')->delete($form->getData('id'));
