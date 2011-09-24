@@ -129,6 +129,7 @@ class defaultCtrl extends jController {
                 $saved = true;
                 
                 jEvent::notify('new_item_added', array('item_id' => $data['id']));
+                jForms::destroy('booster~items');
             }
             else {
                 $saved = false;
@@ -170,6 +171,7 @@ class defaultCtrl extends jController {
             if ($data) {
                 jMessage::add(jLocale::get('booster~main.version.saved'));
                 jEvent::notify('new_version_added', array('version_id' => $data));
+                jForms::destroy('booster~version');
                 $saved = true;
                 $item = jDao::get('booster~boo_items','booster')->get($form->getData('item_id'));
                 if ($item->status == 1) {
