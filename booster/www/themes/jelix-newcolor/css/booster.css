@@ -414,6 +414,7 @@ text-shadow: #aaa 0px 0px 5px;}
     width: 75%;
     margin-left: 2%;
     float: left;
+    overflow:hidden;
 }
 
 .booster_itembody blockquote, .booster_itembody pre {
@@ -464,7 +465,7 @@ text-shadow: #aaa 0px 0px 5px;}
 }
 
 .booster_itemtags {
-    width: 15%;
+    width: 20%;
     float: left;
     text-align: left;
 }
@@ -777,3 +778,43 @@ legend {
 .ui-tabs ul li {
     display: inline;
 }
+
+.tabs_desc{
+    float:left;
+    width:80%;
+}
+.tabs_desc ul{
+    border-bottom: 1px solid #DDDDDD;
+    float: left;
+    padding:0 5px 0 10px;
+    list-style: none outside none;
+    margin: 0 0 20px;
+}
+.tabs_desc ul > li {
+    position: relative;
+    top: 1px;
+}
+.tabs_desc ul > li a {
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+    line-height: 20px;
+    margin-right: 5px;
+    padding: 2px 5px 0;
+}
+.tabs_desc ul > li a:hover {
+    background-color: #EEEEEE;
+    border-color: #EEEEEE #EEEEEE #DDDDDD;
+    text-decoration: none;
+}
+.tabs_desc ul > li.ui-state-active a, #main .tabs_desc ul > li a:focus {
+    background-color: #F9F9F7;
+    border-color: #DDDDDD #DDDDDD #F9F9F7;
+    border-style: solid;
+    border-width: 1px;
+    color: #808080;
+}
+.tabs_desc ul:before, .tabs_desc ul:after{content: "";display: table;}
+.tabs_desc ul:after{clear: both;}
+.tabs_desc ul > li{float: left;}
+.tabs_desc ul > li > a{display: block;}
+.tabs_desc div{clear:both;}
