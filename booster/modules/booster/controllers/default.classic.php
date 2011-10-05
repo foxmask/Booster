@@ -127,7 +127,7 @@ class defaultCtrl extends jController {
             if (!empty($data)) {
                 jMessage::add(jLocale::get('booster~main.item.saved'));
                 $saved = true;
-                
+
                 jEvent::notify('new_item_added', array('item_id' => $data['id']));
                 jForms::destroy('booster~items');
             }
@@ -149,7 +149,13 @@ class defaultCtrl extends jController {
     function addVersion() {
         $rep = $this->getResponse('html');
         $rep->title = jLocale::get('booster~main.add.a.version');
-        $form = jForms::create('booster~version');
+        // do we have an existing jforms instance ?
+        // if so we come from the saveVersion redirect
+        $form = jForms::get('booster~version');
+        // if not
+        if (! $form)
+        // ... create it
+            $form = jForms::create('booster~version');
         $form->setData('item_by',jAuth::getUserSession()->id);
         $form->setData('item_id',$this->intParam('id'));
 
@@ -167,6 +173,26 @@ class defaultCtrl extends jController {
         $rep = $this->getResponse('redirect');
         $form = jForms::fill('booster~version');
         if ($form->check()) {
+            // let's clean the filename
+            // remove slashes
+            $fileName = stripslashes($form->getData('filename'));
+            // remove spacial chars
+            // see http://php.net/filter_var
+            // http://www.phpro.org/tutorials/Filtering-Data-with-PHP.html
+            $fileName = filter_var($fileName, FILTER_SANITIZE_SPECIAL_CHARS ,
+                                array('flags' => FILTER_FLAG_STRIP_HIGH|FILTER_FLAG_STRIP_LOW)
+                    );
+            // a filename dont have to have a slash in its name
+            if ( strpos($fileName,'/') > 0  or strpos($fileName,'\\') > 0 ) {
+                $form->setErrorOn('filename', jLocale::get('booster~main.invalid.filename'));
+                $rep->action='booster~default:addVersion';
+                $rep->params=array(
+                                   'id'=>$form->getData('item_id'),
+                                   'name'=>$this->param('itemName')
+                                   );
+                return $rep;
+            }
+            $form->setData('filename',$fileName);
             $data = jClasses::getService('booster~booster')->saveVersion($form);
             if ($data) {
                 jMessage::add(jLocale::get('booster~main.version.saved'));

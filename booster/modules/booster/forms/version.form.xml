@@ -25,11 +25,11 @@
     <item value="mature">mature</item>
 </menulist>
 
-<input ref="filename" required="true" maxlength="80">
+<input ref="filename" type="string" required="true" maxlength="80" >
     <label locale="booster~main.filename"/>
 </input>
 
-<input ref="download_url" required="true" maxlength="255">
+<input ref="download_url" type="url" required="true" >
     <label locale="booster~main.download_url"/>
 </input>
 

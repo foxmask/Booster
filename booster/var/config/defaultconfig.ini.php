@@ -227,7 +227,7 @@ name=
 ;default = jelix/js/jforms/datepickers/default/init.js
 
 [jResponseHtml]
-;plugins=debugbar
+plugins=debugbar
 
 ;concatene et compress les fichier CSS
 minifyCSS=off
