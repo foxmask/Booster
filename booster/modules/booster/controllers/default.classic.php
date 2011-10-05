@@ -153,7 +153,7 @@ class defaultCtrl extends jController {
         // if so we come from the saveVersion redirect
         $form = jForms::get('booster~version');
         // if not
-        if (! $form)
+        if ($form === null) 
         // ... create it
             $form = jForms::create('booster~version');
         $form->setData('item_by',jAuth::getUserSession()->id);
