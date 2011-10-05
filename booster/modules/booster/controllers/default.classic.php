@@ -291,7 +291,7 @@ class defaultCtrl extends jController {
         $data = jDao::get('booster~boo_versions','booster')->get($id);
         $user_id = jDao::get('booster~boo_items','booster')->get($data->item_id)->item_by;
 
-        if ($user_id != jAuth::getUserSession()->id  or
+        if ($user_id != jAuth::getUserSession()->id  and
             ! jAcl2::check('booster.edit.version')) {
             $rep = $this->getResponse('html');
             $rep->bodyTpl = 'jelix~403.html';
@@ -340,7 +340,7 @@ class defaultCtrl extends jController {
 
         if ($form->check()) {
             $user_id = jDao::get('booster~boo_items','booster')->get($form->getData('item_id'))->item_by;
-            if ($user_id != jAuth::getUserSession()->id  or
+            if ($user_id != jAuth::getUserSession()->id  and
                 ! jAcl2::check('booster.edit.version')) {
                 $rep = $this->getResponse('html');
                 $rep->bodyTpl = 'jelix~403.html';
