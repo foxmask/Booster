@@ -60,8 +60,8 @@ html=myHtmlResponse
 ;errorMessage="A technical error has occured (code: %code%). Sorry for this inconvenience."
 
 ;[compilation]
-;checkCacheFiletime  = on
-;force  = off
+checkCacheFiletime  = on
+force  = off
 
 [urlengine]
 ; name of url engine :  "simple", "basic_significant" or "significant"
