@@ -153,7 +153,7 @@ class defaultCtrl extends jController {
         // if so we come from the saveVersion redirect
         $form = jForms::get('booster~version');
         // if not
-        if ($form === null) 
+        if ($form === null)
         // ... create it
             $form = jForms::create('booster~version');
         $form->setData('item_by',jAuth::getUserSession()->id);
@@ -176,7 +176,7 @@ class defaultCtrl extends jController {
             // let's clean the filename
             // remove slashes
             $fileName = stripslashes($form->getData('filename'));
-            // remove spacial chars
+            // remove special chars
             // see http://php.net/filter_var
             // http://www.phpro.org/tutorials/Filtering-Data-with-PHP.html
             $fileName = filter_var($fileName, FILTER_SANITIZE_SPECIAL_CHARS ,
@@ -344,9 +344,13 @@ class defaultCtrl extends jController {
             return $rep;
         }
 
-        $form = jForms::create('booster~version',$data->id);
-        $form->initFromDao('booster~boo_versions');
-
+        $form = jForms::get('booster~version',$data->id);
+        // if not
+        if ($form === null) {
+        // ... create it
+            $form = jForms::create('booster~version',$data->id);
+            $form->initFromDao('booster~boo_versions');
+        }
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
         $tpl->assign('id',$data->id);
@@ -365,6 +369,24 @@ class defaultCtrl extends jController {
         $form = jForms::fill('booster~version',$id);
 
         if ($form->check()) {
+            // let's clean the filename
+            // remove slashes
+            $fileName = stripslashes($form->getData('filename'));
+            // remove special chars
+            // see http://php.net/filter_var
+            // http://www.phpro.org/tutorials/Filtering-Data-with-PHP.html
+            $fileName = filter_var($fileName, FILTER_SANITIZE_SPECIAL_CHARS ,
+                                array('flags' => FILTER_FLAG_STRIP_HIGH|FILTER_FLAG_STRIP_LOW)
+                    );
+            // a filename dont have to have a slash in its name
+            if ( strpos($fileName,'/') > 0  or strpos($fileName,'\\') > 0 ) {
+                $form->setErrorOn('filename', jLocale::get('booster~main.invalid.filename'));
+                $rep = $this->getResponse('redirect');
+                $rep->action='booster~default:editVersion';
+                $rep->params=array('id'=>$id);
+                return $rep;
+            }
+            $form->setData('filename',$fileName);
             $user_id = jDao::get('booster~boo_items','booster')->get($form->getData('item_id'))->item_by;
             if ($user_id != jAuth::getUserSession()->id  and
                 ! jAcl2::check('booster.edit.version')) {
@@ -377,6 +399,7 @@ class defaultCtrl extends jController {
                 if (jClasses::getService('booster~booster')->saveEditVersion($form)) {
                     jMessage::add(jLocale::get('booster~main.version.edit.success'));
                     jEvent::notify('version_edited', array('version_id' => $id));
+                    jForms::destroy('booster~version');
                 }
                 else {
                     jMessage::add(jLocale::get('booster~main.version.edit.failed'));
