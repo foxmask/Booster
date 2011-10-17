@@ -255,7 +255,7 @@ text-shadow: #aaa 0px 0px 5px;}
 #main h3 a,#main h4 a, #main h5 a { color: #002830; }
 #main h1 a.anchor { color: #c03033; text-decoration:none;}
 #main h3 a.anchor,#main h4 a.anchor, #main h5 a.anchor { color: #002830; text-decoration:none; }
-#main h2 { color: #802022;  margin:1em 0 0.5em 0; font-size:1.5em; cursor: pointer; }
+#main h2 { color: #802022;  margin:1em 0 0.5em 0; font-size:1.5em;}
 #main h2 a.anchor { color: #802022; text-decoration:none; }
 #main h2 a { color: #802022; }
 #main h3 { color: #002830;  margin:1em 0 0.5em 0; font-size:1.3em;}
