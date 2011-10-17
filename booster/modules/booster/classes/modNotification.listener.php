@@ -27,7 +27,7 @@ class modNotificationListener extends jEventListener{
         //$item_id = $event->getParam('item_id');
         $this->mail->Subject = 'Un élément a été ajouté';
         $this->mail->Body = '<p>Il y a un nouvel élément a valider sur Booster (ajout).</p>';
-        $this->mail->Body .= '<p><a href="'.jUrl::get('boosteradmin~items:index').'">Validation des nouveaux éléments</a></p>';
+        $this->mail->Body .= '<p><a href="'.jUrl::getFull('boosteradmin~items:index').'">Validation des nouveaux éléments</a></p>';
 
         $this->finishAndSend();
     }
@@ -36,7 +36,7 @@ class modNotificationListener extends jEventListener{
         //$version_id = $event->getParam('version_id');
         $this->mail->Subject = 'Une version a été ajouté';
         $this->mail->Body = '<p>Il y a une nouvelle version a valider sur Booster (ajout).</p>';
-        $this->mail->Body .= '<p><a href="'.jUrl::get('boosteradmin~versions:index').'">Validation des nouvelles versions</a></p>';
+        $this->mail->Body .= '<p><a href="'.jUrl::getFull('boosteradmin~versions:index').'">Validation des nouvelles versions</a></p>';
 
         $this->finishAndSend();
     }
@@ -45,7 +45,7 @@ class modNotificationListener extends jEventListener{
         //$item_id = $event->getParam('item_id');
         $this->mail->Subject = 'Un élément a été modifié';
         $this->mail->Body = '<p>Il y a un élément a valider sur Booster (modification).</p>';
-        $this->mail->Body .= '<p><a href="'.jUrl::get('boosteradmin~items:index').'">Validation des éléments modifiés</a></p>';
+        $this->mail->Body .= '<p><a href="'.jUrl::getFull('boosteradmin~items:index').'">Validation des éléments modifiés</a></p>';
 
         $this->finishAndSend();
     }
@@ -54,7 +54,7 @@ class modNotificationListener extends jEventListener{
         //$version_id = $event->getParam('version_id');
         $this->mail->Subject = 'Une version a été modifié';
         $this->mail->Body = '<p>Il y a une version a valider sur Booster (modification).</p>';
-        $this->mail->Body .= '<p><a href="'.jUrl::get('boosteradmin~versions:index').'">Validation des versions modifiées</a></p>';
+        $this->mail->Body .= '<p><a href="'.jUrl::getFull('boosteradmin~versions:index').'">Validation des versions modifiées</a></p>';
 
         $this->finishAndSend();
     }
