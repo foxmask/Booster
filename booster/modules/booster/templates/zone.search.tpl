@@ -1,28 +1,32 @@
-{literal}
+
+
+<div id="booster-search">
+    
+    {literal}
 <script type="text/javascript">
 //<![CDATA[
 (function(){
     $(document).ready(function(){
         var imagePath = '/booster/images/';
         // hide search
-        var $search = $("#jforms_booster_search");
-        $search.hide();
+        var $adv_search = $("#advanced-search");
+        $adv_search.hide();
         // show search form
-        $("#search-trigger, #booster-search h2").click(function () {
+        $("#search-trigger").click(function () {
             $(this).toggleClass("active");
-            $search.slideToggle("slow");
+            $adv_search.slideToggle("slow");
             toggleImage($("#search-trigger"));
         });
     
-      var add = true;
+      var flag = true;
       var toggleImage = function($el){
-            if(add){
+            if(flag){
                 $el.find('img').attr({src:imagePath+"delete.png"});
-                add = false;
+                flag = false;
             }
             else{
                 $el.find('img').attr({src:imagePath+"add.png"});
-                add = true;
+                flag = true;
             }
       }
     });
@@ -30,25 +34,50 @@
 //]]>
 </script>
 {/literal}
-<div id="booster-search">
-    <div>
-        <button id="search-trigger"><img src="/booster/images/add.png" alt="Click to use search"/></button>
+    
+    
+    
+    
+    
         <h2>{@main.search@}</h2>
-    </div>
 
     {form $form, $submitAction, array('search' => true)}
-        <div>
-            {ctrl_label 'types'}
-            {ctrl_control 'types'}
+
+            <div class="classic-search">
+                
+                {ctrl_label 'name'}
+                {ctrl_control 'name'}
+                
+                {ctrl_label 'tags'}
+                {ctrl_control 'tags'}
+                
+                {formsubmit}
+           <button type="button" id="search-trigger" class="jforms-submit"><img src="/booster/images/add.png" alt="Click to use search"/>{@booster~main.search.advanced@}</button>
+                
+            </div>
+        
+        <div id="advanced-search">
+            <div>
+                {ctrl_label 'types'}
+                {ctrl_control 'types'}
+            </div>
+           <div>
+                {ctrl_label 'jelix_versions'}
+                {ctrl_control 'jelix_versions'}
+           </div>
+            <div>
+                {ctrl_label 'author_by'}
+                {ctrl_control 'author_by'}
+           </div>
         </div>
-        {formcontrols}
-        <div>
-           {ctrl_label}{ctrl_control}
-        </div>
-        {/formcontrols}
-        <div>
-        {formsubmit}
-        </div>
+        
+        
+        
+        <p>
+        
+        </p>
+        
+        
     {/form}
 
 </div>

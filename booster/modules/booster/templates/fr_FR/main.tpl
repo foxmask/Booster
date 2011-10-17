@@ -44,18 +44,15 @@
 </div>
 
 <div id="main">
-{if $is_home}
-    <h1>Booster : Qu'est-ce ?</h1>
-    <p id="booster_description">
-        Booster est le portail qui vous fourni l'ensemble des ressources Jelix existantes produites par la communauté :
-        Applications, Modules, Plugins, Paquets de langage. <a href="{jurl 'booster~default:add'}">Vous pouvez, à votre tour, déposer vos propres créations</a> sur <em>Booster</em>
-    </p>
-{/if}
+
     <div id="content-menu">
         {$MENU}
     </div>
     <div id="content">
         {jmessage}
+        
+        {zone 'booster~search'}
+        
         {$MAIN}
     </div>
     <div class="clear"></div>

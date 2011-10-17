@@ -356,14 +356,14 @@ text-shadow: #aaa 0px 0px 5px;}
     border: 1px solid #fff;
     background:-moz-linear-gradient(top, #edede6,#edede6, #edede6);
     background-color:#edede6;
-    background-position:center left;
-    background-repeat:no-repeat;
-    -moz-border-radius:5px 0px 5px 0px;
-    -moz-box-shadow: #999 3px 0px 0px 0px;
-    box-shadow: #999 3px 3px 3px 3px;
-    border-radius: 5px 0px 5px 0px;
-    font-size: small;
-    padding: 30px;
+    
+    -moz-border-radius:5px;
+    border-radius: 5px;
+    
+    -moz-box-shadow: #aaa 0px 0px 3px;
+
+
+    padding: 10px;
 }
 
 #booster_tagscloud h2{
@@ -766,9 +766,11 @@ legend {
 .homepage-block .date{font-size:0.8em;}
 .clear{clear:both;}
 
-#search-trigger{background:none; border:0;}
-#booster-search h2{display:inline-block; zoom:1;}
-#jforms_booster_search{display:none;}
+#search-trigger img{vertical-align:middle;display:inline-block;zoom:1;margin-right:5px;}
+#jforms_booster_search .jforms-label{font-weight:bold;}
+#advanced-search{display:none;}
+
+.jforms-submit{cursor:pointer;}
 
 
 .ui-tabs .ui-tabs-hide {

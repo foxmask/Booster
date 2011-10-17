@@ -1,3 +1,10 @@
+
+    <h2>Booster : Qu'est-ce ?</h1>
+    <p id="booster_description">
+        Booster est le portail qui vous fourni l'ensemble des ressources Jelix existantes produites par la communauté :
+        Applications, Modules, Plugins, Paquets de langage. <a href="{jurl 'booster~default:add'}">Vous pouvez, à votre tour, déposer vos propres créations</a> sur <em>Booster</em>
+    </p>
+    
 {ifuserconnected}
 <h2>{@main.item@}</h2>
 <a class="jforms-submit" href="{jurl 'booster~add'}">{@main.add.an.item@}</a>
@@ -8,5 +15,4 @@
 </div>
 {/ifacl2}
 {/ifuserconnected}
-{zone 'booster~search'}
 {zone "jtags~tagscloud", array('destination'=>'booster~default:cloud', 'maxcount'=>20)}
