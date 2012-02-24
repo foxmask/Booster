@@ -23,6 +23,7 @@ class myHtmlResponse extends jResponseHtml {
         global $gJConfig, $gJCoord;
         $this->body->assignIfNone('MAIN','<p>no content</p>');
         $this->body->assignIfNone('MENU','');
+        $this->body->assign('SEARCH',jZone::get('booster~search'));
         $title = $gJConfig->booster['title'];
         if ($this->title)
             $this->title = $this->title .' | '. $title;
@@ -59,6 +60,7 @@ class myHtmlResponse extends jResponseHtml {
             elseif ( $gJCoord->request->params['module'] == 'jcommunity' ) {
                 $this->body->assign('is_home'   ,false);
                 $this->body->assign('tout'      ,false);
+                $this->body->assign('SEARCH','');
             }
         }
         else {

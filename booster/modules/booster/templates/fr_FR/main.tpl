@@ -51,7 +51,7 @@
     <div id="content">
         {jmessage}
         
-        {zone 'booster~search'}
+        {$SEARCH}
         
         {$MAIN}
     </div>

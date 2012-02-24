@@ -15,11 +15,11 @@ $(document).ready(function(){
 <h3>{$data->type_name}: <a href="{jurl 'booster~viewItem',array('name'=>$data->name,'id'=>$data->id)}">{$data->name}</a> {if $item_not_moderated || $data->status == 0}(Non validé){/if}</h3>
 <div class="booster_item">
     <div class="booster_itemauthor">
-        <ul class="member-ident">
-            <li class="user-name user-image">{@booster~main.author@} {$data->author}</li>
-            <li class="user-rank user-image">{@booster~main.item_by@} {zone 'booster~author', array('id'=>$data->item_by)}</li>
+        <ul>
+            <li>{@booster~main.author@} {$data->author}</li>
+            <li>{@booster~main.item_by@} {zone 'booster~author', array('id'=>$data->item_by)}</li>
         </ul>
-        <ul class="member-info">
+        <ul>
             <li class="booster_url">
                 {if $data->url_website != null}<a href="{$data->url_website}">{@booster~main.website@}</a>{/if}
                 {if $data->url_website != null && $data->url_repo != null}::{/if}
@@ -71,7 +71,6 @@ $(document).ready(function(){
             </div>
         {/if}
         {zone 'booster~tagsitem',array('id'=>$data->id)}
-
     </div>
     <div class="booster_itemaction">&nbsp;
         {assign $canEditVersion = false}

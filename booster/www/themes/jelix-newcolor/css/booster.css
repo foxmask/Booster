@@ -546,6 +546,10 @@ text-shadow: #aaa 0px 0px 5px;}
     margin-bottom:5px;
     font-size:1.2em !important;
 }
+.booster_version .wrapper{
+    overflow:hidden;
+}
+
 #booter_old_version{
     margin:0.5em 1em;
     font-weight:bold;

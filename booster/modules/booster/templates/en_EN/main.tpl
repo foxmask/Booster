@@ -44,18 +44,14 @@
 </div>
 
 <div id="main">
-{if $is_home}
-    <h1>Booster : What's that ?</h1>
-    <p id="booster_description">
-        Booster is the portal that provides all the existing Jelix ressources provided by the community :
-        Applications, Modules, Plugins, and Language Packs. <a href="{jurl 'booster~default:add'}">You can now add your own work</a> on <em>Booster</em>.
-    </p>
-{/if}
     <div id="content-menu">
         {$MENU}
     </div>
     <div id="content">
         {jmessage}
+        
+        {$SEARCH}
+        
         {$MAIN}
     </div>
     <div class="clear"></div>
