@@ -18,10 +18,11 @@ class versionsZone extends jZone {
         if ( array_key_exists('action',$GLOBALS['gJCoord']->request->params) )
             list($ctrl,$method) = preg_split('/:/',$GLOBALS['gJCoord']->request->params['action']);
         $nbRec= 0;
-        if (($ctrl == 'default' and $method !== 'viewItem') OR ( empty($ctrl) and empty($method))) {
-            $datas = jDao::get('booster~boo_versions','booster')->findLastValidated($item_id);
-        } elseif ($ctrl == 'default' and $method == 'viewItem')  {
+        if($method == 'viewItem' or $method == 'editItem' or $method == 'editVersion'){
             $datas = jDao::get('booster~boo_versions','booster')->findAllValidated($item_id);
+        }
+        else{
+            $datas = jDao::get('booster~boo_versions','booster')->findLastValidated($item_id);
         }
         $this->_tpl->assign('versions',$datas);
     }

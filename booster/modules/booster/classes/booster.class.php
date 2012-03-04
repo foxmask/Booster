@@ -141,7 +141,7 @@ class booster {
             $form->getData('jelix_versions') == '' and
             $form->getData('tags') == ''
             )
-            return jDao::get('booster~boo_items','booster')->findAll();
+            return jDao::get('booster~boo_items','booster')->findAllValidated();
 
         $name           = $form->getData('name');
         $types          = $form->getData('types');
@@ -158,6 +158,7 @@ class booster {
         $c = jDb::getConnection('booster');
         //columns
         $q = 'SELECT items.id,
+                    items.status as status,
                     items.name,
                     items.item_info_id,
                     items.short_desc,
@@ -167,7 +168,6 @@ class booster {
                     items.url_repo,
                     items.author,
                     items.item_by,
-                    -- usr.nickname,
                     type.type_name,
                     versions.id AS version_id,
                     versions.version_name,
@@ -179,8 +179,7 @@ class booster {
                     versions.created,
                     versions.edited,
                     versions.modified,
-                    versions.id_jelix_version,
-                    versions.status';
+                    versions.id_jelix_version';
 
         //tables
         $from = '
@@ -193,8 +192,8 @@ class booster {
         //where conditions
         $where = "
                 WHERE items.type_id=type.id
-                    -- AND items.item_by=usr.id
-                    AND versions.status = '1' " ;
+                    AND items.status = 1
+                    AND (versions.status = 1 OR versions.status IS NULL)" ;
         //Types
         if(!empty($types)) {
             $cond .= $this->buildCond($types,'type_id');
@@ -202,12 +201,12 @@ class booster {
         //Name
         if($name != '') {
             $cond .= "
-                    AND name  ='$name' ";
+                    AND name LIKE '%$name%' ";
         }
         //Author
         if($author != '') {
             $cond .= "
-                    AND ( author ='$author' ) ";
+                    AND ( author LIKE '%$author%' ) ";
                     //AND ( author ='$author' ) OR nickname ='$author' ) ";
         }
         //version
@@ -223,7 +222,7 @@ class booster {
         $datas = $c->query($sql);
 
         $items = $results = array();
-        foreach($datas as $item) {
+        foreach($datas as $item) {jLog::dump($item);
             $items[$item->id] = $item;
         }
 
@@ -243,6 +242,8 @@ class booster {
             $results = $items;
         return $results;
     }
+
+
     /**
      * Check if a given item is moderated or waiting for validation
      * @param int $id the id of the Item

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://jelix.org/ns/project/1.0">
     <info id="booster@jelix.org" name="booster" createdate="2011-05-03">
-        <version>0.1pre</version>
+        <version>1.0RC1</version>
         <label lang="fr_FR">Booster</label>
         <description lang="fr_FR">Jelix Booster : portail de gestion des modules, plugins, pack de langue, applications produits en Jelix</description>
         <label lang="en_EN">Booster</label>

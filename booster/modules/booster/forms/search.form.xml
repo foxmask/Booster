@@ -20,7 +20,7 @@
     </input>
     
     <input ref="author_by" size="12">
-        <label locale="booster~main.author.or.rapporteur"/>
+        <label locale="booster~main.author"/>
     </input>
     
     <submit ref="_submit">

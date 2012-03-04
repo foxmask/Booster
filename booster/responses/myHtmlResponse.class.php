@@ -60,12 +60,21 @@ class myHtmlResponse extends jResponseHtml {
             elseif ( $gJCoord->request->params['module'] == 'jcommunity' ) {
                 $this->body->assign('is_home'   ,false);
                 $this->body->assign('tout'      ,false);
-                $this->body->assign('SEARCH','');
+
+                //wrap with a div#article
+                $this->body->assign('MAIN', '<div id="article">' . $this->body->get('MAIN') . '</div>');
             }
         }
         else {
             $this->body->assign('is_home'   ,true);
             $this->body->assign('tout'      ,true);
+
+            if(!$this->body->get('is_search')){
+                $tpl = new jTpl();
+                $main = $tpl->fetch('booster~text_intro') . $this->body->get('MAIN');
+                $main .= jZone::get('jtags~tagscloud', array('destination'=>'booster~default:cloud', 'maxcount'=>30));
+                $this->body->assign('MAIN',$main);
+            }
         }
 
     }

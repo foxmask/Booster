@@ -31,11 +31,11 @@
     <help locale="booster~main.tag_hlp"/>
 </input>
 
-<input ref="url_website" type="url">
+<input ref="url_website" type="url" size="40">
     <label locale="booster~main.item_website_url"/>
 </input>
 
-<input ref="url_repo" required="true" type="url">
+<input ref="url_repo" required="true" type="url" size="40">
     <label locale="booster~main.item_repo_url"/>
 </input>
 
@@ -44,6 +44,6 @@
 </input>
 
 <submit ref="_submit">
-    <label>ok</label>
+    <label>Ok</label>
 </submit>
 </form>

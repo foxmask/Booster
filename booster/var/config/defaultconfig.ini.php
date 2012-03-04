@@ -11,7 +11,7 @@ charset=UTF-8
 ; see http://www.php.net/manual/en/timezones.php for supported values
 timeZone="Europe/Paris"
 
-theme=jelix-newcolor
+theme=v2
 
 pluginsPath="app:plugins/,lib:jelix-plugins/"
 

@@ -1,8 +1,10 @@
-<ul id="boosteradmin-tasktodo">
-{if count($tasks) == 0}
-<li>{@boosteradmin~admin.task.none@}</li>
+{if count($tasks) > 0}
+    <div id="tasktodo" class="submenubar">
+        <span>{@boosteradmin~admin.waiting.your.validation@} : </span>
+        <ul>
+			{foreach $tasks as $t}
+				<li>{$t}</li>
+			{/foreach}
+		</ul>
+	</div>
 {/if}
-{for $i = 0 ; $i < count($tasks) ; $i++}
-<li>{$tasks[$i]}</li>
-{/for}
-</ul>

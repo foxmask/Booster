@@ -36,19 +36,14 @@
 {/literal}
     
     
-    
-    
-    
-        <h2>{@main.search@}</h2>
-
     {form $form, $submitAction, array('search' => true)}
 
             <div class="classic-search">
                 
-                {ctrl_label 'name'}
+                {ctrl_label 'name'} :
                 {ctrl_control 'name'}
                 
-                {ctrl_label 'tags'}
+                {ctrl_label 'tags'} :
                 {ctrl_control 'tags'}
                 
                 {formsubmit}
@@ -70,13 +65,6 @@
                 {ctrl_control 'author_by'}
            </div>
         </div>
-        
-        
-        
-        <p>
-        
-        </p>
-        
         
     {/form}
 

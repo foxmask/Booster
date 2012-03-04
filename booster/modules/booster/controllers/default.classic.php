@@ -24,6 +24,8 @@ class defaultCtrl extends jController {
         'packlang' => array('auth.required'=>false),
         'credits' => array('auth.required'=>false)
     );
+
+
     /**
      *Main Page
      */
@@ -42,17 +44,14 @@ class defaultCtrl extends jController {
             if ($form->check()) {
                 $results = jClasses::getService('booster~booster')->search();
                 $tpl->assign('search_results', $results);
+                $rep->body->assign('is_search', true);
             }
         }
-        else{
-            $dao = jDao::get('booster~boo_items','booster');
-            $tpl->assign('datas',$dao->findLastCreated($GLOBALS['gJConfig']->booster['last_items_created']));
-        }
-        $tpl->assign('item_not_moderated','');
         $rep->body->assign('MAIN',$tpl->fetch('index'));
-        $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
     }
+
+
     /**
      * View Item page
      */
@@ -65,34 +64,36 @@ class defaultCtrl extends jController {
             $tpl->assign('current_user','');
         }
 
-        $data = jDao::get('booster~boo_items','booster')->get(
-                                    $this->param('id') );
+        $data = jDao::get('booster~boo_items','booster')->get($this->intParam('id', 0));
         // is the current user the author or the admin ?
-        if (( jAuth::isConnected() and $data->item_by == jAuth::getUserSession ()->id) or
-            jAcl2::check('booster.admin.index') ) {
+        if ($this->userIsAdminOrAuthor($data->item_by)) {
             //so let's warn him if the item is moderated or not
             $tpl->assign('item_not_moderated',!$data->status);
-        //if he is not ; and the status is "not moderated" we dont display the item => 404
-        } else {
-            if ($data->status == 0) {
-                $rep = $this->getResponse('html',true);
-                $rep->bodyTpl = 'jelix~404.html';
-                $rep->setHttpStatus('404', 'Not Found');
-                return $rep;
-            }
-            //we dont have to display the status of the item to somebody else.
-            $tpl->assign('item_not_moderated','');
+        //the status is "not moderated" we dont display the item => 404
+        } elseif (!$data || $data->status == 0) {
+            return $this->get404();
         }
 
         $rep = $this->getResponse('html');
-
         $tpl->assign('data',$data);
         $tpl->assign('is_admin', jAcl2::check('booster.admin.index'));
         $rep->title = $data->name;
         $rep->body->assign('MAIN',$tpl->fetch('view_item'));
-        $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
     }
+
+
+    /**
+     * Initialisation de l'ajout d'un item
+     */
+    function _add() {
+        $rep = $this->getResponse('redirect');
+        $rep->action = 'booster~default:add';
+        jForms::create('booster~items');
+        return $rep;
+    }
+
+
     /**
      * Add an Item
      */
@@ -106,9 +107,10 @@ class defaultCtrl extends jController {
         $tpl = new jTpl();
         $tpl->assign('form',$form);
         $rep->body->assign('MAIN',$tpl->fetch('add_item'));
-        $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
     }
+
+
     /**
      * Save an Item
      */
@@ -120,7 +122,7 @@ class defaultCtrl extends jController {
                 $form->getData('short_desc') == '' ) {
                 $form->setErrorOn('short_desc',jLocale::get('booster~main.desc.mandatory'));
                 $form->setErrorOn('short_desc_fr',jLocale::get('booster~main.desc.mandatory'));
-                $rep->action='add';
+                $rep->action='booster~default:add';
                 return $rep;
             }
             $data = jClasses::getService('booster~booster')->saveItem();
@@ -137,35 +139,48 @@ class defaultCtrl extends jController {
             }
         } else {
             $saved = false;
-            jMessage::add(jLocale::get('booster~main.item.check.failed'));
         }
         $rep->params = array('id'=>$data['id'],'name'=>$data['name']);
-        $rep->action = ($saved) ? 'booster~addVersion' : 'booster~index';
+        $rep->action = ($saved) ? 'booster~default:addVersion' : 'booster~default:add';
         return $rep;
     }
+
+
+    /**
+     * Initialisation de l'ajout d'une version
+     */
+    function _addVersion() {
+        $rep = $this->getResponse('redirect');
+        $rep->action = 'booster~default:addVersion';
+        $rep->params = array('id' => $this->intParam('id', 0), 'name' => $this->param('name', ''));
+        jForms::create('booster~version');
+        return $rep;
+    }
+
+
     /**
      * Add a Version to the current Item
      */
     function addVersion() {
         $rep = $this->getResponse('html');
         $rep->title = jLocale::get('booster~main.add.a.version');
-        // do we have an existing jforms instance ?
-        // if so we come from the saveVersion redirect
+
         $form = jForms::get('booster~version');
-        // if not
         if ($form === null)
-        // ... create it
             $form = jForms::create('booster~version');
+
         $form->setData('item_by',jAuth::getUserSession()->id);
         $form->setData('item_id',$this->intParam('id'));
 
         $tpl = new jTpl();
         $tpl->assign('itemName',$this->param('name'));
+        $tpl->assign('itemId',$this->intParam('id'));
         $tpl->assign('form',$form);
         $rep->body->assign('MAIN',$tpl->fetch('add_version'));
-        $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
     }
+
+
     /**
      * Save a Version
      */
@@ -185,41 +200,37 @@ class defaultCtrl extends jController {
             // a filename dont have to have a slash in its name
             if ( strpos($fileName,'/') > 0  or strpos($fileName,'\\') > 0 ) {
                 $form->setErrorOn('filename', jLocale::get('booster~main.invalid.filename'));
-                $rep->action='booster~default:addVersion';
-                $rep->params=array(
-                                   'id'=>$form->getData('item_id'),
-                                   'name'=>$this->param('itemName')
-                                   );
-                return $rep;
+                $saved= false;
             }
-            $form->setData('filename',$fileName);
-            $data = jClasses::getService('booster~booster')->saveVersion($form);
-            if ($data) {
-                jMessage::add(jLocale::get('booster~main.version.saved'));
-                jEvent::notify('new_version_added', array('version_id' => $data));
-                jForms::destroy('booster~version');
-                $saved = true;
-                $item = jDao::get('booster~boo_items','booster')->get($form->getData('item_id'));
-                if ($item->status == 1) {
-                    $rep->action = 'viewItem';
+            else{
+                $form->setData('filename',$fileName);
+                $data = jClasses::getService('booster~booster')->saveVersion($form);
+                if ($data) {
+                    jMessage::add(jLocale::get('booster~main.version.saved'));
+                    jEvent::notify('new_version_added', array('version_id' => $data));
+                    jForms::destroy('booster~version');
+                    $saved = true;
+                    $item = jDao::get('booster~boo_items','booster')->get($form->getData('item_id'));
                     $rep->params = array('id'=> $item->id,'name'=>$item->name);
                 }
                 else {
-                    $rep->action = 'index';
+                    $saved = false;
+                    jMessage::add(jLocale::get('booster~main.version.saved.failed'));
                 }
-            }
-            else {
-                $saved = false;
-                jMessage::add(jLocale::get('booster~main.version.saved.failed'));
-                $rep->action = 'index';
             }
         } else {
             $saved = false;
             jMessage::add(jLocale::get('booster~main.version.check.failed'));
-            $rep->action = 'index';
         }
+        $rep->params=array(
+                   'id'=>$this->param('itemId'),
+                   'name'=>$this->param('itemName')
+                   );
+        $rep->action = $saved ? 'booster~default:viewItem' : 'booster~default:addVersion';
         return $rep;
     }
+
+
     /**
      * EditItem
      */
@@ -227,12 +238,8 @@ class defaultCtrl extends jController {
         $id = $this->intParam('id');
         $data = jDao::get('booster~boo_items','booster')->get($id);
 
-        if ($data->item_by != jAuth::getUserSession()->id  or
-            ! jAcl2::check('booster.edit.item')) {
-            $rep = $this->getResponse('html');
-            $rep->bodyTpl = 'jelix~403.html';
-            $rep->setHttpStatus('403', 'Permission denied');
-            return $rep;
+        if (!$this->userCanEditOrIsAuthor($data->item_by, 'item')) {
+            return $this->get403();
         }
         //if this item is not moderated
         //we'll just display a page with the item + a message to inform the user
@@ -253,7 +260,6 @@ class defaultCtrl extends jController {
             $rep->body->assign('MENU',$tpl->fetch('menu'));
             return $rep;
         }
-        $rec = jClasses::getService("jtags~tags")->getTagsBySubject('booscope', $data->id);
 
         $tags = implode(',', jClasses::getService("jtags~tags")->getTagsBySubject('booscope', $data->id) ) ;
 
@@ -268,9 +274,10 @@ class defaultCtrl extends jController {
         $tpl->assign('item_not_moderated',0);
         $tpl->assign('action','booster~saveEditItem');
         $rep->body->assign('MAIN',$tpl->fetch('edit_item'));
-        $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
     }
+
+
     /**
      * Save the Edited Item
      */
@@ -280,35 +287,38 @@ class defaultCtrl extends jController {
         $form = jForms::fill('booster~items',$id);
 
         if ($form->check()) {
-            if ($form->getData('item_by') != jAuth::getUserSession()->id  or
-                ! jAcl2::check('booster.edit.item')) {
-                $rep = $this->getResponse('html');
-                $rep->bodyTpl = 'jelix~403.html';
-                $rep->setHttpStatus('403', 'Permission denied');
-                return $rep;
+            if (!$this->userCanEditOrIsAuthor($form->getData('item_by'), 'item')) {
+                return $this->get403();
             }
             else {
                 if ($form->getData('short_desc_fr') == ''  and
                     $form->getData('short_desc') == '' ) {
                     $form->setErrorOn('short_desc',jLocale::get('booster~main.desc.mandatory'));
                     $form->setErrorOn('short_desc_fr',jLocale::get('booster~main.desc.mandatory'));
-                    $rep->action='add';
-                    return $rep;
+                    $saved=false;
                 }
 
                 if (jClasses::getService('booster~booster')->saveEditItem($form)) {
                     jMessage::add(jLocale::get('booster~main.item.edit.success'));
                     jEvent::notify('item_edited', array('item_id' => $id));
+                    $saved = true;
                 }
                 else {
                     jMessage::add(jLocale::get('booster~main.item.edit.failed'));
+                    $saved = false;
                 }
             }
         }
+        else{
+            $saved = false;
+        }
+
         $rep = $this->getResponse('redirect');
-        $rep->action = 'booster~index';
+        $rep->action = $saved ? 'booster~default:viewItem' : 'booster~default:editItem';
         return $rep;
     }
+
+
     /**
      * EditVersion
      */
@@ -317,12 +327,8 @@ class defaultCtrl extends jController {
         $data = jDao::get('booster~boo_versions','booster')->get($id);
         $user_id = jDao::get('booster~boo_items','booster')->get($data->item_id)->item_by;
 
-        if ($user_id != jAuth::getUserSession()->id  and
-            ! jAcl2::check('booster.edit.version')) {
-            $rep = $this->getResponse('html');
-            $rep->bodyTpl = 'jelix~403.html';
-            $rep->setHttpStatus('403', 'Permission denied');
-            return $rep;
+        if (!$this->userCanEditOrIsAuthor($user_id, 'version')) {
+            return $this->get403();
         }
         //if this item is not moderated
         //we'll just display a page with the item + a message to inform the user
@@ -340,7 +346,6 @@ class defaultCtrl extends jController {
             $tpl->assign('data',$data);
             $tpl->assign('item_not_moderated',1);
             $rep->body->assign('MAIN',$tpl->fetch('view_item'));
-            $rep->body->assign('MENU',$tpl->fetch('menu'));
             return $rep;
         }
 
@@ -357,7 +362,6 @@ class defaultCtrl extends jController {
         $tpl->assign('form',$form);
         $tpl->assign('action','booster~saveEditVersion');
         $rep->body->assign('MAIN',$tpl->fetch('edit_version'));
-        $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
 
     }
@@ -381,33 +385,32 @@ class defaultCtrl extends jController {
             // a filename dont have to have a slash in its name
             if ( strpos($fileName,'/') > 0  or strpos($fileName,'\\') > 0 ) {
                 $form->setErrorOn('filename', jLocale::get('booster~main.invalid.filename'));
-                $rep = $this->getResponse('redirect');
-                $rep->action='booster~default:editVersion';
-                $rep->params=array('id'=>$id);
-                return $rep;
+                $saved = false;
             }
             $form->setData('filename',$fileName);
             $user_id = jDao::get('booster~boo_items','booster')->get($form->getData('item_id'))->item_by;
-            if ($user_id != jAuth::getUserSession()->id  and
-                ! jAcl2::check('booster.edit.version')) {
-                $rep = $this->getResponse('html');
-                $rep->bodyTpl = 'jelix~403.html';
-                $rep->setHttpStatus('403', 'Permission denied');
-                return $rep;
+            if (!$this->userCanEditOrIsAuthor($user_id, 'version')) {
+                return $this->get403();
             }
             else {
                 if (jClasses::getService('booster~booster')->saveEditVersion($form)) {
                     jMessage::add(jLocale::get('booster~main.version.edit.success'));
                     jEvent::notify('version_edited', array('version_id' => $id));
                     jForms::destroy('booster~version');
+                    $saved = true;
                 }
                 else {
                     jMessage::add(jLocale::get('booster~main.version.edit.failed'));
+                    $saved = false;
                 }
             }
         }
+        else{
+            $saved = false;
+        }
         $rep = $this->getResponse('redirect');
-        $rep->action = 'booster~index';
+        $rep->params= $saved ? array('id' => $form->getData('item_id')) : array('id'=>$id);
+        $rep->action = $saved ? 'booster~default:viewItem': 'booster~default:editVersion';
         return $rep;
     }
     /**
@@ -447,9 +450,7 @@ class defaultCtrl extends jController {
         }
         $tpl->assign('items',$items);
         $tpl->assign('tag',$tag);
-        $tpl->assign('item_not_moderated',0);
         $rep->body->assign('MAIN', $tpl->fetch('tag'));
-        $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
     }
     /**
@@ -471,9 +472,7 @@ class defaultCtrl extends jController {
             $tpl->assign('current_user','');
         }
         $tpl->assign('datas', $datas);
-        $tpl->assign('item_not_moderated','');
         $rep->body->assign('MAIN',$tpl->fetch('list'));
-        $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
     }
     /**
@@ -491,9 +490,7 @@ class defaultCtrl extends jController {
             $tpl->assign('current_user','');
         }
         $tpl->assign('datas', $datas);
-        $tpl->assign('item_not_moderated','');
         $rep->body->assign('MAIN',$tpl->fetch('list'));
-        $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
     }
     /**
@@ -513,7 +510,6 @@ class defaultCtrl extends jController {
         $tpl->assign('datas', $datas);
         $tpl->assign('item_not_moderated','');
         $rep->body->assign('MAIN',$tpl->fetch('list'));
-        $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
     }
     /**
@@ -533,7 +529,6 @@ class defaultCtrl extends jController {
         $tpl->assign('datas', $datas);
         $tpl->assign('item_not_moderated','');
         $rep->body->assign('MAIN',$tpl->fetch('list'));
-        $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
     }
     /**
@@ -552,7 +547,6 @@ class defaultCtrl extends jController {
         }
         $tpl->assign('datas', $datas);
         $rep->body->assign('MAIN',$tpl->fetch('your_ressources'));
-        $rep->body->assign('MENU',$tpl->fetch('menu'));
         return $rep;
     }
 
@@ -584,5 +578,38 @@ class defaultCtrl extends jController {
         $rep->body->assign('MAIN',$tpl->fetch('credits'));
         return $rep;
     }
+
+
+
+    // REFACTORING
+
+    protected function get404(){
+        $rep = $this->getResponse('html',true);
+        $rep->bodyTpl = 'jelix~404.html';
+        $rep->setHttpStatus('404', 'Not Found');
+        return $rep;
+    }
+
+    protected function get403(){
+        $rep = $this->getResponse('html');
+        $rep->bodyTpl = 'jelix~403.html';
+        $rep->setHttpStatus('403', 'Permission denied');
+        return $rep;
+    }
+
+    protected function userIsAdminOrAuthor($user_id){
+        if(!jAuth::isConnected())
+            return false;
+
+        return ($user_id == jAuth::getUserSession()->id) OR jAcl2::check('booster.admin.index');
+    }
+
+    protected function userCanEditOrIsAuthor($user_id, $type = 'item'){
+        if(!jAuth::isConnected())
+            return false;
+
+        return ($user_id == jAuth::getUserSession()->id) OR jAcl2::check('booster.edit.' . $type);
+    }
+
 
 }

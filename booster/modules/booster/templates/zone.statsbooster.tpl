@@ -1,0 +1,1 @@
+<p>{$nb_items} - {$nb_versions}</p>
