@@ -85,14 +85,13 @@ class jCmdlineCoordinator extends jCoordinator {
 
             $this->errorMessage = $errorLog;
 
-            while (ob_get_level()) {
-                ob_end_clean();
-            }
+            while (ob_get_level() && @ob_end_clean());
 
             if($this->response) {
                 $resp = $this->response;
             }
             else {
+                require_once(JELIX_LIB_CORE_PATH.'response/jResponseCmdline.class.php');
                 $resp = $this->response = new jResponseCmdline();
             }
             $resp->outputErrors();
@@ -106,9 +105,7 @@ class jCmdlineCoordinator extends jCoordinator {
         }
         else {
             // fatal error appeared during init, let's display a single message
-            while (ob_get_level()) {
-                ob_end_clean();
-            }
+            while (ob_get_level() && @ob_end_clean());
             // log into file
             @error_log($errorLog->getFormatedMessage(),3, jApp::logPath('errors.log'));
             // output text response
