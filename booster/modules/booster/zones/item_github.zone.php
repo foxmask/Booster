@@ -11,8 +11,8 @@
 class item_githubZone extends jZone {
     protected $_tplname='zone.item_github';
 
-    protected $_useCache = false;
-    protected $_cacheTimeout = 7200;//2 heures
+    protected $_useCache = true;
+    protected $_cacheTimeout = 3600;//1 heure
 
 
     protected function _prepareTpl(){
@@ -25,6 +25,11 @@ class item_githubZone extends jZone {
 		preg_match('#https?://github.com/(.*)/(.*)#', $url_repo, $m);
 		$user = $m[1];
 		$repo = $m[2];
+
+        if(empty($m[1]) OR empty($m[2])){//invalid github repo url
+            $this->_tpl->assign('not_ok', true); 
+            return;
+        }
 
         $filtered = preg_replace('@[^a-zA-Z0-9_]@', '_', array($repo, $user));
 		$key = 'github_'.$filtered[0].'_'.$filtered[1].'_';
