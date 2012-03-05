@@ -37,5 +37,12 @@
                 <orderitem property="edited" way="desc" />
             </order>
         </method>
+
+        <method name="deleteByItem" type="delete">
+            <parameter name="id" />
+            <conditions>
+                <eq property="item_id" expr="$id" />
+            </conditions>
+        </method>
     </factory>
 </dao>

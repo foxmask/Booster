@@ -12,7 +12,7 @@ class boosteradminmenuListener extends jEventListener{
 
     function onmasteradminGetMenuContent ($event) {
         global $gJConfig;
-        $chemin = $gJConfig->urlengine['basePath'].'booster/admin/';
+        $chemin = $gJConfig->urlengine['basePath'] . 'themes/' . $gJConfig->theme .'/';
         if ( jAcl2::check('booster.admin.index')) {
             $event->add(new masterAdminMenuItem('booster','Booster', '', 20));
 
@@ -21,7 +21,7 @@ class boosteradminmenuListener extends jEventListener{
                         jUrl::get('boosteradmin~items:indexAll'),
                         301,
                         'booster');
-            $item->icon = $chemin . 'images/item.png';
+            $item->icon = $chemin . 'icons/item.png';
             $event->add($item);
 
             $item = new masterAdminMenuItem('items',
@@ -29,7 +29,7 @@ class boosteradminmenuListener extends jEventListener{
                         jUrl::get('boosteradmin~items:index'),
                         302,
                         'booster');
-            $item->icon = $chemin . 'images/item_mod.png';
+            $item->icon = $chemin . 'icons/item_mod.png';
             $event->add($item);
 
 
@@ -38,7 +38,7 @@ class boosteradminmenuListener extends jEventListener{
                         jUrl::get('boosteradmin~versions:indexAll'),
                         303,
                         'booster');
-            $item->icon = $chemin . 'images/version.png';
+            $item->icon = $chemin . 'icons/version.png';
             $event->add($item);
 
             $item = new masterAdminMenuItem('versions',
@@ -46,7 +46,7 @@ class boosteradminmenuListener extends jEventListener{
                         jUrl::get('boosteradmin~versions:index'),
                         304,
                         'booster');
-            $item->icon = $chemin . 'images/version_mod.png';
+            $item->icon = $chemin . 'icons/version_mod.png';
             $event->add($item);
 
         }

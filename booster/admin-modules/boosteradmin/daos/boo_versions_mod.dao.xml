@@ -27,6 +27,13 @@
         <property name="version" fieldname="version" datatype="varchar" table="jelix_versions" required="true" maxlength="15"/>
 
     <factory>
+        <method name="deleteByItem" type="delete">
+            <parameter name="id" />
+            <conditions>
+                <eq property="item_id" expr="$id" />
+            </conditions>
+        </method>
+
         <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
             <parameter name="" />
             <values>

@@ -52,6 +52,12 @@
     <item value="1" locale="booster~main.status.validated"/>
 </menulist>
 
+<radiobuttons ref="recommendation" required="true">
+    <label locale="booster~main.reco"/>
+    <item value="0" locale="jelix~ui.buttons.no"/>
+    <item value="1" locale="jelix~ui.buttons.yes"/>
+</radiobuttons>
+
 
 <submit ref="_submit">
     <label locale="boosteradmin~admin.form.save"/>

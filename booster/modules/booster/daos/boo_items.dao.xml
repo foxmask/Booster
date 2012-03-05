@@ -19,6 +19,7 @@
         <property name="author" fieldname="author" datatype="varchar" required="true" maxlength="80"/>
         <property name="item_by" fieldname="item_by" datatype="int" required="true"/>
         <property name="status" fieldname="status" datatype="int" required="true" maxlength="1"/>
+        <property name="recommendation" fieldname="recommendation" datatype="boolean" required="true" default="false"/>
         <property name="created" fieldname="created" datatype="datetime" insertpattern="NOW()" />
         <property name="edited" fieldname="edited" datatype="datetime" updatepattern="NOW()"/>
         <property name="modified" fieldname="modified" datatype="datetime" updatepattern="NOW()"/>
@@ -100,6 +101,18 @@
             </conditions>
            <values>
                 <value property="status" value="1" />
+            </values>
+        </method>
+
+
+        <method name="setRecommendation" type="update">
+            <parameter name="id"/>
+            <parameter name="state"/>
+            <conditions>
+                <eq property="id" expr="$id" />
+            </conditions>
+            <values>
+                <value property="recommendation" expr="$state" />
             </values>
         </method>
 

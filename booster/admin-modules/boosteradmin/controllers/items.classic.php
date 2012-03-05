@@ -164,8 +164,11 @@ class itemsCtrl extends jController {
         $rep = $this->getResponse('redirect');
         $rep->action = 'boosteradmin~items:indexAll';
         $id = $this->intParam('id');
-        if (jDao::get('booster~boo_items')->delete($id))
+        if (jDao::get('booster~boo_items')->delete($id)){
             jMessage::add(jLocale::get('boosteradmin~admin.item.deleted'));
+            jDao::get('boosteradmin~boo_versions')->deleteByItem($id);
+            jDao::get('boosteradmin~boo_versions_mod')->deleteByItem($id);
+        }
         else
             jMessage::add(jLocale::get('boosteradmin~admin.item.not.deleted'));
         return $rep;

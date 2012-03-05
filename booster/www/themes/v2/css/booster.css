@@ -786,85 +786,6 @@ div.no {
     display:inline; margin:0; margin:0;
 }
 
-/* ---------------------------- Diff rendering --------------------------*/
-
-table.diff { background:white; }
-td.diff-blockheader {font-weight:bold}
-td.diff-header {
-  border-bottom: 1px solid #8cacbb;
-  font-size:120%;
-}
-td.diff-addedline {
-    background:#ddffdd;
-    font-family: monospace;
-    font-size: 100%;
-}
-td.diff-deletedline {
-    background:#ffffbb;
-    font-family: monospace;
-    font-size: 100%;
-}
-td.diff-context {
-    background:#f7f9fa;
-    font-family: monospace;
-    font-size: 100%;
-}
-span.diffchange { color: red; }
-
-
-
-/* ==================== Forum =============== */
-table.forumdata { border:1px solid grey; border-collapse:collapse;}
-table.forum { border:1px solid grey; border-collapse:collapse; margin:1em auto; }
-table.forum th, table.forumdata th { background-color: #002830; color:#fff; padding:3px;}
-table.forum td, table.forumdata td { border:1px solid grey; vertical-align:top; padding:3px;}
-table.forum td.lastpost { font-size:0.8em;}
-
-table.forum td h2 { color:#AF283A; font-size:1.1em !important;
-   border-bottom:0 none transparent !important;}
-table.forum td h2 a{ color:#AF283A !important; }
-table.forum td h2 a:hover{ color:#fff !important; }
-
-table.forumform td,table.forumdata td { vertical-align:top;}
-table.forumform th,table.forumdata th { text-align:right; vertical-align:top;}
-
-.forumMessage {margin-bottom:1em;}
-.forumMessage h1 a, .forumMessage h2 a {font-size:0.7em;}
-.forumMessage h2 {  margin-bottom:0;}
-.forumMessage h3 { border-bottom:1px solid #000; margin-bottom:0;}
-
-
-   .forumtext { background-color: #f9f9f7; margin:0.5em 0 0 0; padding:0.3em;
-      border:2px solid #edede6;}
-   .forumtext blockquote { margin-left:1.5em; padding-left:0.5em;border-left:2px solid #195a80;}
-   .forumsignature { font-size:0.9em;}
-   .forumeditmessage { text-align:right; font-style:italic; font-size:0.8em; margin-bottom:0;}
-
-
-   .forumMessageInfo {}
-   .forumMessageInfo p {margin:0; font-size:0.8em;}
-   .forumMessageOptions{text-align:right; background-color:#edede6; font-size:0.8em;}
-   .forumMessageOptions a { padding-right:1.5em;}
-   .forumModeration {text-align:right; background-color:#edede6; font-size:0.8em;}
-   .forumModeration a { padding-right:1.5em;}
-.forumAlert { border:1px solid grey; }
-.forumError { border:1px solid red; }
-.forumResults { margin: 1em 0;}
-
-.msgoptions { font-size:0.8em; text-align:right;}
-.msgnew, .msgpages { font-size:0.8em;}
-.msgnew {color:#FF802E;}
-.msgannouncement { color:#fff; background-color:#000;}
-#forummenudroit { float:right; width:12em; padding:0 0.5em; }
-#forumcontenu { margin-right:13em;}
-
-.search_result { margin-top:1.5em; }
-.search_result .wikilink1 { font-weight:bold; font-size:1.1em; }
-.search_result .search_cnt { font-style:italic;}
-.search_result .search_snippet { margin-left:2em; }
-.search_result .search_hit { background-color:#fff8d3; }
-
-
 
 /* ============================================== */
 /* ============ Booster specific CSS ============ */
@@ -879,8 +800,8 @@ table.forumform th,table.forumdata th { text-align:right; vertical-align:top;}
 
 #footer {min-height:135px;margin-top:20px;}
 #article h1 {margin-bottom:10px;}
-a{color:#000;}
-a:hover, a:focus{color:#333;}
+a, .link{color:#000;}
+a:hover, a:focus, .link:hover, .link:focus{color:#333;}
 
 small{font-size:0.8em;}
 
@@ -1016,6 +937,7 @@ small{font-size:0.8em;}
 .inline-list li:first-child{margin-left:0;}
 .inline-list li img{vertical-align:text-top;}
 .inline-list li{display: inline-block;}
+.inline-list input{background:none;border:none;text-decoration:underline;cursor:pointer; padding:0;}
 
 .booster-item-tags li{
   padding-left:20px;

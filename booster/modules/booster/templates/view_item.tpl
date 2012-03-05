@@ -29,6 +29,10 @@ $(document).ready(function(){
     {if $data->status == 0 || !empty($item_not_moderated)}
         <small>({@booster~main.not.moderated@})</small>
     {/if}
+    {if $data->recommendation}
+        <small><img src="{$j_themepath}icons/reco.png" height="12" width="12" alt="{@booster~main.is.reco@}" title="{@booster~main.reco.help@}"/></small>
+    {/if}
+    
 </h3>
 
     {if !empty($item_not_moderated)}
@@ -110,36 +114,62 @@ $(document).ready(function(){
     {/if}
 
 
+
+
     {assign $canEditVersion = false}
+    {assign $editRight = false}
+    {assign $recommendation = false}
+
     {if empty($item_not_moderated) && $data->item_by == $current_user}
         {assign $canEditVersion = true}
+    {/if}
+
+    {ifacl2 'booster.edit.item'}
+        {assign $editRight = true}
+    {/ifacl2}
+
+    {ifacl2 'booster.recommendation'}
+        {assign $recommendation = true}
+    {/ifacl2}
+
+    {if $canEditVersion || $editRight || $recommendation}
         <div class="booster-item-action section admin">
             <ul class="inline-list">
-                <li>
-                    <img src="{$j_themepath}icons/page_white_edit.png" alt=""/>
-                    <a href="{jurl 'booster~default:editItem',array('id'=>$data->id,'name'=>$data->name)}">{@booster~main.edit.item@}</a>
-                </li>
-                <li>
-                    <img src="{$j_themepath}icons/note_add.png" alt=""/>
-                    <a href="{jurl 'booster~default:_addVersion',array('id'=>$data->id,'name'=>$data->name)}">{@booster~main.add.a.version@}</a>
-                </li>
+
+
+                {if $canEditVersion || $editRight}
+                    <li>
+                        <img src="{$j_themepath}icons/item_edit.png" alt=""/>
+                        <a href="{jurl 'booster~default:editItem',array('id'=>$data->id,'name'=>$data->name)}">{@booster~main.edit.item@}</a>
+                    </li>
+                    <li>
+                        <img src="{$j_themepath}icons/version_add.png" alt=""/>
+                        <a href="{jurl 'booster~default:_addVersion',array('id'=>$data->id,'name'=>$data->name)}">{@booster~main.add.a.version@}</a>
+                    </li>
+                {/if}
+
+                {if $recommendation}
+                    <li>
+                        <form action="{formurl 'booster~default:recommendation'}" method="POST">
+                            <div>
+                                 <img src="{$j_themepath}icons/reco.png" alt=""/>
+                                {formurlparam}
+                                <input type="hidden" name="id" value="{$data->id}"/>
+                                <input type="hidden" name="name" value="{$data->name}"/>
+                                {if $data->recommendation}
+                                    <input type="hidden" name="state" value="0"/>
+                                    <input type="submit" class="link" value="{@booster~main.reco.item.cancel@}"/>
+                                {else}
+                                    <input type="hidden" name="state" value="1"/>
+                                    <input type="submit" class="link" value="{@booster~main.reco.item@}"/>
+                                {/if}
+                            </div>
+                        </form>
+                    </li>
+                {/if}
+
             </ul>
         </div>
-    {else}
-        {ifacl2 'booster.edit.item'}
-        <div class="booster-item-action section admin">
-            <ul class="inline-list">
-                <li>
-                    <img src="{$j_themepath}icons/page_white_edit.png" alt=""/>
-                    <a href="{jurl 'booster~default:editItem',array('id'=>$data->id,'name'=>$data->name)}">{@booster~main.edit.item@}</a>
-                </li>
-                <li>
-                    <img src="{$j_themepath}icons/note_add.png" alt=""/>
-                    <a href="{jurl 'booster~default:_addVersion',array('id'=>$data->id,'name'=>$data->name)}">{@booster~main.add.a.version@}</a>
-                </li>
-            </ul>
-        </div>
-        {/ifacl2}
     {/if}
 
 

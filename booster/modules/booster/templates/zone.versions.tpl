@@ -32,13 +32,13 @@
 
                 {if $canEditVersion}
                     <li>
-                        <img src="{$j_themepath}icons/note_edit.png" alt=""/>
+                        <img src="{$j_themepath}icons/version_edit.png" alt=""/>
                         <a href="{jurl 'booster~editVersion',array('id'=>$version->id)}">{@booster~main.edit@}</a>
                     </li>
                 {else}
                     {ifacl2 'booster.edit.version'}
                         <li>
-                            <img src="{$j_themepath}icons/note_edit.png" alt=""/>
+                            <img src="{$j_themepath}icons/version_edit.png" alt=""/>
                             <a href="{jurl 'booster~editVersion',array('id'=>$version->id)}">{@booster~main.edit@}</a>
                         </li>
                     {/ifacl2}

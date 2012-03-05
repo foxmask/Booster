@@ -22,7 +22,8 @@ class defaultCtrl extends jController {
         'modules' => array('auth.required'=>false),
         'plugins' => array('auth.required'=>false),
         'packlang' => array('auth.required'=>false),
-        'credits' => array('auth.required'=>false)
+        'credits' => array('auth.required'=>false),
+        'recommendation' => array( 'jacl2.right'=>'booster.recommendation')
     );
 
 
@@ -578,6 +579,32 @@ class defaultCtrl extends jController {
         $rep->body->assign('MAIN',$tpl->fetch('credits'));
         return $rep;
     }
+
+
+    public function recommendation(){
+        $id = $this->intParam('id', 0);
+        $name = $this->param('name');
+        $state = $this->intParam('state');
+
+        $rep = $this->getResponse('redirect');
+        if(!$id || $name == '' || $state === null){
+            $rep->action="booster~default:index";
+            return $rep;
+        }
+        $rep->action="booster~default:viewItem";
+        $rep->params = array('id' => $id, 'name' => $name);
+
+        $state = $state === 1;
+
+        jDao::get('booster~boo_items')->setRecommendation($id, $state);
+
+        return $rep;
+    }
+
+
+
+
+
 
 
 
