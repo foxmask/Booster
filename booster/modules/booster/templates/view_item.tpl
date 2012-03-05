@@ -6,7 +6,7 @@
 
 
 {assign $github = strpos($data->url_repo , '//github.com') !== false}
-{assign $bitbucket = strpos($data->url_repo , '//bitbucket.com') !== false}
+{assign $bitbucket = strpos($data->url_repo , '//bitbucket.org') !== false}
 
 
 

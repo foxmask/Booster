@@ -5,6 +5,7 @@
 {meta_html cssthemeltie7 'css/ie6.css'}
 
 {meta_html js $j_jelixwww.'jquery/jquery.js'}
+{meta_html js $j_basepath.'booster/js/booster.js'}
 {meta_html js $j_basepath.'booster/js/charCount.js'}
 
 <div id="top-box">
@@ -33,11 +34,11 @@
                 <a href="{jurl 'booster~default:index'}">Jelix BOOSTER</a>, the portal of resources produced by the community
             </p>
             <ul>
-            <li {if $tout}class="selected"{/if}><a href="{jurl 'booster~default:index'}">All</a></li>
-            <li {if $applis}class="selected"{/if}><a href="{jurl 'booster~default:applis'}">Applications</a></li>
-            <li {if $modules}class="selected"{/if}><a href="{jurl 'booster~default:modules'}">Modules</a></li>
-            <li {if $plugins}class="selected"{/if}><a href="{jurl 'booster~default:plugins'}">Plugins</a></li>
-            <li {if $packlang}class="selected"{/if}><a href="{jurl 'booster~default:packlang'}">Languages Pack</a></li>
+                {*<li {if $tout}class="selected"{/if}><a href="{jurl 'booster~default:index'}">All</a></li>*}
+                <li {if $applis}class="selected"{/if}><a href="{jurl 'booster~default:applis'}">Applications</a></li>
+                <li {if $modules}class="selected"{/if}><a href="{jurl 'booster~default:modules'}">Modules</a></li>
+                <li {if $plugins}class="selected"{/if}><a href="{jurl 'booster~default:plugins'}">Plugins</a></li>
+                <li {if $packlang}class="selected"{/if}><a href="{jurl 'booster~default:packlang'}">Languages Pack</a></li>
                 {ifuserconnected}
                     <li {if $your_ressources}class="selected"{/if}><a href="{jurl 'booster~default:yourressources'}">{@booster~main.your.ressources@}</a></li>
                 {/ifuserconnected}

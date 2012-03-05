@@ -22,14 +22,15 @@ class item_githubZone extends jZone {
 		$url_repo = $this->param('url_repo');
 
 		$m = array();
-		preg_match('#https?://github.com/(.*)/(.*)#', $url_repo, $m);
-		$user = $m[1];
-		$repo = $m[2];
+		preg_match('#https?://github.com/([^/]*)/([^/]*)/?(.+)#', $url_repo, $m);
 
-        if(empty($m[1]) OR empty($m[2])){//invalid github repo url
+        if(empty($m[1]) OR empty($m[2]) OR !empty($m[3])){//invalid github repo url
             $this->_tpl->assign('not_ok', true); 
             return;
         }
+
+        $user = $m[1];
+        $repo = $m[2];
 
         $filtered = preg_replace('@[^a-zA-Z0-9_]@', '_', array($repo, $user));
 		$key = 'github_'.$filtered[0].'_'.$filtered[1].'_';

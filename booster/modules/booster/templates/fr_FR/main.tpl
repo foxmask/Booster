@@ -5,6 +5,7 @@
 {meta_html cssthemeltie7 'css/ie6.css'}
 
 {meta_html js $j_jelixwww.'jquery/jquery.js'}
+{meta_html js $j_basepath.'booster/js/booster.js'}
 {meta_html js $j_basepath.'booster/js/charCount.js'}
 
 <div id="top-box">
@@ -32,8 +33,8 @@
             <p>
                 <a href="{jurl 'booster~default:index'}">Jelix BOOSTER</a>, le portail des ressources produites par la communauté
             </p>
-            <ul id="">
-                <li {if $tout}class="selected"{/if}><a href="{jurl 'booster~default:index'}">Tout</a></li>
+            <ul>
+                {*<li {if $tout}class="selected"{/if}><a href="{jurl 'booster~default:index'}">Tout</a></li>*}
                 <li {if $applis}class="selected"{/if}><a href="{jurl 'booster~default:applis'}">Applications</a></li>
                 <li {if $modules}class="selected"{/if}><a href="{jurl 'booster~default:modules'}">Modules</a></li>
                 <li {if $plugins}class="selected"{/if}><a href="{jurl 'booster~default:plugins'}">Plugins</a></li>
