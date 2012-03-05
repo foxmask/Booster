@@ -11,7 +11,7 @@ class boosterModuleUpgrader_reco extends jInstallerModule {
 		if($this->firstExec('acl2')){
 			//error in previous version ... 
 			jAcl2DbManager::removeRight('users', 'booster.edit.item');
-			jAcl2DbManager::removeRight('users', 'booster.edit.versions');
+			jAcl2DbManager::removeRight('users', 'booster.edit.version');
 
 			//Add recommendation rights
 	    	jAcl2DbManager::addSubject('booster.recommendation', 'booster~booster.recommendation','booster.management');
