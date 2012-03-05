@@ -258,7 +258,7 @@ class defaultCtrl extends jController {
             $tpl->assign('data',$data);
             $tpl->assign('item_not_moderated',1);
             $rep->body->assign('MAIN',$tpl->fetch('view_item'));
-            $rep->body->assign('MENU',$tpl->fetch('menu'));
+            //$rep->body->assign('MENU',$tpl->fetch('menu'));
             return $rep;
         }
 
@@ -315,6 +315,9 @@ class defaultCtrl extends jController {
         }
 
         $rep = $this->getResponse('redirect');
+        $name = jDao::get('boo_items')->get($id)->name;
+
+        $rep->params = array('id'=>$id,'name'=>$name);
         $rep->action = $saved ? 'booster~default:viewItem' : 'booster~default:editItem';
         return $rep;
     }
@@ -410,7 +413,8 @@ class defaultCtrl extends jController {
             $saved = false;
         }
         $rep = $this->getResponse('redirect');
-        $rep->params= $saved ? array('id' => $form->getData('item_id')) : array('id'=>$id);
+        $name = $saved ? jDao::get('boo_items')->get($form->getData('item_id'))->name : jDao::get('boo_versions')->get($id)->version_name ;
+        $rep->params = $saved ? array('id' => $form->getData('item_id'),'name'=>$name) : array('id'=>$id,'name'=>$name);
         $rep->action = $saved ? 'booster~default:viewItem': 'booster~default:editVersion';
         return $rep;
     }

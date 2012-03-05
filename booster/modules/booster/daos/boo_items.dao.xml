@@ -23,7 +23,7 @@
         <property name="created" fieldname="created" datatype="datetime" insertpattern="NOW()" />
         <property name="edited" fieldname="edited" datatype="datetime" updatepattern="NOW()"/>
         <property name="modified" fieldname="modified" datatype="datetime" updatepattern="NOW()"/>
-        <property name="date_version" fieldname="date_version" datatype="datetime"/>
+        <property name="date_version" fieldname="date_version" datatype="datetime" insertpattern="NOW()" />
 
         <!--property name="nickname" fieldname="nickname" table="usr" datatype="varchar" required="true" maxlength="80"/>
         <property name="user_id" fieldname="id" table="usr" datatype="int"/-->

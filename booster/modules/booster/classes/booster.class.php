@@ -64,7 +64,7 @@ class booster {
         $record->stability      = $form->getData('stability');
         $record->filename       = $form->getData('filename');
         $record->download_url   = $form->getData('download_url');
-        return ($dao->insert($record)) ? $record->id : false;
+        return ($dao->insert($record)) ? true : false;
     }
     /**
      * function to save one Editing Item
@@ -251,10 +251,10 @@ class booster {
      */
     function isModerated($id,$source) {
         if ($source != 'items' and $source != 'versions') return false;
-
+        $status = ($source == 'items') ? 'status' : 'status_version';
         $rec = jDao::get('boosteradmin~boo_'.$source.'_mod','booster')->get($id);
         if ($rec !== false)
-            return ( $rec->status == 0) ? false : true;
+            return ( $rec->$status == 0) ? false : true;
         else
             return true;
     }
