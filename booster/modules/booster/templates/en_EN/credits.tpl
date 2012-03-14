@@ -1,4 +1,4 @@
-<div class="content-box">
+<div id="intro" class="content-box">
     <div class="wrapper">
 
         <h2>The Jelix "Booster" Team</h2>
