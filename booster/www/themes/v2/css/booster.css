@@ -639,6 +639,7 @@ small{font-size:0.8em;}
 
 
 /* homepage block */
+#homepage-wrapper{overflow:hidden;}
 .homepage-block{
     width:48.5%;
     margin:0 0 15px 1.5%;
@@ -867,6 +868,7 @@ small{font-size:0.8em;}
   margin-bottom:5px;
 }
 
+#booster_tagscloud{clear:both};
 #tagscloud { margin: 20px 50px 50px; }
 #tagscloud li { display: inline; }
 #tagscloud a {text-decoration: none;}
