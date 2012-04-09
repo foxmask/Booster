@@ -15,7 +15,11 @@
     <url pathinfo="/items/savemod"          action="items:savemod" />
     <url pathinfo="/items/delete/:id"       action="items:delete" >
         <param name="id" type="numeric"/>
-    </url>    
+    </url>  
+    <url pathinfo="/items/deleteimage/:id/:submitAction"    action="items:deleteImage" >
+        <param name="id" type="numeric"/>
+    </url>
+
     <!-- versions-->
     <url pathinfo="/versions"               action="versions:index" />
     <url pathinfo="/versions/validated"     action="versions:indexAll" />

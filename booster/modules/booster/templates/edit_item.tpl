@@ -33,6 +33,12 @@
         <tr>
             <td>{ctrl_label 'url_website'}</td><td colspan="3">{ctrl_control 'url_website'}</td>
         </tr>
+        <tr>
+            <td class="valign-middle">{@booster~main.image.current@}</td><td>{zone 'booster~itemimage', array('id' => $id)}</td>
+        </tr>
+        <tr>
+            <td>{@booster~main.image.replace.by@}</td><td colspan="3">{ctrl_control 'image'}</td>
+        </tr>
     </table>
     <div>
         {formsubmit}

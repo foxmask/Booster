@@ -48,6 +48,10 @@ $(document).ready(function(){
 
     <div class="wrapper-section">
 
+        <div class="booster-item-image">
+            {zone 'booster~itemimage', array('id'=>$data->id)}
+        </div>
+
         {zone 'booster~tagsitem',array('id'=>$data->id)}
 
         <div class="booster-item-desc section">

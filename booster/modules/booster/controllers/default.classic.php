@@ -131,7 +131,10 @@ class defaultCtrl extends jController {
                 jMessage::add(jLocale::get('booster~main.item.saved'));
                 $saved = true;
 
-                jEvent::notify('new_item_added', array('item_id' => $data['id']));
+                jEvent::notify('new_item_added', array('item_id' => $data['id']));jLog::dump($data['id']);jLog::dump(md5($data['id']));
+
+                jClasses::getService("booster~booster")->saveImage($data['id'], $form);
+
                 jForms::destroy('booster~items');
             }
             else {
@@ -303,6 +306,10 @@ class defaultCtrl extends jController {
                     jMessage::add(jLocale::get('booster~main.item.edit.success'));
                     jEvent::notify('item_edited', array('item_id' => $id));
                     $saved = true;
+
+                    jClasses::getService("booster~booster")->saveImage($id, $form);
+
+                    jForms::destroy('booster~items',$id);
                 }
                 else {
                     jMessage::add(jLocale::get('booster~main.item.edit.failed'));
@@ -606,12 +613,6 @@ class defaultCtrl extends jController {
     }
 
 
-
-
-
-
-
-
     // REFACTORING
 
     protected function get404(){
@@ -641,6 +642,5 @@ class defaultCtrl extends jController {
 
         return ($user_id == jAuth::getUserSession()->id) OR jAcl2::check('booster.edit.' . $type);
     }
-
 
 }

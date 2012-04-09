@@ -622,6 +622,8 @@ div.no {
 /* ============================================== */
 /* ============ Booster specific CSS ============ */
 /* ============================================== */
+.clear{clear:both;}
+
 .jforms-submit{cursor:pointer;}
 #main-content .top-container{max-width:900px;}
 #logo {padding-top: 5px;}
@@ -762,7 +764,7 @@ small{font-size:0.8em;}
 .booster-item-name:focus,.booster-item-name:hover {text-decoration: underline;}
 
 .booster-item-tags{float:right; width:120px;}
-.booster-item-desc{margin-right:154px;}
+.booster-item-desc{margin-right:154px; margin-left:94px;}
 .wrapper-section{
   overflow:hidden;
 }
@@ -959,3 +961,10 @@ small{font-size:0.8em;}
   color:#B94A48;
   font-weight:bold;
 }
+
+.booster-item-image{
+  float:left;
+  padding:5px 12px 12px 12px;
+}
+
+.valign-middle{vertical-align:middle;}

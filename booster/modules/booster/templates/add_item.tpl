@@ -31,6 +31,9 @@
         <tr>
             <td>{ctrl_label 'url_website'}</td><td colspan="3">{ctrl_control 'url_website'}</td>
         </tr>
+        <tr>
+            <td>{ctrl_label 'image'}</td><td colspan="3">{ctrl_control 'image'}</td>
+        </tr>
     </table>
     <div> {formsubmit} </div>
     {/form}

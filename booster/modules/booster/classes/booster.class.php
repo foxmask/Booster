@@ -222,7 +222,7 @@ class booster {
         $datas = $c->query($sql);
 
         $items = $results = array();
-        foreach($datas as $item) {jLog::dump($item);
+        foreach($datas as $item) {
             $items[$item->id] = $item;
         }
 
@@ -287,4 +287,18 @@ class booster {
 
         return $cond;
     }
+
+
+    public function saveImage($id, &$form){
+        $image_name = md5('id:'.$id).'.png';
+        $form->saveFile('image', jApp::varPath('uploads/images-items/'), $image_name);
+
+        jImageModifier::transformImage(jApp::varPath('uploads/images-items/'.$image_name),
+                                        jApp::wwwPath('images-items/'),
+                                        $image_name,
+                                        array('maxwidth' => 60, 'maxheight' => 60, 'omo' => false)
+                                        );
+        @unlink(jApp::varPath('uploads/images-items/'.$image_name));
+    }
+
 }

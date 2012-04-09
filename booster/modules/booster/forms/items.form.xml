@@ -43,6 +43,11 @@
     <label locale="booster~main.item_author"/>
 </input>
 
+<upload ref="image" mimetype="image/png" maxsize="20000">
+    <label locale="booster~main.image"/>
+    <help locale="booster~main.image.help"/>
+</upload>
+
 <submit ref="_submit">
     <label>Ok</label>
 </submit>

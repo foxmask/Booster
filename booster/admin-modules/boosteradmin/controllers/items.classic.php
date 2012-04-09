@@ -59,7 +59,8 @@ class itemsCtrl extends jController {
      * Save the new submitted item
      */
     function savenew() {
-        $form = jForms::fill('boosteradmin~items_mod',$this->intParam('id'));
+        $id = $this->intParam('id');
+        $form = jForms::fill('boosteradmin~items_mod',$id);
         if ($form->check()) {
             if ($form->getData('short_desc_fr') == ''  and
                 $form->getData('short_desc') == '' ) {
@@ -86,10 +87,12 @@ class itemsCtrl extends jController {
                 jMessage::add(jLocale::get('boosteradmin~admin.item_saved_but_not_validated_yet'));
             }
             $form->saveToDao('booster~boo_items');
-            jClasses::getService("jtags~tags")->saveTagsBySubject(explode(',', $form->getData('tags')), 'booscope', $this->intParam('id'));
+            jClasses::getService("jtags~tags")->saveTagsBySubject(explode(',', $form->getData('tags')), 'booscope', $id);
+            jClasses::getService("booster~booster")->saveImage($id, $form);
+            jForms::destroy('boosteradmin~items_mod',$id);
         }
         else {
-            jMessage::add('boosteradmin~admin.invalid.data');
+            jMessage::add(jLocale::get('boosteradmin~admin.invalid.data'));
         }
         $rep = $this->getResponse('redirect');
         $rep->action = 'boosteradmin~items:index';
@@ -116,7 +119,8 @@ class itemsCtrl extends jController {
      * Save the Modified Item
      */
     function savemod() {
-        $form = jForms::fill('boosteradmin~items_mod',$this->intParam('id'));
+        $id = $this->intParam('id');
+        $form = jForms::fill('boosteradmin~items_mod',$id);
         if ($form->check()) {
             if ($form->getData('short_desc_fr') == ''  and
                 $form->getData('short_desc') == '' ) {
@@ -135,12 +139,12 @@ class itemsCtrl extends jController {
                 $tagStr ='';
                 $tagStr = str_replace('.',' ',$form->getData("tags"));
                 $tags = explode(",", $tagStr);
-                jClasses::getService("jtags~tags")->saveTagsBySubject($tags, 'booscope', $this->intParam('id'));
+                jClasses::getService("jtags~tags")->saveTagsBySubject($tags, 'booscope', $id);
 
                 $form->saveToDao('booster~boo_items');
 
                 //delete the moderated item from the "mirror" table
-                jDao::get('boosteradmin~boo_items_mod','booster')->delete($form->getData('id'));
+                jDao::get('boosteradmin~boo_items_mod','booster')->delete($id);
                 //msg to the admin ;)
                 jMessage::add(jLocale::get('boosteradmin~admin.item_validated'));
             }
@@ -151,6 +155,8 @@ class itemsCtrl extends jController {
                 jMessage::add(jLocale::get('boosteradmin~admin.item_saved_but_not_validated_yet'));
                 $form->saveToDao('boosteradmin~boo_items_mod');
             }
+            jClasses::getService("booster~booster")->saveImage($id, $form);
+            jForms::destroy('boosteradmin~items_mod',$id);
         }
         else {
             jMessage::add(jLocale::get('boosteradmin~admin.invalid.data'));
@@ -173,4 +179,17 @@ class itemsCtrl extends jController {
             jMessage::add(jLocale::get('boosteradmin~admin.item.not.deleted'));
         return $rep;
     }
+
+    function deleteImage() {
+        $rep = $this->getResponse('redirect');
+        $id = $this->intParam('id');
+
+        @unlink(jApp::wwwPath('images-items/'.md5('id:'.$id).'.png'));
+
+        $rep->action = strpos($this->param('submitAction'), 'savenew') !== false ? 'boosteradmin~items:editnew' : 'boosteradmin~items:editmod';
+        $rep->params = array('id' => $id);
+        return $rep;
+    }
+
+
 }

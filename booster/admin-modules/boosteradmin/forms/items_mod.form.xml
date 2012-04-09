@@ -58,6 +58,10 @@
     <item value="1" locale="jelix~ui.buttons.yes"/>
 </radiobuttons>
 
+<upload ref="image" mimetype="image/png" maxsize="20000">
+    <label locale="booster~main.image"/>
+    <help locale="booster~main.image.help"/>
+</upload>
 
 <submit ref="_submit">
     <label locale="boosteradmin~admin.form.save"/>
