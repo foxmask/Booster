@@ -291,14 +291,15 @@ class booster {
 
     public function saveImage($id, &$form){
         $image_name = md5('id:'.$id).'.png';
-        jLog::dump($form->saveFile('image', jApp::varPath('uploads/images-items/'), $image_name));
+        if(!$form->saveFile('image', jApp::varPath('uploads/images-items/'), $image_name))
+            return false;
 
         jImageModifier::transformImage(jApp::varPath('uploads/images-items/'.$image_name),
                                         jApp::wwwPath('images-items/'),
                                         $image_name,
                                         array('maxwidth' => 60, 'maxheight' => 60, 'omo' => false)
                                         );
-        //@unlink(jApp::varPath('uploads/images-items/'.$image_name));
+        @unlink(jApp::varPath('uploads/images-items/'.$image_name));
     }
 
 }

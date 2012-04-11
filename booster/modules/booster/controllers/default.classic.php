@@ -128,14 +128,16 @@ class defaultCtrl extends jController {
             }
             $data = jClasses::getService('booster~booster')->saveItem();
             if (!empty($data)) {
-                jMessage::add(jLocale::get('booster~main.item.saved'));
-                $saved = true;
-
-                jEvent::notify('new_item_added', array('item_id' => $data['id']));jLog::dump($data['id']);jLog::dump(md5($data['id']));
-
-                jClasses::getService("booster~booster")->saveImage($data['id'], $form);
-
-                jForms::destroy('booster~items');
+                if(!jClasses::getService("booster~booster")->saveImage($data['id'], $form)){
+                    $saved=false;
+                    jMessage::add(jLocale::get('booster~main.item.saved.failed'));
+                }
+                else{
+                    jMessage::add(jLocale::get('booster~main.item.saved'));
+                    $saved = true;
+                    jEvent::notify('new_item_added', array('item_id' => $data['id']));
+                    jForms::destroy('booster~items');
+                }
             }
             else {
                 $saved = false;
@@ -267,7 +269,9 @@ class defaultCtrl extends jController {
 
         $tags = implode(',', jClasses::getService("jtags~tags")->getTagsBySubject('booscope', $data->id) ) ;
 
-        $form = jForms::create('booster~items',$data->id);
+        $form = jForms::get('booster~items',$data->id);
+        if(!$form)
+            $form = jForms::create('booster~items',$data->id);
         $form->initFromDao('booster~boo_items',null, 'booster');
         //$form->initControlFromDao('jelix_versions', 'booster~boo_items_jelix_versions', null, array('id_item', 'id_version'));
         $form->setData('tags',$tags);
@@ -303,13 +307,16 @@ class defaultCtrl extends jController {
                 }
 
                 if (jClasses::getService('booster~booster')->saveEditItem($form)) {
-                    jMessage::add(jLocale::get('booster~main.item.edit.success'));
-                    jEvent::notify('item_edited', array('item_id' => $id));
-                    $saved = true;
-
-                    jClasses::getService("booster~booster")->saveImage($id, $form);
-
-                    jForms::destroy('booster~items',$id);
+                    if(!jClasses::getService("booster~booster")->saveImage($id, $form)){
+                        $saved=false;
+                        jMessage::add(jLocale::get('booster~main.item.edit.failed'));
+                    }
+                    else{
+                        jMessage::add(jLocale::get('booster~main.item.edit.success'));
+                        jEvent::notify('item_edited', array('item_id' => $id));
+                        $saved = true;
+                        jForms::destroy('booster~items',$id);
+                    }
                 }
                 else {
                     jMessage::add(jLocale::get('booster~main.item.edit.failed'));
