@@ -139,7 +139,8 @@ class booster {
             $form->getData('types') == '' and
             $form->getData('author_by') == '' and
             $form->getData('jelix_versions') == '' and
-            $form->getData('tags') == ''
+            $form->getData('tags') == '' and
+            $form->getData('recommendation') == ''
             )
             return jDao::get('booster~boo_items','booster')->findAllValidated();
 
@@ -148,6 +149,7 @@ class booster {
         $author         = $form->getData('author_by');
         $jelix_versions = $form->getData('jelix_versions');
         $tags           = $form->getData('tags');
+        $reco           = $form->getData('recommendation');
 
         $q      = '';
         $from   = '';
@@ -168,6 +170,7 @@ class booster {
                     items.url_repo,
                     items.author,
                     items.item_by,
+                    items.recommendation,
                     type.type_name,
                     versions.id AS version_id,
                     versions.version_name,
@@ -214,8 +217,11 @@ class booster {
             $cond .= $this->buildCond($jelix_versions,'id_jelix_version');
         }
 
-        $orderby = '
-                    ORDER BY versions.created desc';
+        if(!empty($reco)){
+            $cond .= ' AND items.recommendation = 1 ';
+        }
+
+        $orderby = ' ORDER BY versions.created desc ';
 
         $sql = $q.$from.$where.$cond.$orderby;
         //get the datas

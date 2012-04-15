@@ -22,6 +22,10 @@
     <input ref="author_by" size="12">
         <label locale="booster~main.author"/>
     </input>
+
+    <checkbox ref="recommendation">
+        <label locale="booster~main.recommended"/>
+    </checkbox>
     
     <submit ref="_submit">
         <label locale="booster~main.go.search"/>

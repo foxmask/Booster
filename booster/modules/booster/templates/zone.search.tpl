@@ -64,6 +64,11 @@
                 {ctrl_label 'author_by'}
                 {ctrl_control 'author_by'}
            </div>
+
+            <div>
+                {ctrl_label 'recommendation'}
+                {ctrl_control 'recommendation'}
+           </div>
         </div>
         
     {/form}
