@@ -48,8 +48,30 @@
     <url pathinfo="/plugins" action="default:plugins"/>
     <url pathinfo="/packlang" action="default:packlang"/>
 
+    <url pathinfo="/applications/:offset" action="default:applis">
+        <param name="offset"  type="number"/>
+    </url>
+    <url pathinfo="/modules/:offset" action="default:modules">
+        <param name="offset"  type="number"/>
+    </url>
+    <url pathinfo="/plugins/:offset" action="default:plugins">
+        <param name="offset"  type="number"/>
+    </url>
+    <url pathinfo="/packlang/:offset" action="default:packlang">
+        <param name="offset"  type="number"/>
+    </url>
+
     <url pathinfo="/yourressources" action="default:yourressources"/>
 
     <url pathinfo="/credits" action="default:credits"/>
+
+    <!-- feed -->
+    <url pathinfo="/feed/fr" action="rss:index">
+        <static name="lang" value="fr_FR" />
+    </url>
+    <url pathinfo="/feed/en" action="rss:index">
+        <static name="lang" value="en_EN" />
+    </url>
+    <url pathinfo="/feed" action="rss:index"/>
 
 </suburls>

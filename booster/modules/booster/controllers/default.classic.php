@@ -26,6 +26,7 @@ class defaultCtrl extends jController {
         'recommendation' => array( 'jacl2.right'=>'booster.recommendation')
     );
 
+    protected static $per_page = 10;
 
     /**
      *Main Page
@@ -482,7 +483,7 @@ class defaultCtrl extends jController {
     function applis () {
         $rep = $this->getResponse('html');
         $rep->title = jLocale::get('booster~main.applis.list');
-        $datas = jDao::get('booster~boo_items','booster')->findByTypeId(1);
+        $datas = jDao::get('booster~boo_items','booster')->findByTypeIdPaginate(1, $this->param('offset'), self::$per_page);
         $tpl = new jTpl();
         if(jAuth::isConnected()) {
             $tpl->assign('current_user',jAuth::getUserSession ()->id);
@@ -491,6 +492,7 @@ class defaultCtrl extends jController {
             $tpl->assign('current_user','');
         }
         $tpl->assign('datas', $datas);
+        $this->setPagination($tpl, 'booster~default:applis', 1, $this->param('offset'));
         $rep->body->assign('MAIN',$tpl->fetch('list'));
         return $rep;
     }
@@ -500,7 +502,7 @@ class defaultCtrl extends jController {
     function modules () {
         $rep = $this->getResponse('html');
         $rep->title = jLocale::get('booster~main.modules.list');
-        $datas = jDao::get('booster~boo_items','booster')->findByTypeId(2);
+        $datas = jDao::get('booster~boo_items','booster')->findByTypeIdPaginate(2, $this->param('offset'), self::$per_page);
         $tpl = new jTpl();
         if(jAuth::isConnected()) {
             $tpl->assign('current_user',jAuth::getUserSession ()->id);
@@ -509,6 +511,7 @@ class defaultCtrl extends jController {
             $tpl->assign('current_user','');
         }
         $tpl->assign('datas', $datas);
+        $this->setPagination($tpl, 'booster~default:modules', 2, $this->param('offset'));
         $rep->body->assign('MAIN',$tpl->fetch('list'));
         return $rep;
     }
@@ -518,7 +521,7 @@ class defaultCtrl extends jController {
     function plugins () {
         $rep = $this->getResponse('html');
         $rep->title = jLocale::get('booster~main.plugins.list');
-        $datas = jDao::get('booster~boo_items','booster')->findByTypeId(3);
+        $datas = jDao::get('booster~boo_items','booster')->findByTypeIdPaginate(3, $this->param('offset'), self::$per_page);
         $tpl = new jTpl();
         if(jAuth::isConnected()) {
             $tpl->assign('current_user',jAuth::getUserSession ()->id);
@@ -528,6 +531,7 @@ class defaultCtrl extends jController {
         }
         $tpl->assign('datas', $datas);
         $tpl->assign('item_not_moderated','');
+        $this->setPagination($tpl, 'booster~default:plugins', 3, $this->param('offset'));
         $rep->body->assign('MAIN',$tpl->fetch('list'));
         return $rep;
     }
@@ -537,7 +541,7 @@ class defaultCtrl extends jController {
     function packlang () {
         $rep = $this->getResponse('html');
         $rep->title = jLocale::get('booster~main.packlang.list');
-        $datas = jDao::get('booster~boo_items','booster')->findByTypeId(4);
+        $datas = jDao::get('booster~boo_items','booster')->findByTypeIdPaginate(4, $this->param('offset'), self::$per_page);
         $tpl = new jTpl();
         if(jAuth::isConnected()) {
             $tpl->assign('current_user',jAuth::getUserSession ()->id);
@@ -547,6 +551,7 @@ class defaultCtrl extends jController {
         }
         $tpl->assign('datas', $datas);
         $tpl->assign('item_not_moderated','');
+        $this->setPagination($tpl, 'booster~default:packlang', 4, $this->param('offset'));
         $rep->body->assign('MAIN',$tpl->fetch('list'));
         return $rep;
     }
@@ -648,6 +653,14 @@ class defaultCtrl extends jController {
             return false;
 
         return ($user_id == jAuth::getUserSession()->id) OR jAcl2::check('booster.edit.' . $type);
+    }
+
+    protected function setPagination($tpl, $action, $type_id, $param_offset){
+        $tpl->assign('count', jDao::get('booster~boo_items','booster')->countByTypeId($type_id));
+        $tpl->assign('action', $action);
+        $tpl->assign('index_result', $param_offset);
+        $tpl->assign('per_page', self::$per_page);
+        $tpl->assign('param_name', 'offset');
     }
 
 }

@@ -632,7 +632,7 @@ div.no {
 #topmenubar ul{margin-bottom:0;padding-top:5px;}
 #topmenubar p{margin-bottom:10px;}
 
-#footer {min-height:135px;margin-top:20px;}
+#footer {min-height:80px;margin-top:20px;}
 #article h1 {margin-bottom:10px;}
 a, .link{color:#000;}
 a:hover, a:focus, .link:hover, .link:focus{color:#333;}
@@ -968,3 +968,69 @@ small{font-size:0.8em;}
 }
 
 .valign-middle{vertical-align:middle;}
+
+.pagination {
+  height: 36px;
+  margin: 30px 0;
+  text-align:center;
+}
+.pagination ul {
+  display: inline-block;
+  *display: inline;
+  /* IE7 inline-block hack */
+
+  *zoom: 1;
+  margin-left: 0;
+  margin-bottom: 0;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+
+  background:#fff;
+}
+.pagination li {
+  display: inline;
+  margin-left:0;
+}
+.pagination a {
+  float: left;
+  padding: 0 14px;
+  line-height: 34px;
+  text-decoration: none;
+  border: 1px solid #A9BDD1;
+  border-left-width: 0;
+  color: #0088CC;
+}
+.pagination a:hover,
+.pagination .pagelinks-current a {
+  background-color: #f5f5f5;
+  color:#000;
+  text-decoration:underline;
+}
+.pagination .pagelinks-current a {
+  color: #333;
+  cursor: default;
+  font-weight:bold;
+  text-decoration:none;
+}
+
+.pagination .pagelinks-disabled span,
+.pagination .pagelinks-disabled a,
+.pagination .pagelinks-disabled a:hover {
+  color: #999999;
+  background-color: transparent;
+  cursor: default;
+  text-decoration:none;
+}
+
+.pagination li:first-child a {
+  border-left-width: 1px;
+  -webkit-border-radius: 3px 0 0 3px;
+  -moz-border-radius: 3px 0 0 3px;
+  border-radius: 3px 0 0 3px;
+}
+.pagination li:last-child a {
+  -webkit-border-radius: 0 3px 3px 0;
+  -moz-border-radius: 0 3px 3px 0;
+  border-radius: 0 3px 3px 0;
+}

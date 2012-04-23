@@ -5,7 +5,7 @@
 startModule=booster
 startAction="default:index"
 
-locale=fr_FR
+locale=en_EN
 charset=UTF-8
 
 ; see http://www.php.net/manual/en/timezones.php for supported values

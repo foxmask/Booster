@@ -80,12 +80,12 @@
         <div class="footer-box">
             <p><img alt="Jelix" src="/images/logo_jelix_moyen5.png"><br>
                 est sponsorisé par <a href="http://innophi.com">Innophi</a>.</p>
-            <p>Jelix est publié sous <br>la licence LGPL</p>
         </div>
 
         <div class="footer-box">
              <p>
-                <span style="color:red">version BETA</span> - <a href="https://github.com/foxmask/Booster/issues/new">Un problème d'utilisation ? faites nous en part</a> - <a href="{jurl 'booster~default:credits'}">Crédits</a>
+                <span style="color:red">version BETA</span> - <a href="https://github.com/foxmask/Booster/issues/new">Un problème d'utilisation ? faites nous en part</a> - <a href="{jurl 'booster~default:credits'}">Crédits</a> -
+                <a href="{jurl 'booster~rss:index', array('lang' => $j_locale)}"><img src="{$j_basepath}booster/images/rss.png" alt="Flux RSS"/></a>
             </p>
         </div>
 

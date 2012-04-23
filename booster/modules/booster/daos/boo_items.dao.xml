@@ -81,6 +81,28 @@
             </order>
         </method>
 
+        <method name="countByTypeId" type="count">
+            <parameter name="type_id"/>
+            <conditions>
+                <eq property="type_id" expr="$type_id" />
+                <eq property="status" expr="1" />
+            </conditions>
+        </method>
+
+        <method name="findByTypeIdPaginate" type="select">
+            <parameter name="type_id"/>
+            <parameter name="offset"/>
+            <parameter name="count"/>
+            <conditions>
+                <eq property="type_id" expr="$type_id" />
+                <eq property="status" expr="1" />
+            </conditions>
+            <order>
+                <orderitem property="date_version" way="desc" />
+            </order>
+            <limit offset="$offset" count="$count"/>
+        </method>
+
         <method name="findLastCreatedByTypeId" type="select">
             <parameter name="type_id"/>
             <parameter name="number" />
