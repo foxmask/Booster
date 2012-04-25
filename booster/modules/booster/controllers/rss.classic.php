@@ -40,10 +40,13 @@ class rssCtrl extends jController {
 
             $item->authorName = $data->author;
 
+
             if(($lang == 'fr_FR' && $data->short_desc_fr != '') || $data->short_desc == '')
                 $item->content =  $data->short_desc_fr;
             else
                 $item->content = $data->short_desc;
+            $renderer = new jWiki();
+            $item->content = $renderer->render($item->content);
 
             $item->contentType='html';
 
