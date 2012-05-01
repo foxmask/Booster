@@ -47,6 +47,7 @@ CREATE TABLE %%PREFIX%%boo_items_mod (
   `author` varchar(80) NOT NULL,
   `item_by` int(12) NOT NULL,
   `status` int(11) NOT NULL DEFAULT '0',
+  `recommendation` BOOLEAN NOT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   `edited` datetime DEFAULT NULL,
