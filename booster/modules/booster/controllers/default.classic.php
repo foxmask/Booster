@@ -308,11 +308,13 @@ class defaultCtrl extends jController {
                 }
 
                 if (jClasses::getService('booster~booster')->saveEditItem($form)) {
-                    if(!jClasses::getService("booster~booster")->saveImage($id, $form)){
-                        $saved=false;
-                        jMessage::add(jLocale::get('booster~main.item.edit.failed'));
+                    if($form->getData('image') != ''){
+                        if(jClasses::getService("booster~booster")->saveImage($id, $form) === false){
+                            $saved=false;
+                            jMessage::add(jLocale::get('booster~main.item.editimage.failed'));
+                        }
                     }
-                    else{
+                    if(!isset($saved)) {
                         jMessage::add(jLocale::get('booster~main.item.edit.success'));
                         jEvent::notify('item_edited', array('item_id' => $id));
                         $saved = true;
