@@ -29,14 +29,14 @@ class rssCtrl extends jController {
         $first = true;
         foreach($items as $data){
             if($first){
-                $rep->infos->updated = $news->date_version;
-                $rep->infos->published = $news->date_version;
+                $rep->infos->updated = $data->date_version;
+                $rep->infos->published = $data->date_version;
                 $first=false;
             }
 
             $url = jUrl::get('booster~default:viewItem', array('id'=>$data->id, 'name'=>$data->name));
 
-            $item = $rep->createItem($news->title, $url, $data->date_version);
+            $item = $rep->createItem($data->name, $url, $data->date_version);
 
             $item->authorName = $data->author;
 
