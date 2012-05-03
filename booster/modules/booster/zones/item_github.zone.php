@@ -14,6 +14,10 @@ class item_githubZone extends jZone {
     protected $_useCache = true;
     protected $_cacheTimeout = 3600;//1 heure
 
+    public function __construct($params=array()){
+       $params['lang'] = $GLOBALS['gJConfig']->locale;
+       parent::__construct($params);
+    }
 
     protected function _prepareTpl(){
 
@@ -25,7 +29,7 @@ class item_githubZone extends jZone {
 		preg_match('#https?://github.com/([^/]*)/([^/]*)/?(.+)?#', $url_repo, $m);
 
         if(empty($m[1]) OR empty($m[2]) OR !empty($m[3])){//invalid github repo url
-            $this->_tpl->assign('not_ok', true); 
+            $this->cancelZone();
             return;
         }
 
@@ -44,6 +48,10 @@ class item_githubZone extends jZone {
     	$update = jCache::get($key.'update');
     	if($forks === false || $watchers === false || $update === false){
 			$infos = boosterGithub::getRepoInfos($user, $repo);
+            if(!$infos){
+                $this->cancelZone();
+                return;
+            }
 			$forks = $infos->forks;
 			$watchers = $infos->watchers;
 			$update = $infos->updated_at;
@@ -59,10 +67,18 @@ class item_githubZone extends jZone {
     	$activity = jCache::get($key.'activity');
     	if($activity === false){
     		$activity = boosterGithub::getRepositoryActivity($user, $repo);
+            if(!$activity){
+                $this->cancelZone();
+                return;
+            }
     		jCache::set($key.'activity', $activity, 129600);//1jour et demi
     	}
     	$this->_tpl->assign('activity',$activity);
 
+    }
 
+    protected function cancelZone(){
+        $this->_tpl->assign('not_ok', true); 
+        return;
     }
 }

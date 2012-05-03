@@ -36,8 +36,14 @@ class boosterGithub {
             jLog::log('error with github.com loading data', 'error');
             return false;
         }
-            
+
         $res= json_decode($res);
+
+        if(isset($res->message)  && $res->message == 'Not Found'){
+            jLog::log('github 404');
+            return false;
+        }
+
         return $res;
     }
 
@@ -51,8 +57,14 @@ class boosterGithub {
             jLog::log('error with github.com loading data', 'error');
             return false;
         }
-            
+
         $res= json_decode($res);
+
+        if(isset($res->message)  && $res->message == 'Not Found'){
+            jLog::log('github 404');
+            return false;
+        }
+            
         return $res[0]->commit;
     }
 
@@ -76,8 +88,13 @@ class boosterGithub {
             jLog::log('error with github.com loading data', 'error');
             return false;
         }
-            
+
         $res= json_decode($res);
+
+        if(isset($res->message)  && $res->message == 'Not Found'){
+            jLog::log('github 404');
+            return false;
+        }
 
         $moyenne = 0; $counter = 0;
         $date = new jDateTime();
