@@ -18,7 +18,9 @@ class adminHtmlResponse extends jResponseHtml {
         parent::__construct();
 
         // Include your common CSS and JS files here
-        $this->addCSSLink($GLOBALS['gJConfig']->urlengine['jelixWWWPath'].'design/master_admin.css');
+        $config = $GLOBALS['gJConfig'];
+        $this->addCSSLink($config->urlengine['jelixWWWPath'].'design/master_admin.css');
+        $this->addCSSLink($config->urlengine['basePath'].'themes/'.$config->theme.'/css/admin.css');
     }
 
     protected function doAfterActions() {

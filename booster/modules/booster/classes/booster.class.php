@@ -71,7 +71,21 @@ class booster {
      * to the dedicated "waiting table"
      */
     function saveEditItem($form) {
-        $data = array();
+        $dao_modif = jDao::get('boosteradmin~boo_items_modifs');jLog::dump($form->getModifiedControls());
+        foreach($form->getModifiedControls() as $field => $old_value){
+            if($field == '_submit')
+                continue;
+
+            $record = jDao::createRecord('boosteradmin~boo_items_modifs');
+            $record->field = $field;
+            $record->item_id = $form->getData('id');
+            $record->old_value = $old_value;
+            $record->new_value = $form->getData($field);
+            $dao_modif->insert($record);
+        }
+
+        return true;
+/*
         $id_booster = $form->getData('id');
         $dt = new jDateTime();
         $dt->now();
@@ -96,8 +110,7 @@ class booster {
         $return = ($dao->insert($record)) ? true : false;
 
         //$form->saveControlToDao('jelix_versions', 'booster~boo_items_jelix_versions', null, array('id_item', 'id_version'));
-
-        return $return;
+*/
     }
     /**
      * function to save one Editing Item
@@ -106,6 +119,21 @@ class booster {
      * @return boolean
      */
     function saveEditVersion($form) {
+        $dao_modif = jDao::get('boosteradmin~boo_versions_modifs');
+        foreach ($form->getModifiedControls() as $field => $old_value) {
+            if($field == '_submit')
+                continue;
+
+            $record = jDao::createRecord('boosteradmin~boo_versions_modifs');
+            $record->field = $field;
+            $record->version_id = $form->getData('id');
+            $record->old_value = $old_value;
+            $record->new_value = $form->getData($field);
+            $dao_modif->insert($record);
+        }
+
+        return true;
+/*
         $dt = new jDateTime();
         $dt->now();
 
@@ -121,8 +149,9 @@ class booster {
         $record->download_url   = $form->getData('download_url');
         $record->created        = jDao::get('booster~boo_versions','booster')->get($form->getData('id'))->created;
         $record->modified       = $dt->toString(jDateTime::DB_DTFORMAT);
-        $record->version_id     = $form->getData('id');
+        $record->version_id     = $form->getData('id');        
         return ($dao->insert($record)) ? true : false;
+*/
     }
     /**
      * function that search items according to criteria in the form
@@ -257,6 +286,13 @@ class booster {
      */
     function isModerated($id,$source) {
         if ($source != 'items' and $source != 'versions') return false;
+
+        if($source == 'items'){
+            $cnx = jDb::getConnection();
+            $rs = $cnx->limitQuery('SELECT 1 FROM boo_items_modifs WHERE item_id = '.$cnx->quote($id), 0,1);
+            return $rs->fetch() == false;
+        }
+
         $status = ($source == 'items') ? 'status' : 'status_version';
         $rec = jDao::get('boosteradmin~boo_'.$source.'_mod','booster')->get($id);
         if ($rec !== false)

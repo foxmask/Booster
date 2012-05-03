@@ -36,7 +36,7 @@ class boosterListener extends jEventListener{
                 $event->add( $link );
             }
             // data that have been modified
-            $notify  = jDao::get('boosteradmin~boo_items_mod','booster')->findAll();
+            $notify  = jDao::get('boosteradmin~boo_items_modifs','booster')->findGroupedByItemId();
             $nbRec = $notify->rowCount();
             if ($nbRec > 0 ) {
                 $link = '<a href="'.jUrl::get('boosteradmin~items:index').'">';
@@ -47,7 +47,7 @@ class boosterListener extends jEventListener{
                 $link .= '</a>';
                 $event->add( $link );
             }
-            $notify  = jDao::get('boosteradmin~boo_versions_mod','booster')->findAll();
+            $notify  = jDao::get('boosteradmin~boo_versions_modifs','booster')->findGroupedByVersionId();
             $nbRec = $notify->rowCount();
             if ($nbRec > 0 ) {
                 $link = '<a href="'.jUrl::get('boosteradmin~versions:index').'">';

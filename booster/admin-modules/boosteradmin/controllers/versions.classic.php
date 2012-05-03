@@ -19,7 +19,7 @@ class versionsCtrl extends jController {
     function index() {
         $tpl = new jTpl();
         $rep = $this->getResponse('html');
-        $tpl->assign('datas_mod',jDao::get('boosteradmin~boo_versions_mod','booster')->findAll());
+        $tpl->assign('datas_mod',jDao::get('boosteradmin~boo_versions_modifs','booster')->findGroupedByVersionId());
         $tpl->assign('datas_new',jDao::get('boosteradmin~boo_items_versions','booster')->findAllNotModerated());
         $rep->body->assign('MAIN',$tpl->fetch('versions_mod'));
         return $rep;
@@ -92,57 +92,58 @@ class versionsCtrl extends jController {
      * Edit the Modified Version for modetation
      */
     function editmod() {
-        $form = jForms::create('boosteradmin~versions_mod',$this->intParam('id'));
-        $form->initFromDao('boosteradmin~boo_versions_mod');
-        $form->setData('id',$this->intParam('id'));
+        $id = $this->intParam('id');
+        $form = jForms::create('boosteradmin~versions_mod',$id);
+        $form->initFromDao('boosteradmin~boo_versions');
+        $form->setData('id',$id);
+
+        $modified = jDao::get('boosteradmin~boo_versions_modifs')->findByVersionId($id);
+        $modified_fields = array();
+        foreach($modified as $m){
+            $form->setData($m->field, $m->new_value);
+            $modified_fields[] = $m;
+        }
+
         $tpl = new jTpl();
         $rep = $this->getResponse('html');
 
         $item_by = 'undefined';
-        $item = jDao::get('booster~boo_items','booster')->get($this->intParam('id'));
-        if ($item !== false)
+        $item = jDao::get('booster~boo_items','booster')->get($id);
+        if ($item !== false){ jLog::dump(jDao::get('jcommunity~user','hfnu')->getById($item->item_by));
             $item_by = jDao::get('jcommunity~user','hfnu')->getById($item->item_by)->nickname;
+            $tpl->assign('item_id', $item->id);
+            $tpl->assign('item_name', $item->name);
+        }
+            
 
         $tpl->assign('item_by',$item_by);
 
         $tpl->assign('title',jLocale::get('boosteradmin~admin.version.validation.or.modification'));
         $tpl->assign('form',$form);
-        $tpl->assign('id',$this->intParam('id'));
+        $tpl->assign('id',$id);
+        $tpl->assign('modified',$modified_fields);
         $tpl->assign('action','boosteradmin~versions:savemod');
-        $rep->body->assign('MAIN',$tpl->fetch('edit'));
+        $rep->body->assign('MAIN',$tpl->fetch('edit_versions_modifs'));
         return $rep;
     }
     /**
      * Save the Modified Versions
      */
     function savemod() {
-        $form = jForms::fill('boosteradmin~versions_mod',$this->intParam('id'));
+        $rep = $this->getResponse('redirect');
+        $id = $this->intParam('id');
+        $form = jForms::fill('boosteradmin~versions_mod', $id);
         if ($form->check()) {
-            // we validate the modifications, so replace the old data
-            // then remove the data from the "waiting table" (items_mod)
-            if ($form->getData('status_version')==1 OR $form->getData('_validate')) {
-                //in case, direct click on validate
-                $form->setData('status_version', 1);
-
-                $form->saveToDao('boosteradmin~boo_versions');
-                //delete the moderated item from the "mirror" table
-                jDao::get('boosteradmin~boo_versions_mod','booster')->delete($form->getData('id'));
-                //msg to the admin ;)
-                jMessage::add(jLocale::get('boosteradmin~admin.version_validated'));
-            }
-            // we just edit the modified content of the version
-            // but we didnt validate it so :
-            // save all the modification
-            else {
-                jMessage::add(jLocale::get('boosteradmin~admin.version_saved_but_not_validated_yet'));
-                $form->saveToDao('boosteradmin~boo_versions_mod');
-            }
+            $form->saveToDao('boosteradmin~boo_versions');
+            jDao::get('boosteradmin~boo_versions_modifs','booster')->deleteByVersionId($id);
+            jMessage::add(jLocale::get('boosteradmin~admin.version_validated'));
+            $rep->action = 'boosteradmin~versions:index';
         }
         else {
             jMessage::add(jLocale::get('boosteradmin~admin.invalid.data'));
+            $rep->action = 'boosteradmin~versions:index';
+            $rep->params = array('id' => $id);
         }
-        $rep = $this->getResponse('redirect');
-        $rep->action = 'boosteradmin~versions:index';
         return $rep;
     }
     

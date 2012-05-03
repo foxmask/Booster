@@ -12,7 +12,7 @@
     </thead>
     <tbody>
 {foreach $datas_new as $data}
-        <tr>
+        <tr class="{cycle array('even','odd')}">
             <td>{$data->type_name}</td>
             <td><a href="{jurl 'boosteradmin~items:editnew',array('id'=>$data->id)}">{$data->name}</a></td>
             <td>{$data->created|jdatetime}</td>
@@ -25,12 +25,12 @@
 {else}
 <p>{@boosteradmin~admin.nothing.todo@}</p>
 {/if}
+
 <h2>{@boosteradmin~admin.items.modified@}</h2>
 {if $datas_mod->rowCount() > 0}
 <table class="records-list">
     <thead>
         <tr>
-            <th>{@boosteradmin~admin.items_list.type_name@}</th>
             <th>{@boosteradmin~admin.items_list.name@}</th>
             <th>{@boosteradmin~admin.items_list.date_modified@}</th>
             <th>{@boosteradmin~admin.item_by@}</th>
@@ -39,9 +39,8 @@
 {foreach $datas_mod as $data}
     <tbody>
         <tr>
-            <td>{$data->type_name}</td>
-            <td><a href="{jurl 'boosteradmin~items:editmod',array('id'=>$data->id)}">{$data->name}</a></td>
-            <td>{$data->modified|jdatetime}</td>
+            <td><a href="{jurl 'boosteradmin~items:editmod',array('id'=>$data->item_id)}">{$data->name}</a></td>
+            <td>{$data->date|jdatetime}</td>
             <td>{zone 'booster~author', array('id' => $data->item_by)}</td>
             {*<td>{$data->nickname|eschtml}</td>*}
         </tr>

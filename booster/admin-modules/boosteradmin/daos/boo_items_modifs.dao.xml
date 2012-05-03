@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="boo_items_modifs" realname="boo_items_modifs" primarykey="id" />
+        <foreigntable name="item" realname="boo_items" primarykey="id" onforeignkey="item_id" />
+    </datasources>
+    <record>
+        <property name="id" fieldname="id" datatype="int" autoincrement="true"/>
+        <property name="item_id" fieldname="item_id" datatype="int" required="true"/>
+        <property name="field" fieldname="field" datatype="varchar" required="true" maxlength="40"/>
+        <property name="old_value" fieldname="old_value" datatype="text" required="true"/>
+        <property name="new_value" fieldname="new_value" datatype="text" required="true"/>
+        <property name="date" fieldname="date" datatype="datetime" required="true" insertpattern="NOW()"/>
+        <!--<property name="" fieldname="" datatype="string/int/float/date"
+        required="yes" maxlength="" minlength="" regexp="" sequence=""
+        updatepattern="" insertpattern="" selectpattern=""/>-->
+
+        <property table="item" name="name" fieldname="name" datatype="varchar"/>
+        <property table="item" name="item_by" fieldname="item_by" datatype="int"/>
+    </record>
+    <factory>
+        <method name="findByItemId" type="select">
+            <parameter name="id" />
+            <conditions>
+                <eq property="item_id" expr="$id" />
+            </conditions>
+            <order>
+                <orderitem property="date" way="asc" />
+            </order>
+        </method>
+
+        <method name="findGroupedByItemId" type="select" groupby="item_id"></method>
+
+        <method name="deleteByItemId" type="delete">
+            <parameter name="id" />
+            <conditions>
+                <eq property="item_id" expr="$id" />
+            </conditions>
+        </method>
+
+        <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
+            <parameter name="" />
+            <values>
+                <value property="" value="" />
+            </values>
+            <conditions logic="and/or">
+                <eq property="" value="" />
+            </conditions>
+            <order>
+                <orderitem property="" way="asc/desc" />
+            </order>
+            <limit offset="" count=""/>
+            <body><![CDATA[
+            ]]></body>
+        </method>-->
+    </factory>
+</dao>

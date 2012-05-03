@@ -45,7 +45,6 @@
     <label locale="booster~main.item_repo_url"/>
 </input>
 
-
 <menulist ref="status" required="true">
     <label locale="booster~main.status"/>
     <item value="0" locale="booster~main.status.not_validated"/>
@@ -67,7 +66,4 @@
     <label locale="boosteradmin~admin.form.save"/>
 </submit>
 
-<submit ref="_validate">
-    <label locale="boosteradmin~admin.form.validate"/>
-</submit>
 </form>

@@ -276,6 +276,7 @@ class defaultCtrl extends jController {
         $form->initFromDao('booster~boo_items',null, 'booster');
         //$form->initControlFromDao('jelix_versions', 'booster~boo_items_jelix_versions', null, array('id_item', 'id_version'));
         $form->setData('tags',$tags);
+        $form->initModifiedControlsList();
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
         $tpl->assign('id',$data->id);
@@ -377,6 +378,7 @@ class defaultCtrl extends jController {
             $form = jForms::create('booster~version',$data->id);
             $form->initFromDao('booster~boo_versions');
         }
+        $form->initModifiedControlsList();
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
         $tpl->assign('id',$data->id);

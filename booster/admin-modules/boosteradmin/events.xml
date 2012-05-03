@@ -5,7 +5,4 @@
         <event name="masterAdminGetDashboardWidget"/>
         <event name="masteradminGetInfoBoxContent"/>
     </listener>
-    <listener name="boosteradmin">
-         <event name="BoosterAdminTaskTodo" />
-    </listener>
 </events>

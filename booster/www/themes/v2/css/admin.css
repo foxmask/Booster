@@ -1,0 +1,16 @@
+.old-value, .new-value{
+  background-color: #F2DEDE;
+  border-color: #EED3D7;
+  color: #B94A48;
+  display:inline-block;
+  padding:1px 3px;
+}
+.new-value{
+    background-color: #DFF0D8;
+    border-color: #D6E9C6;
+    color: #468847;
+}
+
+ul.modifs li{
+    margin-bottom:5px;
+}
