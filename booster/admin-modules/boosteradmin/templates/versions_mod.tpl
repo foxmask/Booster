@@ -38,7 +38,7 @@
 {foreach $datas_mod as $data}
     <tbody>
         <tr class="{cycle array('even','odd')}">
-            <td></td>
+            <td>{$data->item_name}</td>
             <td><a href="{jurl 'boosteradmin~versions:editmod',array('id'=>$data->version_id)}">{$data->version_name}</a></td>
             <td>{$data->date|jdatetime}</td>
         </tr>

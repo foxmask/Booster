@@ -19,7 +19,16 @@ class versionsCtrl extends jController {
     function index() {
         $tpl = new jTpl();
         $rep = $this->getResponse('html');
-        $tpl->assign('datas_mod',jDao::get('boosteradmin~boo_versions_modifs','booster')->findGroupedByVersionId());
+
+        $cnx = jDb::getConnection();
+        $sql=" SELECT vm.date as date, i.name as item_name, v.id as version_id, v.version_name
+            FROM boo_versions_modifs vm 
+                LEFT JOIN boo_versions v ON vm.version_id = v.id
+                LEFT JOIN boo_items i ON i.id = v.item_id 
+            GROUP BY vm.version_id
+            ORDER BY vm.date ASC";
+        $res = $cnx->query($sql);
+        $tpl->assign('datas_mod',$res);
         $tpl->assign('datas_new',jDao::get('boosteradmin~boo_items_versions','booster')->findAllNotModerated());
         $rep->body->assign('MAIN',$tpl->fetch('versions_mod'));
         return $rep;
@@ -151,8 +160,10 @@ class versionsCtrl extends jController {
         $rep = $this->getResponse('redirect');
         $rep->action = 'boosteradmin~versions:indexAll';
         $id = $this->intParam('id');
-        if (jDao::get('booster~boo_versions')->delete($id))
+        if (jDao::get('booster~boo_versions')->delete($id)){
+            jDao::get('boosteradmin~boo_versions_modifs')->deleteByVersionId($id);
             jMessage::add(jLocale::get('boosteradmin~admin.version.deleted'));
+        }
         else
             jMessage::add(jLocale::get('boosteradmin~admin.version.not.deleted'));
         return $rep;

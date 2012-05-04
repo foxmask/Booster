@@ -293,12 +293,11 @@ class booster {
             return $rs->fetch() == false;
         }
 
-        $status = ($source == 'items') ? 'status' : 'status_version';
-        $rec = jDao::get('boosteradmin~boo_'.$source.'_mod','booster')->get($id);
-        if ($rec !== false)
-            return ( $rec->$status == 0) ? false : true;
-        else
-            return true;
+        if($source == 'versions'){
+            $cnx = jDb::getConnection();
+            $rs = $cnx->limitQuery('SELECT 1 FROM boo_versions_modifs WHERE version_id = '.$cnx->quote($id), 0,1);
+            return $rs->fetch() == false;
+        }
     }
 
     /**

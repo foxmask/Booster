@@ -196,8 +196,9 @@ class itemsCtrl extends jController {
         $id = $this->intParam('id');
         if (jDao::get('booster~boo_items')->delete($id)){
             jMessage::add(jLocale::get('boosteradmin~admin.item.deleted'));
+            jDao::get('boosteradmin~boo_items_modifs')->deleteByItemId($id);
             jDao::get('boosteradmin~boo_versions')->deleteByItem($id);
-            jDao::get('boosteradmin~boo_versions_mod')->deleteByItem($id);
+            //TODO versions modifs
         }
         else
             jMessage::add(jLocale::get('boosteradmin~admin.item.not.deleted'));
