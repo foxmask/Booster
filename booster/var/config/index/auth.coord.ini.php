@@ -84,7 +84,7 @@ dao = "jcommunity~user"
 profile = "hfnu"
 
 ; name of the php function to crypt the password in the database
-password_crypt_function = sha1
+password_crypt_function = md5
 ; if you want to use a salt with sha1:
 ;password_crypt_function = "1:sha1WithSalt"
 ;password_salt = "here_your_salt"
