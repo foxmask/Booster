@@ -96,7 +96,7 @@ class booster {
         $record->name           = $form->getData('name');
         $record->item_info_id   = $form->getData('item_info_id');
         $record->short_desc     = $form->getData('short_desc');
-        $record->short_desc_fr  = $form->getData('short_desc_fr');        
+        $record->short_desc_fr  = $form->getData('short_desc_fr');
         $record->type_id        = $form->getData('type_id');
         $record->url_website    = $form->getData('url_website');
         $record->url_repo       = $form->getData('url_repo');
@@ -149,7 +149,7 @@ class booster {
         $record->download_url   = $form->getData('download_url');
         $record->created        = jDao::get('booster~boo_versions','booster')->get($form->getData('id'))->created;
         $record->modified       = $dt->toString(jDateTime::DB_DTFORMAT);
-        $record->version_id     = $form->getData('id');        
+        $record->version_id     = $form->getData('id');
         return ($dao->insert($record)) ? true : false;
 */
     }
@@ -331,6 +331,9 @@ class booster {
 
 
     public function saveImage($id, &$form){
+        if($form->getData('image') == '')
+            return true;
+
         $image_name = md5('id:'.$id).'.png';
         if(!$form->saveFile('image', jApp::varPath('uploads/images-items/'), $image_name))
             return false;

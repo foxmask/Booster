@@ -21,6 +21,7 @@
     <label locale="booster~main.stability"/>
     <item value="pre-alpha">pre-alpha</item>
     <item value="alpha">alpha</item>
+    <item value="beta">bêta</item>
     <item value="stable">stable</item>
     <item value="mature">mature</item>
 </menulist>
