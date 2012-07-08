@@ -453,7 +453,7 @@ class defaultCtrl extends jController {
         //get factory of the moderated item
         $dao = jDao::get('boo_items','booster');
         // get factory of the item which are waiting for moderation
-        $daoMod = jDao::get('boosteradmin~boo_items_mod','booster');
+        $daoMod = jDao::get('boosteradmin~boo_items_modifs','booster');
         foreach ($tags as $subj_id) {
             //get record not yet validated
             $rec = $daoMod->get($subj_id);
