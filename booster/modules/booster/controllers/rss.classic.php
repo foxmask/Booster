@@ -34,7 +34,7 @@ class rssCtrl extends jController {
                 $first=false;
             }
 
-            $url = jUrl::get('booster~default:viewItem', array('id'=>$data->id, 'name'=>$data->name));
+            $url = jUrl::getFull('booster~default:viewItem', array('id'=>$data->id, 'name'=>$data->name));
 
             $item = $rep->createItem($data->name, $url, $data->date_version);
 
